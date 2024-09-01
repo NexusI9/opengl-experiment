@@ -24,8 +24,7 @@ private:
     float* m_vertices;
     int m_length;
     GLenum m_usage;
-    
-    
+
 };
 
 #endif /* Primitive_hpp */

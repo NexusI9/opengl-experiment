@@ -7,8 +7,8 @@
 
 #include <iostream>
 #include <string>
-#include "Window.hpp"
-#include "Primitive.hpp"
+#include "Context/Window.hpp"
+#include "Mesh/Primitive.hpp"
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 
@@ -21,9 +21,9 @@ int main(int argc, const char * argv[]) {
 
     //Setup Primitive Shape
     float triVertices[] = {
-        0.0, 0.5,
-        0.5, 0.5,
-        -0.5, 0.5
+        0.0f, 0.5f,
+        0.5f, 0.5f,
+        -0.5f, 0.5f
     };
     Primitive Triangle(triVertices, GL_STATIC_DRAW);
     Triangle.draw();

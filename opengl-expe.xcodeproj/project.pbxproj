@@ -14,6 +14,7 @@
 		564A441D2C82F4330065D0C1 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 564A441C2C82F4330065D0C1 /* Window.cpp */; };
 		5661A9EF2C840910002E52DA /* Primitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5661A9ED2C840910002E52DA /* Primitive.cpp */; };
 		5661A9F12C841247002E52DA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5661A9F02C841247002E52DA /* main.cpp */; };
+		5661A9FA2C842491002E52DA /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5661A9F82C842491002E52DA /* Utility.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +50,10 @@
 		5661A9ED2C840910002E52DA /* Primitive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Primitive.cpp; sourceTree = "<group>"; };
 		5661A9EE2C840910002E52DA /* Primitive.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Primitive.hpp; sourceTree = "<group>"; };
 		5661A9F02C841247002E52DA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		5661A9F52C842349002E52DA /* triangle.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = triangle.vert; sourceTree = "<group>"; };
+		5661A9F62C84235D002E52DA /* triangle.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = triangle.frag; sourceTree = "<group>"; };
+		5661A9F82C842491002E52DA /* Utility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Utility.cpp; path = "opengl-expe/Utility.cpp"; sourceTree = SOURCE_ROOT; };
+		5661A9F92C842491002E52DA /* Utility.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Utility.hpp; path = "opengl-expe/Utility.hpp"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,11 +90,11 @@
 		564A440C2C82AE3E0065D0C1 /* opengl-expe */ = {
 			isa = PBXGroup;
 			children = (
+				5661A9F72C84246D002E52DA /* Utility */,
+				5661A9F42C842286002E52DA /* Shader */,
+				5661A9F32C841F99002E52DA /* Mesh */,
+				5661A9F22C841F63002E52DA /* Context */,
 				5661A9F02C841247002E52DA /* main.cpp */,
-				564A441B2C82EB5C0065D0C1 /* Window.hpp */,
-				564A441C2C82F4330065D0C1 /* Window.cpp */,
-				5661A9ED2C840910002E52DA /* Primitive.cpp */,
-				5661A9EE2C840910002E52DA /* Primitive.hpp */,
 			);
 			path = "opengl-expe";
 			sourceTree = "<group>";
@@ -102,6 +107,42 @@
 				564A44152C82AE780065D0C1 /* OpenGL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5661A9F22C841F63002E52DA /* Context */ = {
+			isa = PBXGroup;
+			children = (
+				564A441B2C82EB5C0065D0C1 /* Window.hpp */,
+				564A441C2C82F4330065D0C1 /* Window.cpp */,
+			);
+			path = Context;
+			sourceTree = "<group>";
+		};
+		5661A9F32C841F99002E52DA /* Mesh */ = {
+			isa = PBXGroup;
+			children = (
+				5661A9ED2C840910002E52DA /* Primitive.cpp */,
+				5661A9EE2C840910002E52DA /* Primitive.hpp */,
+			);
+			path = Mesh;
+			sourceTree = "<group>";
+		};
+		5661A9F42C842286002E52DA /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				5661A9F52C842349002E52DA /* triangle.vert */,
+				5661A9F62C84235D002E52DA /* triangle.frag */,
+			);
+			path = Shader;
+			sourceTree = "<group>";
+		};
+		5661A9F72C84246D002E52DA /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				5661A9F82C842491002E52DA /* Utility.cpp */,
+				5661A9F92C842491002E52DA /* Utility.hpp */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +205,7 @@
 			files = (
 				5661A9EF2C840910002E52DA /* Primitive.cpp in Sources */,
 				564A441D2C82F4330065D0C1 /* Window.cpp in Sources */,
+				5661A9FA2C842491002E52DA /* Utility.cpp in Sources */,
 				5661A9F12C841247002E52DA /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
