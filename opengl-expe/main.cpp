@@ -28,5 +28,7 @@ int main(int argc, const char * argv[]) {
     Primitive Triangle(triVertices, GL_STATIC_DRAW);
     Triangle.draw();
     
+    
+    
     return 0;
 }
