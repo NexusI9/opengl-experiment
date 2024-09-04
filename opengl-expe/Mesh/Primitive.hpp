@@ -19,13 +19,13 @@ public:
     ~Primitive();
     
     void draw();
-    void loadVertexShader(const char* path, const char* outName);
-    void loadFragmentShader(const char* path);
+    void loadVertexShader(const char* path);
+    void loadFragmentShader(const char* path, const char* outName);
 
 private:
     float* m_vertices;
     int m_length;
-    const char* m_vertexShaderOutName;
+    const char* m_fragmentShaderOutName;
     GLenum m_usage;
     
     GLuint m_vertexShader;

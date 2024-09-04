@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <filesystem>
 #include "Context/Window.hpp"
 #include "Mesh/Primitive.hpp"
 
@@ -18,15 +19,20 @@ int main(int argc, const char * argv[]) {
     Window window(WINDOW_WIDTH, WINDOW_HEIGHT, (std::string)"openGL Experiment");
     window.init();
     window.draw();
-
+ 
+    
     //Setup Primitive Shape
     float triVertices[] = {
         0.0f, 0.5f,
         0.5f, 0.5f,
         -0.5f, 0.5f
     };
+    
+    const std::string vertexShaderPath = std::string(getenv("HOME"))+ std::string("/Documents/XCode/opengl/opengl-expe/Shader/triangle.vert");
+    
     Primitive Triangle(triVertices, GL_STATIC_DRAW);
-    Triangle.draw();
+    Triangle.loadVertexShader(vertexShaderPath.c_str());
+    Triangle.draw(); 
     
     
     

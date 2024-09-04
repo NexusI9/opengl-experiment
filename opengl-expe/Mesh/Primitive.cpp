@@ -5,8 +5,10 @@
 //  Created by EL KHANTOUR Nassim on 01/09/2024.
 //
 
-#include "Primitive.hpp"
 #include <iostream>
+
+#include "Primitive.hpp"
+#include "Utility.hpp"
 
 Primitive::Primitive(float* v, GLenum u):
 m_vertices(v), m_usage(u){
@@ -32,29 +34,34 @@ void Primitive::draw(){
         if(m_vertexShader) glAttachShader(shaderProgram, m_vertexShader);
         if(m_fragmentShader) glAttachShader(shaderProgram, m_fragmentShader);
         //Link shader program to the right vertex shader out channel (outColor1, outColor2..)
-        glBindFragDataLocation(shaderProgram, 0, m_vertexShaderOutName);
+        glBindFragDataLocation(shaderProgram, 0, m_fragmentShaderOutName);
     }
     
 }
 
-void Primitive::loadVertexShader(const char* path, const char* outName){
-    
+void Primitive::loadVertexShader(const char* path){
     //Compile and assign vertex shader member
     m_vertexShader = loadShader(path, GL_VERTEX_SHADER);
-    //Store vertex shader corressponding output channel
-    m_vertexShaderOutName = outName;
 }
 
-void Primitive::loadFragmentShader(const char* path){
+void Primitive::loadFragmentShader(const char* path, const char* outName){
     //Compile and assign fragment shader member
     m_fragmentShader = loadShader(path, GL_FRAGMENT_SHADER);
+    //Store vertex shader corressponding output channel
+    m_fragmentShaderOutName = outName;
 }
 
-GLuint Primitive::loadShader(const char* shader, GLenum type){
+GLuint Primitive::loadShader(const char* path, GLenum type){
+    
+    //Import shader file
+    std::string shaderString = Utility::importShader(path);
+    const char* shaderFile = shaderString.c_str();
+    
+    std::cout << shaderFile << std::endl;
     
     //Compile Shader
     GLuint vertexShader = glCreateShader(type);
-    glShaderSource(vertexShader, 1, &shader, NULL);
+    glShaderSource(vertexShader, 1, &shaderFile, NULL);
     glCompileShader(vertexShader);
     
     //Log eventual errors
@@ -65,9 +72,9 @@ GLuint Primitive::loadShader(const char* shader, GLenum type){
     glGetShaderInfoLog(vertexShader, 512, NULL, buffer);
     
     if(status == 1){
-        std::cout << "Successfully compiled shader: " << shader << std::endl;
+        std::cout << "Successfully compiled shader: " << &shaderFile << std::endl;
     }else{
-        std::cout << "Error while compiled shader: " << shader << ", check Log for more info." << std::endl;
+        std::cout << "Error while compilling shader: " << &shaderFile << ", check Log for more info." << std::endl;
     }
     
     return vertexShader;
