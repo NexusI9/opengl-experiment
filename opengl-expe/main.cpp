@@ -18,8 +18,6 @@ int main(int argc, const char * argv[]) {
     //Setup Window
     Window window(WINDOW_WIDTH, WINDOW_HEIGHT, (std::string)"openGL Experiment");
     window.init();
-    window.draw();
- 
     
     //Setup Primitive Shape
     float triVertices[] = {
@@ -32,9 +30,10 @@ int main(int argc, const char * argv[]) {
     
     Primitive Triangle(triVertices, GL_STATIC_DRAW);
     Triangle.loadVertexShader(vertexShaderPath.c_str());
-    Triangle.draw(); 
+    Triangle.draw();
     
     
+    window.draw();
     
     return 0;
 }
