@@ -36,15 +36,24 @@ void Primitive::draw(){
     //Load Shader program
     m_shader.loadProgram();
     
+    //TODO: remove, make it more maintainable
+    m_shader.setVec3("triangleColor", 0.1f, 1.0f, 0.4f);
+    
 }
 
-void Primitive::loadVertexShader(const char* path, const char* positionName){
+void Primitive::loadVertexShader(const std::string& path, const std::string& positionName){
+    
+    const char * cPath = path.c_str();
+    const char * cName = positionName.c_str();
     //Compile and assign vertex shader member
-    m_shader.loadVertexShader(path, positionName);
+    m_shader.loadVertexShader(cPath, cName);
 }
 
-void Primitive::loadFragmentShader(const char* path, const char* fragName){
+void Primitive::loadFragmentShader(const std::string& path, const std::string& fragName){
+    
+    const char * cPath = path.c_str();
+    const char * cName = fragName.c_str();
     //Compile and assign fragment shader member
-    m_shader.loadFragmentShader(path, fragName);
+    m_shader.loadFragmentShader(cPath, cName);
 }
 

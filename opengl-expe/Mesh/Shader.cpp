@@ -45,18 +45,18 @@ void Shader::loadProgram(){
 
     if(m_vertShader || m_fragShader){
         //Create program to combine Vertex and Fragment
-        GLuint shaderProgram = glCreateProgram();
-        if(m_vertShader) glAttachShader(shaderProgram, m_vertShader);
-        if(m_fragShader) glAttachShader(shaderProgram, m_fragShader);
+        m_program = glCreateProgram();
+        if(m_vertShader) glAttachShader(m_program, m_vertShader);
+        if(m_fragShader) glAttachShader(m_program, m_fragShader);
         
         //Attaching vertex shader out channel (outColor1, outColor2..) to shader program
-        glBindFragDataLocation(shaderProgram, 0, m_fragName);
+        glBindFragDataLocation(m_program, 0, m_fragName);
         
         //Linking Program so can change shader during runtime
-        glLinkProgram(shaderProgram);
+        glLinkProgram(m_program);
         
         //Use program
-        glUseProgram(shaderProgram);
+        glUseProgram(m_program);
         
         /* Create a "Generic Vertex Attribute"
          An attribute (index) taht associates an index to a shader variable
@@ -68,14 +68,13 @@ void Shader::loadProgram(){
          This Generic Vertex Attribute is like a bridge that's lnking the shader to the VBO
          */
         
-        GLint posAttr = glGetAttribLocation(shaderProgram, m_positionName);
+        GLint posAttr = glGetAttribLocation(m_program, m_positionName);
         
         glVertexAttribPointer(posAttr, 3, GL_FLOAT, GL_FALSE, 0, NULL);
         
         //Must enable an attribute before you can use it in a shader
         glEnableVertexAttribArray(posAttr);
 
-    
     }
 }
 
@@ -108,3 +107,19 @@ void Shader::loadFragmentShader(const char* path, const char* fragName){
     m_fragName = fragName;
 }
 
+
+void Shader::checkUniformLocation(const std::string& name){
+    if(m_uniformsLocations.find(name) == m_uniformsLocations.end()){
+        //didn't find location, assign location to cache
+        m_uniformsLocations[name] = glGetUniformLocation(m_program, (GLchar*) name.c_str());
+    }
+}
+
+void Shader::use(){
+    glUseProgram(m_program);
+}
+
+void Shader::setVec3(const std::string &name, float x, float y, float z){
+    checkUniformLocation(name);
+    glUniform3f(m_uniformsLocations[name], x, y, z);
+}

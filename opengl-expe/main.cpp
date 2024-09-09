@@ -33,8 +33,8 @@ int main(int argc, const char * argv[]) {
     const std::string fragShaderPath = shaderBasePath+std::string("frag");
     
     Primitive Triangle(triVertices, 9, GL_STATIC_DRAW);
-    Triangle.loadVertexShader(vertShaderPath.c_str(),"position");
-    Triangle.loadFragmentShader(fragShaderPath.c_str(), "outColor");
+    Triangle.loadVertexShader(vertShaderPath, "position");
+    Triangle.loadFragmentShader(fragShaderPath, "outColor");
     Triangle.draw();
     
     window.draw();

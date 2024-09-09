@@ -22,8 +22,8 @@ public:
     
     void draw();
     
-    void loadVertexShader(const char* path, const char* positionName);
-    void loadFragmentShader(const char* path, const char* fragName);
+    void loadVertexShader(const std::string& path, const std::string& positionName);
+    void loadFragmentShader(const std::string& path, const std::string& fragName);
 
 private:
     
@@ -32,6 +32,7 @@ private:
     int m_length;
     GLenum m_usage;
 
+    
 };
 
 #endif /* Primitive_hpp */
