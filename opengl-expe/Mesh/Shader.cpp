@@ -42,17 +42,44 @@ GLuint Shader::loadShader(const char* path, GLenum type){
 }
 
 void Shader::loadProgram(){
-    //SHADER
+
     if(m_vertShader || m_fragShader){
         //Create program to combine Vertex and Fragment
         GLuint shaderProgram = glCreateProgram();
         if(m_vertShader) glAttachShader(shaderProgram, m_vertShader);
         if(m_fragShader) glAttachShader(shaderProgram, m_fragShader);
         
-        //Link shader program to the right vertex shader out channel (outColor1, outColor2..)
+        //Attaching vertex shader out channel (outColor1, outColor2..) to shader program
         glBindFragDataLocation(shaderProgram, 0, m_fragName);
+        
+        //Linking Program so can change shader during runtime
+        glLinkProgram(shaderProgram);
+        
+        //Use program
+        glUseProgram(shaderProgram);
+        
+        /* Create a "Generic Vertex Attribute"
+         An attribute (index) taht associates an index to a shader variable
+         This Generic Attribute's Index needs to be equal to our shader variable Index
+         
+         [Shader > "position"] <= [Generic Vertex Attribute] => [VBO] <= [VAO]
+                GPU                           CPU                GPU      CPU
+         
+         This Generic Vertex Attribute is like a bridge that's lnking the shader to the VBO
+         */
+        
+        GLint posAttr = glGetAttribLocation(shaderProgram, m_positionName);
+        
+        glVertexAttribPointer(posAttr, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+        
+        //Must enable an attribute before you can use it in a shader
+        glEnableVertexAttribArray(posAttr);
+
+    
     }
 }
+
+
 
 std::string Shader::getShaderLog(GLuint* shader){
     
@@ -67,9 +94,11 @@ std::string Shader::getShaderLog(GLuint* shader){
 }
 
 
-void Shader::loadVertexShader(const char* path){
+void Shader::loadVertexShader(const char* path, const char* positionName){
     //Compile and assign vertex shader member
     m_vertShader = loadShader(path, GL_VERTEX_SHADER);
+    //Assign position attribute name
+    m_positionName = positionName;
 }
 
 void Shader::loadFragmentShader(const char* path, const char* fragName){

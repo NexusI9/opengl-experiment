@@ -18,7 +18,7 @@ public:
     Shader();
     ~Shader();
     
-    void loadVertexShader(const char* path);
+    void loadVertexShader(const char* path, const char* positionName);
     void loadFragmentShader(const char* path, const char* fragName);
     void loadProgram();
     
@@ -29,6 +29,7 @@ private:
     GLuint loadShader(const char* shader, GLenum type);
     
     const char * m_fragName;
+    const char * m_positionName;
     
     std::string getShaderLog(GLuint* shader);
     

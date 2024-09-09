@@ -157,10 +157,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 564A44112C82AE3E0065D0C1 /* Build configuration list for PBXNativeTarget "opengl-expe" */;
 			buildPhases = (
+				561C7AF02C83638D000DACA9 /* Embed Libraries */,
 				564A44062C82AE3E0065D0C1 /* Sources */,
 				564A44072C82AE3E0065D0C1 /* Frameworks */,
 				564A44082C82AE3E0065D0C1 /* CopyFiles */,
-				561C7AF02C83638D000DACA9 /* Embed Libraries */,
 			);
 			buildRules = (
 			);

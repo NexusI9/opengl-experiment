@@ -21,15 +21,18 @@ int main(int argc, const char * argv[]) {
     
     //Setup Primitive Shape
     float triVertices[] = {
-        0.0f, 0.5f,
-        0.5f, 0.5f,
-        -0.5f, 0.5f
+        0.0f,   0.5f,   0.0f,
+        0.5f,   -0.5f,  0.0f,
+        -0.5f,  -0.5f,  0.0f
     };
     
-    const std::string vertexShaderPath = std::string(getenv("HOME"))+ std::string("/Documents/XCode/opengl/opengl-expe/Shader/triangle.vert");
+    const std::string shaderBasePath =std::string(getenv("HOME"))+ std::string("/Documents/XCode/opengl/opengl-expe/Shader/triangle.");
+    const std::string vertShaderPath = shaderBasePath+std::string("vert");
+    const std::string fragShaderPath = shaderBasePath+std::string("frag");
     
     Primitive Triangle(triVertices, GL_STATIC_DRAW);
-    Triangle.loadVertexShader(vertexShaderPath.c_str());
+    Triangle.loadVertexShader(vertShaderPath.c_str(),"position");
+    Triangle.loadFragmentShader(fragShaderPath.c_str(), "outColor");
     Triangle.draw();
     
     

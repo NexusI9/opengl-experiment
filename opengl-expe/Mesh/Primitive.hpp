@@ -22,7 +22,7 @@ public:
     
     void draw();
     
-    void loadVertexShader(const char* path);
+    void loadVertexShader(const char* path, const char* positionName);
     void loadFragmentShader(const char* path, const char* fragName);
 
 private:

@@ -21,6 +21,11 @@ Primitive::~Primitive(){
 
 void Primitive::draw(){
     
+    //Store in VAO
+    GLuint vao;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+    
     //VERTEX ARRAY
     GLuint vbo;
     glGenBuffers(1, &vbo);
@@ -29,11 +34,12 @@ void Primitive::draw(){
     
     //Load Shader program
     m_shader.loadProgram();
+    
 }
 
-void Primitive::loadVertexShader(const char* path){
+void Primitive::loadVertexShader(const char* path, const char* positionName){
     //Compile and assign vertex shader member
-    m_shader.loadVertexShader(path);
+    m_shader.loadVertexShader(path, positionName);
 }
 
 void Primitive::loadFragmentShader(const char* path, const char* fragName){

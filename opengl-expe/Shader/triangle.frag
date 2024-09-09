@@ -1,10 +1,12 @@
 #version 150 core
 
-out vec4 gl_Color;
+
+in vec3 Color;
+out vec4 outColor;
 
 
 void main(){
 
-    gl_Color = vec4(1.,1.,1.,1.);
+    outColor = vec4(1.,1.,1.,1.);
     
 }

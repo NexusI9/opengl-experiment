@@ -17,7 +17,7 @@ Window::Window(int w, int h, const std::string& t)
 void Window::init(){
     
     //Initialize SDL with SDLI_INIT_VIDEO bitfield (includes everything for opengl)
-    if(SDL_Init(SDL_INIT_VIDEO) < 0 ){
+    if(SDL_Init(SDL_INIT_EVERYTHING) < 0 ){
         std::cout << "Could not initialize SDL, Error: " << SDL_GetError() << std::endl;
     }
     
@@ -41,6 +41,8 @@ void Window::init(){
     glewExperimental = GL_TRUE;
     glewInit();
     
+    //Clear color to black
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 int Window::draw(){
@@ -48,7 +50,9 @@ int Window::draw(){
     m_isOpen = true;
     bool loop = true;
     
+    //Main loop
     while(loop){
+        //Add event listener
         if(SDL_PollEvent(&m_windowEvent)){
             
             switch (m_windowEvent.type) {
@@ -63,6 +67,12 @@ int Window::draw(){
         }
         
         SDL_GL_SwapWindow(m_window);
+        
+        //refresh screen
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        //draw
+        glDrawArrays(GL_TRIANGLES, 0, 3);
     }
     
     m_isOpen = false;
