@@ -21,12 +21,13 @@ public:
     void loadVertexShader(const char* path, const char* positionName);
     void loadFragmentShader(const char* path, const char* fragName);
     void loadProgram();
+    GLuint loadShader(const char* shader, GLenum type);
     
 private:
     GLuint m_fragShader;
     GLuint m_vertShader;
     GLuint m_program;
-    GLuint loadShader(const char* shader, GLenum type);
+
     
     const char * m_fragName;
     const char * m_positionName;

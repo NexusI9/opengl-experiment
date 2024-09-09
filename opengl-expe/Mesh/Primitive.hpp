@@ -17,7 +17,7 @@ class Primitive{
     
 public:
     
-    Primitive(float* v, GLenum usage);
+    Primitive(float* vertexArray, int length, GLenum usage);
     ~Primitive();
     
     void draw();

@@ -11,7 +11,9 @@
 #include "Context/Window.hpp"
 #include "Mesh/Primitive.hpp"
 
+
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
+
 
 int main(int argc, const char * argv[]) {
     
@@ -20,7 +22,7 @@ int main(int argc, const char * argv[]) {
     window.init();
     
     //Setup Primitive Shape
-    float triVertices[] = {
+    float triVertices[9] = {
         0.0f,   0.5f,   0.0f,
         0.5f,   -0.5f,  0.0f,
         -0.5f,  -0.5f,  0.0f
@@ -30,11 +32,10 @@ int main(int argc, const char * argv[]) {
     const std::string vertShaderPath = shaderBasePath+std::string("vert");
     const std::string fragShaderPath = shaderBasePath+std::string("frag");
     
-    Primitive Triangle(triVertices, GL_STATIC_DRAW);
+    Primitive Triangle(triVertices, 9, GL_STATIC_DRAW);
     Triangle.loadVertexShader(vertShaderPath.c_str(),"position");
     Triangle.loadFragmentShader(fragShaderPath.c_str(), "outColor");
     Triangle.draw();
-    
     
     window.draw();
     

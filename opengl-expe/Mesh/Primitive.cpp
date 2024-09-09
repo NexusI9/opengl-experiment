@@ -10,8 +10,8 @@
 #include "Primitive.hpp"
 #include "../Utility/Utility.hpp"
 
-Primitive::Primitive(float* v, GLenum u):
-m_vertices(v), m_usage(u){
+Primitive::Primitive(float* vertexArray, int length, GLenum usage):
+m_vertices(vertexArray), m_length(length), m_usage(usage){
     
 }
 
@@ -21,6 +21,7 @@ Primitive::~Primitive(){
 
 void Primitive::draw(){
     
+
     //Store in VAO
     GLuint vao;
     glGenVertexArrays(1, &vao);
@@ -30,7 +31,7 @@ void Primitive::draw(){
     GLuint vbo;
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, m_usage);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(*m_vertices) * m_length, m_vertices, m_usage);
     
     //Load Shader program
     m_shader.loadProgram();
