@@ -19,12 +19,12 @@ public:
     Shader();
     ~Shader();
     
-    void loadVertexShader(const char* path, const char* positionName);
+    void loadVertexShader(const char* path);
     void loadFragmentShader(const char* path, const char* fragName);
     void loadProgram();
     
     GLuint loadShader(const char* shader, GLenum type);
-    void setAttributeFromVBO(const char* attributeName, int stride, void* ptr);
+    void setAttributeFromBuffer(const char* attributeName, int stride, void* ptr);
     
     void setVec3(const std::string& name, float x, float y, float z);
     void use();
@@ -35,7 +35,6 @@ private:
     GLuint m_program;
     
     const char * m_fragName;
-    const char * m_positionName;
     
     std::string getShaderLog(GLuint* shader);
     std::unordered_map<std::string, int> m_uniformsLocations;

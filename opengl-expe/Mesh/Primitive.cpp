@@ -10,39 +10,47 @@
 #include "Primitive.hpp"
 #include "../Utility/Utility.hpp"
 
-Primitive::Primitive(float* vertexArray, int length, GLenum usage):
-m_vertices(vertexArray), m_length(length), m_usage(usage){
-    
-}
+Primitive::Primitive(float* vertexArray,  int vertexLength, GLuint* elementArray, int elementLength, GLenum usage):
+m_vertices(vertexArray),
+m_vertexLength(vertexLength),
+m_elements(elementArray),
+m_elementLength(elementLength),
+m_usage(usage){}
 
-Primitive::~Primitive(){
-
-}
+Primitive::~Primitive(){}
 
 void Primitive::buffer(){
     
+    if(m_vertices){
+        //Store in VAO
+        GLuint vao;
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);
+        
+        //VERTEX ARRAY
+        GLuint vbo;
+        glGenBuffers(1, &vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m_vertexLength, m_vertices, m_usage);
+    }
+    
+    if(m_elements){
+        GLuint ebo;
+        glGenBuffers(1, &ebo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * m_elementLength, m_elements, m_usage);
+    }
 
-    //Store in VAO
-    GLuint vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-    
-    //VERTEX ARRAY
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(*m_vertices) * m_length, m_vertices, m_usage);
-    
+
     shader.loadProgram();
     
 }
 
-void Primitive::loadVertexShader(const std::string& path, const std::string& positionName){
+void Primitive::loadVertexShader(const std::string& path){
     
     const char * cPath = path.c_str();
-    const char * cName = positionName.c_str();
     //Compile and assign vertex shader member
-    shader.loadVertexShader(cPath, cName);
+    shader.loadVertexShader(cPath);
 }
 
 void Primitive::loadFragmentShader(const std::string& path, const std::string& fragName){

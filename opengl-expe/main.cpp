@@ -29,16 +29,20 @@ int main(int argc, const char * argv[]) {
         -0.5f,  -0.5f,  0.0f,       0.0f,   0.0f,   1.0f
     };
     
+    GLuint triElements[] = {
+        0,1,2
+    };
+    
     const std::string shaderBasePath =std::string(getenv("HOME"))+ std::string("/Documents/XCode/opengl/opengl-expe/Shader/triangle.");
     const std::string vertShaderPath = shaderBasePath+std::string("vert");
     const std::string fragShaderPath = shaderBasePath+std::string("frag");
     
-    Primitive Triangle(triVertices, 3*6, GL_STATIC_DRAW);
-    Triangle.loadVertexShader(vertShaderPath, "position");
+    Primitive Triangle(triVertices, 3*6, triElements, 3, GL_STATIC_DRAW);
+    Triangle.loadVertexShader(vertShaderPath);
     Triangle.loadFragmentShader(fragShaderPath, "outColor");
     Triangle.buffer();
-    Triangle.shader.setAttributeFromVBO("position", sizeof(float) * 6, NULL);
-    Triangle.shader.setAttributeFromVBO("color", sizeof(float) * 6, (void*)(3 * sizeof(float)));
+    Triangle.shader.setAttributeFromBuffer("position", sizeof(float) * 6, NULL);
+    Triangle.shader.setAttributeFromBuffer("color", sizeof(float) * 6, (void*)(3 * sizeof(float)));
     
     
     window.draw();

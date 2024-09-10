@@ -71,11 +71,9 @@ std::string Shader::getShaderLog(GLuint* shader){
 }
 
 
-void Shader::loadVertexShader(const char* path, const char* positionName){
+void Shader::loadVertexShader(const char* path){
     //Compile and assign vertex shader member
     m_vertShader = loadShader(path, GL_VERTEX_SHADER);
-    //Assign position attribute name
-    m_positionName = positionName;
 }
 
 void Shader::loadFragmentShader(const char* path, const char* fragName){
@@ -104,7 +102,7 @@ void Shader::checkUseProgram(){
     if(activeProgram != m_program) glUseProgram(m_program);
 }
 
-void Shader::setAttributeFromVBO(const char *attributeName, int stride, void* pointer=nullptr){
+void Shader::setAttributeFromBuffer(const char *attributeName, int stride, void* pointer=nullptr){
     
     if(!m_program){
         std::cout << "No program has been found, make sure a program is loaded through the loadShader method" << std::endl;
