@@ -72,7 +72,7 @@ int Window::draw(){
         glClear(GL_COLOR_BUFFER_BIT);
         
         //draw
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
     
     m_isOpen = false;

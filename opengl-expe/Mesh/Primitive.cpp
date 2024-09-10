@@ -10,16 +10,17 @@
 #include "Primitive.hpp"
 #include "../Utility/Utility.hpp"
 
-Primitive::Primitive(float* vertexArray,  int vertexLength, GLuint* elementArray, int elementLength, GLenum usage):
+Primitive::Primitive(float* vertexArray,  int vertexLength, GLuint* elementArray, int elementLength):
 m_vertices(vertexArray),
 m_vertexLength(vertexLength),
 m_elements(elementArray),
-m_elementLength(elementLength),
-m_usage(usage){}
+m_elementLength(elementLength){}
 
 Primitive::~Primitive(){}
 
-void Primitive::buffer(){
+void Primitive::buffer(GLenum usage){
+    
+    m_usage = usage;
     
     if(m_vertices){
         //Store in VAO

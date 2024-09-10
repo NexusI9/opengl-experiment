@@ -17,10 +17,10 @@ class Primitive{
     
 public:
     
-    Primitive(float* vertexArray,  int vertexLength, GLuint* elementArray, int elementLength, GLenum usage);
+    Primitive(float* vertexArray,  int vertexLength, GLuint* elementArray, int elementLength);
     ~Primitive();
     
-    void buffer();
+    void buffer(GLenum usage);
     
     void loadVertexShader(const std::string& path);
     void loadFragmentShader(const std::string& path, const std::string& fragName);
