@@ -54,31 +54,9 @@ void Shader::loadProgram(){
         
         //Linking Program so can change shader during runtime
         glLinkProgram(m_program);
-        
-        //Use program
-        glUseProgram(m_program);
-        
-        /* Create a "Generic Vertex Attribute"
-         An attribute (index) taht associates an index to a shader variable
-         This Generic Attribute's Index needs to be equal to our shader variable Index
-         
-         [Shader > "position"] <= [Generic Vertex Attribute] => [VBO] <= [VAO]
-                GPU                           CPU                GPU      CPU
-         
-         This Generic Vertex Attribute is like a bridge that's lnking the shader to the VBO
-         */
-        
-        GLint posAttr = glGetAttribLocation(m_program, m_positionName);
-        
-        glVertexAttribPointer(posAttr, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-        
-        //Must enable an attribute before you can use it in a shader
-        glEnableVertexAttribArray(posAttr);
 
     }
 }
-
-
 
 std::string Shader::getShaderLog(GLuint* shader){
     
@@ -117,6 +95,39 @@ void Shader::checkUniformLocation(const std::string& name){
 
 void Shader::use(){
     glUseProgram(m_program);
+}
+
+void Shader::checkUseProgram(){
+    //Automatically activate program if m_program isn't already active
+    GLint activeProgram = 0;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &activeProgram);
+    if(activeProgram != m_program) glUseProgram(m_program);
+}
+
+void Shader::setAttributeFromVBO(const char *attributeName, int stride, void* pointer=nullptr){
+    
+    if(!m_program){
+        std::cout << "No program has been found, make sure a program is loaded through the loadShader method" << std::endl;
+    }
+    
+    //use program if not already in use;
+    checkUseProgram();
+    
+    
+    /* Create a "Generic Vertex Attribute"
+     An attribute (index) taht associates an index to a shader variable
+     This Generic Attribute's Index needs to be equal to our shader variable Index
+     
+     [Shader > "position"] <= [Generic Vertex Attribute] => [VBO] <= [VAO]
+            GPU                           CPU                GPU      CPU
+     
+     This Generic Vertex Attribute is like a bridge that's lnking the shader to the VBO
+     */
+    
+    GLint posAttr = glGetAttribLocation(m_program, attributeName);
+    //Must enable an attribute before you can use it in a shader
+    glEnableVertexAttribArray(posAttr);
+    glVertexAttribPointer(posAttr, 3, GL_FLOAT, GL_FALSE, stride, pointer);
 }
 
 void Shader::setVec3(const std::string &name, float x, float y, float z){

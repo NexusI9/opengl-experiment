@@ -19,7 +19,7 @@ Primitive::~Primitive(){
 
 }
 
-void Primitive::draw(){
+void Primitive::buffer(){
     
 
     //Store in VAO
@@ -33,11 +33,7 @@ void Primitive::draw(){
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(*m_vertices) * m_length, m_vertices, m_usage);
     
-    //Load Shader program
-    m_shader.loadProgram();
-    
-    //TODO: remove, make it more maintainable
-    m_shader.setVec3("triangleColor", 0.1f, 1.0f, 0.4f);
+    shader.loadProgram();
     
 }
 
@@ -46,7 +42,7 @@ void Primitive::loadVertexShader(const std::string& path, const std::string& pos
     const char * cPath = path.c_str();
     const char * cName = positionName.c_str();
     //Compile and assign vertex shader member
-    m_shader.loadVertexShader(cPath, cName);
+    shader.loadVertexShader(cPath, cName);
 }
 
 void Primitive::loadFragmentShader(const std::string& path, const std::string& fragName){
@@ -54,6 +50,6 @@ void Primitive::loadFragmentShader(const std::string& path, const std::string& f
     const char * cPath = path.c_str();
     const char * cName = fragName.c_str();
     //Compile and assign fragment shader member
-    m_shader.loadFragmentShader(cPath, cName);
+    shader.loadFragmentShader(cPath, cName);
 }
 

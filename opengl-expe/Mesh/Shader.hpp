@@ -24,6 +24,7 @@ public:
     void loadProgram();
     
     GLuint loadShader(const char* shader, GLenum type);
+    void setAttributeFromVBO(const char* attributeName, int stride, void* ptr);
     
     void setVec3(const std::string& name, float x, float y, float z);
     void use();
@@ -40,6 +41,7 @@ private:
     std::unordered_map<std::string, int> m_uniformsLocations;
     
     void checkUniformLocation(const std::string& name);
+    void checkUseProgram();
     
 };
 

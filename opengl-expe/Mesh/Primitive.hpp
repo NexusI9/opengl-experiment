@@ -20,14 +20,15 @@ public:
     Primitive(float* vertexArray, int length, GLenum usage);
     ~Primitive();
     
-    void draw();
+    void buffer();
     
     void loadVertexShader(const std::string& path, const std::string& positionName);
     void loadFragmentShader(const std::string& path, const std::string& fragName);
+    
+    Shader shader;
 
 private:
     
-    Shader m_shader;
     float* m_vertices;
     int m_length;
     GLenum m_usage;
