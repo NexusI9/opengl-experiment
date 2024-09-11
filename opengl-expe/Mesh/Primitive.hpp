@@ -12,6 +12,7 @@
 #include <GL/glew.h>
 
 #include "Shader.hpp"
+#include "Texture.hpp"
 
 class Primitive{
     
@@ -22,10 +23,13 @@ public:
     
     void buffer(GLenum usage);
     
-    void loadVertexShader(const std::string& path);
-    void loadFragmentShader(const std::string& path, const std::string& fragName);
+    void loadShader(const std::string& vertShader, const std::string& fragShader, const std::string& fragName);
     
-    Shader shader;
+    void loadTexture(const std::string& path, const int width, const int height);
+    
+    Shader* shader = nullptr;
+    Texture* texture = nullptr;
+    
 
 private:
     

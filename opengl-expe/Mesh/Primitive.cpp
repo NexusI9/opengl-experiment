@@ -33,6 +33,8 @@ void Primitive::buffer(GLenum usage){
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m_vertexLength, m_vertices, m_usage);
+        
+        
     }
     
     if(m_elements){
@@ -42,23 +44,29 @@ void Primitive::buffer(GLenum usage){
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * m_elementLength, m_elements, m_usage);
     }
 
-
-    shader.loadProgram();
     
 }
 
-void Primitive::loadVertexShader(const std::string& path){
+void Primitive::loadShader(const std::string& vertShader, const std::string& fragShader, const std::string& fragName){
     
-    const char * cPath = path.c_str();
+    shader = new Shader();
+    
+    const char* cVertShader = vertShader.c_str();
     //Compile and assign vertex shader member
-    shader.loadVertexShader(cPath);
+    shader->loadVertexShader(cVertShader);
+    
+    const char* cFragShader = fragShader.c_str();
+    const char* cFragName = fragName.c_str();
+    //Compile and assign fragment shader member
+    shader->loadFragmentShader(cFragShader, cFragName);
+    shader->loadProgram();
 }
 
-void Primitive::loadFragmentShader(const std::string& path, const std::string& fragName){
+void Primitive::loadTexture(const std::string& path, const int width, const int height){
     
-    const char * cPath = path.c_str();
-    const char * cName = fragName.c_str();
-    //Compile and assign fragment shader member
-    shader.loadFragmentShader(cPath, cName);
+    texture = new Texture(path, width, height);
+    texture->load();
+    
 }
+
 

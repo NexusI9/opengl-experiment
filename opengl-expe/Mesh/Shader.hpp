@@ -23,9 +23,9 @@ public:
     void loadFragmentShader(const char* path, const char* fragName);
     void loadProgram();
     
-    GLuint loadShader(const char* shader, GLenum type);
+    GLuint load(const char* shader, GLenum type);
     void setAttributeFromBuffer(const char* attributeName, int stride, void* ptr);
-    
+        
     void setVec3(const std::string& name, float x, float y, float z);
     void use();
     

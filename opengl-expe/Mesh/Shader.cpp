@@ -16,7 +16,7 @@ Shader::Shader(){}
 Shader::~Shader(){}
 
 
-GLuint Shader::loadShader(const char* path, GLenum type){
+GLuint Shader::load(const char* path, GLenum type){
     
     //Import shader file
     std::string shaderString = Utility::importShader(path);
@@ -73,12 +73,12 @@ std::string Shader::getShaderLog(GLuint* shader){
 
 void Shader::loadVertexShader(const char* path){
     //Compile and assign vertex shader member
-    m_vertShader = loadShader(path, GL_VERTEX_SHADER);
+    m_vertShader = load(path, GL_VERTEX_SHADER);
 }
 
 void Shader::loadFragmentShader(const char* path, const char* fragName){
     //Compile and assign fragment shader member
-    m_fragShader = loadShader(path, GL_FRAGMENT_SHADER);
+    m_fragShader = load(path, GL_FRAGMENT_SHADER);
     //Store vertex shader corressponding output channel
     m_fragName = fragName;
 }
