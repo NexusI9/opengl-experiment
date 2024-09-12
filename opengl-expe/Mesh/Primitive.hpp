@@ -25,7 +25,7 @@ public:
     
     void loadShader(const std::string& vertShader, const std::string& fragShader, const std::string& fragName);
     
-    void loadTexture(const std::string& path, const int width, const int height);
+    void loadTexture(const std::string& path, const int width, const int height, const int slot);
     
     Shader* shader = nullptr;
     Texture* texture = nullptr;

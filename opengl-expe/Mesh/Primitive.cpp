@@ -62,9 +62,9 @@ void Primitive::loadShader(const std::string& vertShader, const std::string& fra
     shader->loadProgram();
 }
 
-void Primitive::loadTexture(const std::string& path, const int width, const int height){
+void Primitive::loadTexture(const std::string& path, const int width, const int height, const int slot){
     
-    texture = new Texture(path, width, height);
+    texture = new Texture(path, width, height, slot);
     texture->load();
     
 }

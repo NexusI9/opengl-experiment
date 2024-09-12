@@ -24,9 +24,11 @@ public:
     void loadProgram();
     
     GLuint load(const char* shader, GLenum type);
-    void setAttributeFromBuffer(const char* attributeName, int stride, void* ptr);
+    void setAttributeFromBuffer(const char* attributeName, int attrNumber, int stride, void* ptr);
         
     void setVec3(const std::string& name, float x, float y, float z);
+    void setVec2(const std::string& name, float x, float y);
+    void setSampler2D(const std::string& name, int slot);
     void use();
     
 private:

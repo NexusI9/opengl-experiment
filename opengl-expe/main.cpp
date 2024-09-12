@@ -23,11 +23,11 @@ int main(int argc, const char * argv[]) {
     
     //Setup Primitive Shape
     float triVertices[] = {
-    //        POSITION                      COLOR
-        -0.5f,  0.5f,   0.0f,       1.0f,   0.0f,   0.0f,
-        0.5f,   0.5f,   0.0f,       0.0f,   1.0f,   0.0f,
-        0.5f,   -0.5f,  0.0f,       0.0f,   0.0f,   1.0f,
-        -0.5f,  -0.5f,  0.0f,       1.0f,   1.0f,   1.0f
+    //        POSITION                      COLOR                   UV
+        -0.5f,  0.5f,   0.0f,       1.0f,   0.0f,   0.0f,       0.0f,   0.0f,
+        0.5f,   0.5f,   0.0f,       0.0f,   1.0f,   0.0f,       1.0f,   0.0f,
+        0.5f,   -0.5f,  0.0f,       0.0f,   0.0f,   1.0f,       1.0f,   1.0f,
+        -0.5f,  -0.5f,  0.0f,       1.0f,   1.0f,   1.0f,       0.0f,   1.0f
     };
     
     GLuint triElements[] = {
@@ -35,17 +35,23 @@ int main(int argc, const char * argv[]) {
         2,  3,  0
     };
     
-    const std::string shaderBasePath =std::string(getenv("HOME"))+ std::string("/Documents/XCode/opengl/opengl-expe/Shader/triangle.");
+    const std::string root = std::string(getenv("HOME"))+ std::string("/Documents/XCode/opengl/opengl-expe/");
     
+    const std::string shaderBasePath = root + std::string("Shader/triangle.");
     const std::string vertShaderPath = shaderBasePath+std::string("vert");
     const std::string fragShaderPath = shaderBasePath+std::string("frag");
     
-    Primitive Triangle(triVertices, 4*6, triElements, 2*3);
-    Triangle.buffer(GL_STATIC_DRAW);
-    Triangle.loadShader(vertShaderPath, fragShaderPath, "outColor");
-    Triangle.shader->setAttributeFromBuffer("position", sizeof(float) * 6, NULL);
-    Triangle.shader->setAttributeFromBuffer("color", sizeof(float) * 6, (void*)(3 * sizeof(float)));
+    const std::string checkerPath = root+std::string("Assets/Textures/uvchecker.png");
     
+    Primitive Plane(triVertices, 4*8, triElements, 2*3);
+    Plane.buffer(GL_STATIC_DRAW);
+    Plane.loadShader(vertShaderPath, fragShaderPath, "outColor");
+    Plane.loadTexture(checkerPath, 1024, 1024, 0);
+    
+    Plane.shader->setAttributeFromBuffer("position", 3, sizeof(float) * 8, NULL);
+    Plane.shader->setAttributeFromBuffer("color", 3, sizeof(float) * 8, (void*)(3 * sizeof(float)));
+    Plane.shader->setAttributeFromBuffer("uv", 2, sizeof(float) * 8, (void*)(6*sizeof(float)));
+    Plane.shader->setSampler2D("tex", 0);
     
     window.draw();
     

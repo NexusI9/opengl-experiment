@@ -102,7 +102,7 @@ void Shader::checkUseProgram(){
     if(activeProgram != m_program) glUseProgram(m_program);
 }
 
-void Shader::setAttributeFromBuffer(const char *attributeName, int stride, void* pointer=nullptr){
+void Shader::setAttributeFromBuffer(const char *attributeName, int attrNumber, int stride, void* pointer=nullptr){
     
     if(!m_program){
         std::cout << "No program has been found, make sure a program is loaded through the loadShader method" << std::endl;
@@ -125,10 +125,21 @@ void Shader::setAttributeFromBuffer(const char *attributeName, int stride, void*
     GLint posAttr = glGetAttribLocation(m_program, attributeName);
     //Must enable an attribute before you can use it in a shader
     glEnableVertexAttribArray(posAttr);
-    glVertexAttribPointer(posAttr, 3, GL_FLOAT, GL_FALSE, stride, pointer);
+    glVertexAttribPointer(posAttr, attrNumber, GL_FLOAT, GL_FALSE, stride, pointer);
 }
 
 void Shader::setVec3(const std::string &name, float x, float y, float z){
     checkUniformLocation(name);
     glUniform3f(m_uniformsLocations[name], x, y, z);
+}
+
+void Shader::setVec2(const std::string &name, float x, float y){
+    checkUniformLocation(name);
+    glUniform2f(m_uniformsLocations[name], x, y);
+}
+
+
+void Shader::setSampler2D(const std::string &name, int slot){
+    checkUniformLocation(name);
+    glUniform1i(m_uniformsLocations[name], slot);
 }
