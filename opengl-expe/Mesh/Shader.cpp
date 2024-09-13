@@ -102,7 +102,8 @@ void Shader::checkUseProgram(){
     if(activeProgram != m_program) glUseProgram(m_program);
 }
 
-void Shader::setAttributeFromBuffer(const char *attributeName, int attrNumber, int stride, void* pointer=nullptr){
+void Shader::setAttribute(const char *attributeName, int attrNumber, int stride, void* pointer=nullptr){
+    //Shader attributes ("in") are set from the vertex array
     
     if(!m_program){
         std::cout << "No program has been found, make sure a program is loaded through the loadShader method" << std::endl;
@@ -142,4 +143,9 @@ void Shader::setVec2(const std::string &name, float x, float y){
 void Shader::setSampler2D(const std::string &name, int slot){
     checkUniformLocation(name);
     glUniform1i(m_uniformsLocations[name], slot);
+}
+
+void Shader::setMatrix4(const std::string &name, glm::mat4 matrix){
+    checkUniformLocation(name);
+    glUniformMatrix4fv(m_uniformsLocations[name], 1, GL_FALSE, glm::value_ptr(matrix));
 }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		561C7AEE2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; };
 		561C7AEF2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		56494CAF2C948207001E9CFA /* libglm.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 56494CAE2C948207001E9CFA /* libglm.dylib */; };
+		56494CB22C94824B001E9CFA /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56494CB02C94824B001E9CFA /* Transform.cpp */; };
 		564988B92C91CA0C007E0B33 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 564988B72C91CA0C007E0B33 /* Texture.cpp */; };
 		564988BB2C91D880007E0B33 /* libSDL2_image-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 564988BA2C91D880007E0B33 /* libSDL2_image-2.0.0.dylib */; };
 		564A44162C82AE780065D0C1 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564A44152C82AE780065D0C1 /* OpenGL.framework */; };
@@ -45,6 +47,9 @@
 
 /* Begin PBXFileReference section */
 		561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
+		56494CAE2C948207001E9CFA /* libglm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglm.dylib; path = ../../../../../usr/local/Cellar/glm/1.0.1/lib/libglm.dylib; sourceTree = "<group>"; };
+		56494CB02C94824B001E9CFA /* Transform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
+		56494CB12C94824B001E9CFA /* Transform.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transform.hpp; sourceTree = "<group>"; };
 		564988B72C91CA0C007E0B33 /* Texture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		564988B82C91CA0C007E0B33 /* Texture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
 		564988BA2C91D880007E0B33 /* libSDL2_image-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2_image-2.0.0.dylib"; path = "../../../../../usr/local/Cellar/sdl2_image/2.8.2_1/lib/libSDL2_image-2.0.0.dylib"; sourceTree = "<group>"; };
@@ -69,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56494CAF2C948207001E9CFA /* libglm.dylib in Frameworks */,
 				564988BB2C91D880007E0B33 /* libSDL2_image-2.0.0.dylib in Frameworks */,
 				564A44182C82B4E70065D0C1 /* libSDL2-2.0.0.dylib in Frameworks */,
 				561C7AEE2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Frameworks */,
@@ -127,6 +133,7 @@
 		564A44142C82AE780065D0C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56494CAE2C948207001E9CFA /* libglm.dylib */,
 				564988BA2C91D880007E0B33 /* libSDL2_image-2.0.0.dylib */,
 				561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */,
 				564A44172C82B4E70065D0C1 /* libSDL2-2.0.0.dylib */,
@@ -153,6 +160,8 @@
 				564CEB532C888AAF00A0869F /* Shader.hpp */,
 				564988B72C91CA0C007E0B33 /* Texture.cpp */,
 				564988B82C91CA0C007E0B33 /* Texture.hpp */,
+				56494CB02C94824B001E9CFA /* Transform.cpp */,
+				56494CB12C94824B001E9CFA /* Transform.hpp */,
 			);
 			path = Mesh;
 			sourceTree = "<group>";
@@ -233,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56494CB22C94824B001E9CFA /* Transform.cpp in Sources */,
 				5661A9EF2C840910002E52DA /* Primitive.cpp in Sources */,
 				564A441D2C82F4330065D0C1 /* Window.cpp in Sources */,
 				564CEB502C88821B00A0869F /* Utility.cpp in Sources */,
@@ -366,6 +376,7 @@
 					/usr/local/Cellar/sdl2/2.30.6/lib,
 					/usr/local/Cellar/glew/2.2.0_1/lib,
 					/usr/local/Cellar/sdl2_image/2.8.2_1/lib,
+					/usr/local/Cellar/glm/1.0.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -384,6 +395,7 @@
 					/usr/local/Cellar/sdl2/2.30.6/lib,
 					/usr/local/Cellar/glew/2.2.0_1/lib,
 					/usr/local/Cellar/sdl2_image/2.8.2_1/lib,
+					/usr/local/Cellar/glm/1.0.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

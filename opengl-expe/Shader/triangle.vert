@@ -8,8 +8,11 @@ in vec2 uv;
 out vec3 Color;
 out vec2 Uv;
 
+uniform mat4 transform;
+
 void main(){
     Uv = uv;
     Color = color;
-    gl_Position = vec4(position, 0.0, 1.0);
+    
+    gl_Position = transform * vec4(position, 0.0, 1.0);
 }

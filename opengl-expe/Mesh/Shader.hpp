@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <unordered_map>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 
 class Shader{
@@ -24,11 +26,13 @@ public:
     void loadProgram();
     
     GLuint load(const char* shader, GLenum type);
-    void setAttributeFromBuffer(const char* attributeName, int attrNumber, int stride, void* ptr);
+    void setAttribute(const char* attributeName, int attrNumber, int stride, void* ptr);
         
     void setVec3(const std::string& name, float x, float y, float z);
     void setVec2(const std::string& name, float x, float y);
     void setSampler2D(const std::string& name, int slot);
+    void setMatrix4(const std::string& name, glm::mat4 matrix);
+    
     void use();
     
 private:

@@ -10,6 +10,7 @@
 #include <filesystem>
 #include "Context/Window.hpp"
 #include "Mesh/Primitive.hpp"
+#include "Mesh/Transform.hpp"
 
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
@@ -45,13 +46,19 @@ int main(int argc, const char * argv[]) {
     
     Primitive Plane(triVertices, 4*8, triElements, 2*3);
     Plane.buffer(GL_STATIC_DRAW);
+    
     Plane.loadShader(vertShaderPath, fragShaderPath, "outColor");
+    
     Plane.loadTexture(checkerPath, 1024, 1024, 0);
     
-    Plane.shader->setAttributeFromBuffer("position", 3, sizeof(float) * 8, NULL);
-    Plane.shader->setAttributeFromBuffer("color", 3, sizeof(float) * 8, (void*)(3 * sizeof(float)));
-    Plane.shader->setAttributeFromBuffer("uv", 2, sizeof(float) * 8, (void*)(6*sizeof(float)));
+    Plane.shader->setAttribute("position", 3, sizeof(float) * 8, NULL);
+    Plane.shader->setAttribute("color", 3, sizeof(float) * 8, (void*)(3 * sizeof(float)));
+    Plane.shader->setAttribute("uv", 2, sizeof(float) * 8, (void*)(6*sizeof(float)));
     Plane.shader->setSampler2D("tex", 0);
+    
+    glm::mat4 rotate = Transform::rotate(45.0f, 0.0f, 0.0f, 1.0f);
+
+    Plane.shader->setMatrix4("transform", rotate);
     
     window.draw();
     
