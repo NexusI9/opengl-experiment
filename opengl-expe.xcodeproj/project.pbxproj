@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		561C7AEE2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; };
 		561C7AEF2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		563F4C062C95380400AD7777 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563F4C042C95380400AD7777 /* Camera.cpp */; };
 		56494CAF2C948207001E9CFA /* libglm.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 56494CAE2C948207001E9CFA /* libglm.dylib */; };
 		56494CB22C94824B001E9CFA /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56494CB02C94824B001E9CFA /* Transform.cpp */; };
 		564988B92C91CA0C007E0B33 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 564988B72C91CA0C007E0B33 /* Texture.cpp */; };
@@ -47,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
+		563F4C042C95380400AD7777 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		563F4C052C95380400AD7777 /* Camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
 		56494CAE2C948207001E9CFA /* libglm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglm.dylib; path = ../../../../../usr/local/Cellar/glm/1.0.1/lib/libglm.dylib; sourceTree = "<group>"; };
 		56494CB02C94824B001E9CFA /* Transform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
 		56494CB12C94824B001E9CFA /* Transform.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transform.hpp; sourceTree = "<group>"; };
@@ -85,6 +88,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		563F4C072C95606F00AD7777 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				563F4C042C95380400AD7777 /* Camera.cpp */,
+				563F4C052C95380400AD7777 /* Camera.hpp */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
 		564988B52C91C7C6007E0B33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +132,7 @@
 		564A440C2C82AE3E0065D0C1 /* opengl-expe */ = {
 			isa = PBXGroup;
 			children = (
+				563F4C072C95606F00AD7777 /* Scene */,
 				564988B52C91C7C6007E0B33 /* Assets */,
 				5661A9F72C84246D002E52DA /* Utility */,
 				5661A9F42C842286002E52DA /* Shader */,
@@ -160,8 +173,6 @@
 				564CEB532C888AAF00A0869F /* Shader.hpp */,
 				564988B72C91CA0C007E0B33 /* Texture.cpp */,
 				564988B82C91CA0C007E0B33 /* Texture.hpp */,
-				56494CB02C94824B001E9CFA /* Transform.cpp */,
-				56494CB12C94824B001E9CFA /* Transform.hpp */,
 			);
 			path = Mesh;
 			sourceTree = "<group>";
@@ -178,6 +189,8 @@
 		5661A9F72C84246D002E52DA /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				56494CB02C94824B001E9CFA /* Transform.cpp */,
+				56494CB12C94824B001E9CFA /* Transform.hpp */,
 				564CEB512C88822500A0869F /* Utility.hpp */,
 				564CEB4F2C88821B00A0869F /* Utility.cpp */,
 			);
@@ -246,6 +259,7 @@
 				5661A9EF2C840910002E52DA /* Primitive.cpp in Sources */,
 				564A441D2C82F4330065D0C1 /* Window.cpp in Sources */,
 				564CEB502C88821B00A0869F /* Utility.cpp in Sources */,
+				563F4C062C95380400AD7777 /* Camera.cpp in Sources */,
 				564988B92C91CA0C007E0B33 /* Texture.cpp in Sources */,
 				5661A9F12C841247002E52DA /* main.cpp in Sources */,
 				564CEB542C888AAF00A0869F /* Shader.cpp in Sources */,
