@@ -17,7 +17,7 @@ class Utility{
     
 public:
     
-    static std::string importShader(const char* shaderFile);
+    static std::string importFile(const char* shaderFile);
     
 };
 
