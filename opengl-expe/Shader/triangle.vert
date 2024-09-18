@@ -18,5 +18,5 @@ void main(){
     Uv = uv;
     Color = color;
 
-    gl_Position =  view * model * vec4(position, 0.0, 1.0);
+    gl_Position =  projection * view * model * vec4(position, 0.0, 1.0);
 }

@@ -63,10 +63,8 @@ int main(int argc, const char * argv[]) {
     Plane.shader->setSampler2D("tex", 0);
     
     //Camera
-    Camera camera(24.0f, WINDOW_WIDTH/WINDOW_HEIGHT, 1.0f, 10.0f, 0);
-    camera.lookAt(glm::vec3(1.0f, 2.0f, 1.0f), glm::vec3(0.0f));
-    
-    //std::cout << glm::to_string(camera.getProjectionMatrix()) << std::endl;
+    Camera camera(40.0f, (float)(WINDOW_WIDTH/WINDOW_HEIGHT), 1.0f, 10.0f, 0);
+    camera.lookAt(glm::vec3(2.2f, 1.2f, 1.2f), glm::vec3(0.0f));
     
     glm::mat4 rotate = Transform::rotate(45.0f, 0.0f, 0.0f, 1.0f);
     Plane.shader->setMatrix4("model", rotate);
