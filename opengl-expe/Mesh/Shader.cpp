@@ -32,9 +32,9 @@ GLuint Shader::load(const char* path, GLenum type){
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
     
     if(status == GL_TRUE){
-        std::cout << "Successfully compiled shader: " << &shaderFile << std::endl;
+        std::cout << "Successfully compiled shader: " << path << std::endl;
     }else{
-        std::cout << "Error while compiling shader: " << &shaderFile << ", check Log below for more info.\n" << getShaderLog(&shader) << std::endl;
+        std::cout << "Error while compiling shader: " << path << ", check Log below for more info.\n" << getShaderLog(&shader) << std::endl;
     }
     
     return shader;
@@ -88,6 +88,13 @@ void Shader::checkUniformLocation(const std::string& name){
     if(m_uniformsLocations.find(name) == m_uniformsLocations.end()){
         //didn't find location, assign location to cache
         m_uniformsLocations[name] = glGetUniformLocation(m_program, (GLchar*) name.c_str());
+    }
+}
+
+void Shader::checkUniformBlockLocation(const std::string& name){
+    if(m_uniformBlocksLocations.find(name) == m_uniformBlocksLocations.end()){
+        //didn't find location, assign location to cache
+        m_uniformBlocksLocations[name] = glGetUniformBlockIndex(m_program, (GLchar*) name.c_str());
     }
 }
 
@@ -148,4 +155,9 @@ void Shader::setSampler2D(const std::string &name, int slot){
 void Shader::setMatrix4(const std::string &name, glm::mat4 matrix){
     checkUniformLocation(name);
     glUniformMatrix4fv(m_uniformsLocations[name], 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void Shader::setUniformBlock(const std::string &name, GLuint bindingIndex){
+    checkUniformBlockLocation(name);
+    glUniformBlockBinding(m_program, m_uniformBlocksLocations[name], bindingIndex);
 }

@@ -8,11 +8,18 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
+
 #include "Context/Window.hpp"
-#include "Mesh/Primitive.hpp"
+
 #include "Utility/Transform.hpp"
+#include "Utility/Clock.hpp"
+
 #include "Scene/Camera.hpp"
 
+#include "Mesh/Primitive.hpp"
+
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/string_cast.hpp>
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 
@@ -47,9 +54,7 @@ int main(int argc, const char * argv[]) {
     
     Primitive Plane(triVertices, 4*8, triElements, 2*3);
     Plane.buffer(GL_STATIC_DRAW);
-    
     Plane.loadShader(vertShaderPath, fragShaderPath, "outColor");
-    
     Plane.loadTexture(checkerPath, 1024, 1024, 0);
     
     Plane.shader->setAttribute("position", 3, sizeof(float) * 8, NULL);
@@ -57,15 +62,15 @@ int main(int argc, const char * argv[]) {
     Plane.shader->setAttribute("uv", 2, sizeof(float) * 8, (void*)(6*sizeof(float)));
     Plane.shader->setSampler2D("tex", 0);
     
+    //Camera
+    Camera camera(24.0f, WINDOW_WIDTH/WINDOW_HEIGHT, 1.0f, 10.0f, 0);
+    camera.lookAt(glm::vec3(1.0f, 2.0f, 1.0f), glm::vec3(0.0f));
+    
+    //std::cout << glm::to_string(camera.getProjectionMatrix()) << std::endl;
+    
     glm::mat4 rotate = Transform::rotate(45.0f, 0.0f, 0.0f, 1.0f);
     Plane.shader->setMatrix4("model", rotate);
-    
-    //Camera
-    Camera camera(45.0f, WINDOW_WIDTH/WINDOW_HEIGHT, 1.0f, 10.0f);
-    camera.lookAt(glm::vec3(1.0f, 2.0f, 3.0f), glm::vec3(0.0f));
-    
-    Plane.shader->setMatrix4("view", camera.getViewMatrix());
-    Plane.shader->setMatrix4("proj", camera.getProjectionMatrix());
+    Plane.shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
     
     window.draw();
     

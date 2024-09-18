@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56154C4E2C9679580030D131 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56154C4C2C9679580030D131 /* Renderer.cpp */; };
 		561C7AEE2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; };
 		561C7AEF2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		563F4C062C95380400AD7777 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563F4C042C95380400AD7777 /* Camera.cpp */; };
+		563F4C0A2C95655400AD7777 /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563F4C082C95655400AD7777 /* Clock.cpp */; };
 		56494CAF2C948207001E9CFA /* libglm.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 56494CAE2C948207001E9CFA /* libglm.dylib */; };
 		56494CB22C94824B001E9CFA /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56494CB02C94824B001E9CFA /* Transform.cpp */; };
 		564988B92C91CA0C007E0B33 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 564988B72C91CA0C007E0B33 /* Texture.cpp */; };
@@ -47,9 +49,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		56154C4C2C9679580030D131 /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		56154C4D2C9679580030D131 /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		563F4C042C95380400AD7777 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		563F4C052C95380400AD7777 /* Camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
+		563F4C082C95655400AD7777 /* Clock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
+		563F4C092C95655400AD7777 /* Clock.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Clock.hpp; sourceTree = "<group>"; };
 		56494CAE2C948207001E9CFA /* libglm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglm.dylib; path = ../../../../../usr/local/Cellar/glm/1.0.1/lib/libglm.dylib; sourceTree = "<group>"; };
 		56494CB02C94824B001E9CFA /* Transform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
 		56494CB12C94824B001E9CFA /* Transform.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transform.hpp; sourceTree = "<group>"; };
@@ -93,6 +99,8 @@
 			children = (
 				563F4C042C95380400AD7777 /* Camera.cpp */,
 				563F4C052C95380400AD7777 /* Camera.hpp */,
+				56154C4C2C9679580030D131 /* Renderer.cpp */,
+				56154C4D2C9679580030D131 /* Renderer.hpp */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -193,6 +201,8 @@
 				56494CB12C94824B001E9CFA /* Transform.hpp */,
 				564CEB512C88822500A0869F /* Utility.hpp */,
 				564CEB4F2C88821B00A0869F /* Utility.cpp */,
+				563F4C082C95655400AD7777 /* Clock.cpp */,
+				563F4C092C95655400AD7777 /* Clock.hpp */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -261,7 +271,9 @@
 				564CEB502C88821B00A0869F /* Utility.cpp in Sources */,
 				563F4C062C95380400AD7777 /* Camera.cpp in Sources */,
 				564988B92C91CA0C007E0B33 /* Texture.cpp in Sources */,
+				56154C4E2C9679580030D131 /* Renderer.cpp in Sources */,
 				5661A9F12C841247002E52DA /* main.cpp in Sources */,
+				563F4C0A2C95655400AD7777 /* Clock.cpp in Sources */,
 				564CEB542C888AAF00A0869F /* Shader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,7 +16,10 @@ m_vertexLength(vertexLength),
 m_elements(elementArray),
 m_elementLength(elementLength){}
 
-Primitive::~Primitive(){}
+Primitive::~Primitive(){
+    delete shader;
+    delete texture;
+}
 
 void Primitive::buffer(GLenum usage){
     

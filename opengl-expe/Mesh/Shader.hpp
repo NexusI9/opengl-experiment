@@ -26,12 +26,18 @@ public:
     void loadProgram();
     
     GLuint load(const char* shader, GLenum type);
+    
+    //Attributes
     void setAttribute(const char* attributeName, int attrNumber, int stride, void* ptr);
         
+    //Uniforms
     void setVec3(const std::string& name, float x, float y, float z);
     void setVec2(const std::string& name, float x, float y);
     void setSampler2D(const std::string& name, int slot);
     void setMatrix4(const std::string& name, glm::mat4 matrix);
+    
+    //Uniforms Block
+    void setUniformBlock(const std::string& name, GLuint bindingIndex);
     
     void use();
     
@@ -44,8 +50,10 @@ private:
     
     std::string getShaderLog(GLuint* shader);
     std::unordered_map<std::string, int> m_uniformsLocations;
+    std::unordered_map<std::string, int> m_uniformBlocksLocations;
     
     void checkUniformLocation(const std::string& name);
+    void checkUniformBlockLocation(const std::string& name);
     void checkUseProgram();
     
 };
