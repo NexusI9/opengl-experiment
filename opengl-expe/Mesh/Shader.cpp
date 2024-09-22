@@ -19,7 +19,7 @@ Shader::~Shader(){}
 GLuint Shader::load(const char* path, GLenum type){
     
     //Import shader file
-    std::string shaderString = Utility::importShader(path);
+    std::string shaderString = Utility::importFile(path);
     const char* shaderFile = shaderString.c_str();
     
     //Compile Shader

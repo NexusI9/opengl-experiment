@@ -10,21 +10,20 @@
 #include <sstream>
 #include <iostream>
 
-std::string Utility::importShader(const char *shaderFile){
+std::string Utility::importFile(const char *path){
     
-    std::ifstream file(shaderFile);
+    std::ifstream file(path);
     if(!file) {
-        std::cout << "Couldn't find file " << shaderFile << std::endl;
+        std::cout << "Couldn't find file " << path << std::endl;
         return std::string();
     }
     
     file.ignore(std::numeric_limits<std::streamsize>::max());
-    std::streamsize size = file.gcount();
-    
+    /*std::streamsize size = file.gcount();
     if(size > 0x10000){
         std::cout << "File exceed 64bits" << std::endl;
         return std::string(); //64k bit check sanity for shader
-    }
+    }*/
     
     file.clear();
     file.seekg(0, std::ios_base::beg);
@@ -34,4 +33,9 @@ std::string Utility::importShader(const char *shaderFile){
     file.close();
     
     return sstr.str();
+}
+
+
+std::string Utility::fileDir(std::string& path){
+    return path.substr(0, path.find_last_of("/") + 1);
 }

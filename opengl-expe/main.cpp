@@ -17,9 +17,8 @@
 #include "Scene/Camera.hpp"
 
 #include "Mesh/Primitive.hpp"
+#include "Mesh/Gltf.hpp"
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/string_cast.hpp>
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 
@@ -46,6 +45,7 @@ int main(int argc, const char * argv[]) {
     
     const std::string root = std::string(getenv("HOME"))+ std::string("/Documents/XCode/opengl/opengl-expe/");
     
+    /*
     const std::string shaderBasePath = root + std::string("Shader/triangle.");
     const std::string vertShaderPath = shaderBasePath+std::string("vert");
     const std::string fragShaderPath = shaderBasePath+std::string("frag");
@@ -68,7 +68,11 @@ int main(int argc, const char * argv[]) {
     
     glm::mat4 rotate = Transform::rotate(45.0f, 0.0f, 0.0f, 1.0f);
     Plane.shader->setMatrix4("model", rotate);
-    Plane.shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
+    Plane.shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());*/
+    
+    
+    Gltf cube((root+std::string("Assets/Models/cube.gltf")).c_str());
+    
     
     window.draw();
     
