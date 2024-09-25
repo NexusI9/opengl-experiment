@@ -9,9 +9,13 @@
 
 #include "Shader.hpp"
 #include "../Utility/Utility.hpp"
+#include "../Utility/Debugger.hpp"
 
 
-Shader::Shader(){}
+Shader::Shader(const char* vertexShader, const char* fragmentShader, const char *fragName){
+    loadVertexShader(vertexShader);
+    loadFragmentShader(fragmentShader, fragName);
+}
 
 Shader::~Shader(){}
 
@@ -32,9 +36,9 @@ GLuint Shader::load(const char* path, GLenum type){
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
     
     if(status == GL_TRUE){
-        std::cout << "Successfully compiled shader: " << path << std::endl;
+        Debugger::verbose(("Successfully compiled shader: " + (std::string) path), SHADER);
     }else{
-        std::cout << "Error while compiling shader: " << path << ", check Log below for more info.\n" << getShaderLog(&shader) << std::endl;
+        Debugger::verbose("Error while compiling shader: " + (std::string) path + ", check Log below for more info.\n" + getShaderLog(&shader), SHADER);
     }
     
     return shader;
@@ -45,15 +49,15 @@ void Shader::loadProgram(){
 
     if(m_vertShader || m_fragShader){
         //Create program to combine Vertex and Fragment
-        m_program = glCreateProgram();
-        if(m_vertShader) glAttachShader(m_program, m_vertShader);
-        if(m_fragShader) glAttachShader(m_program, m_fragShader);
+        ID = glCreateProgram();
+        if(m_vertShader) glAttachShader(ID, m_vertShader);
+        if(m_fragShader) glAttachShader(ID, m_fragShader);
         
         //Attaching vertex shader out channel (outColor1, outColor2..) to shader program
-        glBindFragDataLocation(m_program, 0, m_fragName);
+        glBindFragDataLocation(ID, 0, m_fragName);
         
         //Linking Program so can change shader during runtime
-        glLinkProgram(m_program);
+        glLinkProgram(ID);
 
     }
 }
@@ -86,54 +90,51 @@ void Shader::loadFragmentShader(const char* path, const char* fragName){
 
 void Shader::checkUniformLocation(const std::string& name){
     if(m_uniformsLocations.find(name) == m_uniformsLocations.end()){
-        //didn't find location, assign location to cache
-        m_uniformsLocations[name] = glGetUniformLocation(m_program, (GLchar*) name.c_str());
+        //dIDn't find location, assign location to cache
+        m_uniformsLocations[name] = glGetUniformLocation(ID, (GLchar*) name.c_str());
     }
 }
 
 void Shader::checkUniformBlockLocation(const std::string& name){
     if(m_uniformBlocksLocations.find(name) == m_uniformBlocksLocations.end()){
-        //didn't find location, assign location to cache
-        m_uniformBlocksLocations[name] = glGetUniformBlockIndex(m_program, (GLchar*) name.c_str());
+        //dIDn't find location, assign location to cache
+        m_uniformBlocksLocations[name] = glGetUniformBlockIndex(ID, (GLchar*) name.c_str());
     }
 }
 
 void Shader::use(){
-    glUseProgram(m_program);
+    glUseProgram(ID);
 }
 
 void Shader::checkUseProgram(){
     //Automatically activate program if m_program isn't already active
     GLint activeProgram = 0;
     glGetIntegerv(GL_CURRENT_PROGRAM, &activeProgram);
-    if(activeProgram != m_program) glUseProgram(m_program);
+    if(activeProgram != ID) glUseProgram(ID);
 }
 
-void Shader::setAttribute(const char *attributeName, int attrNumber, int stride, void* pointer=nullptr){
+void Shader::setAttribute(const char *attributeName, int attrNumber, int strIDe, void* pointer=nullptr){
     //Shader attributes ("in") are set from the vertex array
     
-    if(!m_program){
-        std::cout << "No program has been found, make sure a program is loaded through the loadShader method" << std::endl;
+    if(!ID){
+        std::cout << "No program has been found, make sure a program is loaded using the loadShader method" << std::endl;
     }
     
     //use program if not already in use;
     checkUseProgram();
     
-    
     /* Create a "Generic Vertex Attribute"
      An attribute (index) taht associates an index to a shader variable
      This Generic Attribute's Index needs to be equal to our shader variable Index
-     
-     [Shader > "position"] <= [Generic Vertex Attribute] => [VBO] <= [VAO]
-            GPU                           CPU                GPU      CPU
-     
-     This Generic Vertex Attribute is like a bridge that's lnking the shader to the VBO
+     [Shader > "position"] <= glVertexAttribPointer <=[Generic Vertex Attribute] => [VBO] <= [VAO]
+            GPU                                                   CPU                GPU      CPU
+     This Generic Vertex Attribute is like a brIDge that's lnking the Vertex Shader to the VBO
      */
     
-    GLint posAttr = glGetAttribLocation(m_program, attributeName);
+    GLint attrName = glGetAttribLocation(ID, attributeName);
     //Must enable an attribute before you can use it in a shader
-    glEnableVertexAttribArray(posAttr);
-    glVertexAttribPointer(posAttr, attrNumber, GL_FLOAT, GL_FALSE, stride, pointer);
+    glEnableVertexAttribArray(attrName);
+    glVertexAttribPointer(attrName, attrNumber, GL_FLOAT, GL_FALSE, strIDe, pointer);
 }
 
 void Shader::setVec3(const std::string &name, float x, float y, float z){
@@ -159,5 +160,5 @@ void Shader::setMatrix4(const std::string &name, glm::mat4 matrix){
 
 void Shader::setUniformBlock(const std::string &name, GLuint bindingIndex){
     checkUniformBlockLocation(name);
-    glUniformBlockBinding(m_program, m_uniformBlocksLocations[name], bindingIndex);
+    glUniformBlockBinding(ID, m_uniformBlocksLocations[name], bindingIndex);
 }

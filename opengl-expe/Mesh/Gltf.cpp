@@ -8,6 +8,7 @@
 #include "Gltf.hpp"
 #include "../Utility/Utility.hpp"
 #include <iostream>
+#include "../Utility/Debugger.hpp"
 
 
 Gltf::Gltf(const char* path):m_path(path){
@@ -16,8 +17,11 @@ Gltf::Gltf(const char* path):m_path(path){
     m_json = nlohmann::json::parse(file);
     m_data = getData();
     
+    traverseNode(0);
+    
 }
 
+std::unordered_map<std::string, Texture*> Gltf::loadedTextures;
 
 std::vector<unsigned char> Gltf::getData(){
     
@@ -68,9 +72,9 @@ std::vector<float> Gltf::getFloats(nlohmann::json accessor){
 }
 
 
-std::vector<int> Gltf::getIndices(nlohmann::json accessor){
+std::vector<GLuint> Gltf::getIndices(nlohmann::json accessor){
     
-    std::vector<int> indices;
+    std::vector<GLuint> indices;
     
     unsigned int count  = accessor["count"];
     unsigned int type = accessor["componentType"];
@@ -164,9 +168,116 @@ std::vector<Vertex> Gltf::assembleVertices(
     
 }
 
-
-std::vector<Texture> Gltf::getTextures(){
+void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
+    //Recursively pass on parent matrix to children and push Models into cache
+    //By default: all initial object are centered at the origin, need to extract mesh individual matrix to get their real location
     
+    nlohmann::json node = m_json["nodes"][nodeIndex];
+    NodeMesh nodeMesh = {
+        nullptr,
+        glm::vec3(0.0f),
+        glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
+        glm::vec3(1.0f),
+        glm::mat4(1.0f)
+    };
+    
+    //Get Translation
+    if(node.find("translation") != node.end()){
+        float transValues[3];
+        for(unsigned int i = 0; i < node["translation"].size(); i++){
+            transValues[i] = node["translation"][i];
+        }
+        nodeMesh.translation = glm::make_vec3(transValues);
+    }
+    
+    //Get Rotation
+    if(node.find("quaternion") != node.end()){
+        float rotValues[4] = {
+            node["rotation"][3],
+            node["rotation"][0],
+            node["rotation"][1],
+            node["rotation"][2]
+        };
+        
+        nodeMesh.rotation = glm::make_quat(rotValues);
+    }
+    
+    //Get Scale
+    if(node.find("scale") != node.end()){
+        float scaleValues[3];
+        for(unsigned int i = 0; i < node["scale"].size(); i++){
+            scaleValues[i] = node["scale"][i];
+        }
+        nodeMesh.translation = glm::make_vec3(scaleValues);
+    }
+    
+    //Get Matrix
+    if(node.find("matrix") != node.end()){
+        float matrixValues[4*4];
+        for(unsigned int i = 0; i < node["matrix"].size(); i++){
+            matrixValues[i] = node["matrix"][i];
+        }
+        nodeMesh.matrix = glm::make_mat4(matrixValues);
+    }
+    
+    //Setup next node matrix
+    glm::mat4 translate(1.0f);
+    glm::mat4 scale(1.0f);
+    glm::mat4 rotation(1.0f);
+    
+    translate = glm::translate(translate, nodeMesh.translation);
+    rotation = glm::mat4_cast(nodeMesh.rotation);
+    scale = glm::scale(scale, nodeMesh.scale);
+    
+    glm::mat4 nextNodeMatrix = matrix * nodeMesh.matrix * translate * rotation * scale;
+    
+    //Finally load mesh if exists
+    if(node.find("mesh") != node.end()){
+        nodeMesh.mesh = loadMesh(node["mesh"]);
+        nodeMesh.matrix = nextNodeMatrix;
+    }
+    
+    //Iterate through children
+    if(node.find("children") != node.end()){
+        for(unsigned int i = 0; i < node["children"].size(); i++){
+            traverseNode(node["children"][i], nextNodeMatrix);
+        }
+    }
+    
+}
+
+Mesh* Gltf::loadMesh(unsigned int meshIndex){
+    
+    //Get accessor indices
+    unsigned int posAccInd = m_json["meshes"][meshIndex]["primitives"][0]["attributes"]["POSITION"];
+    unsigned int normAccInd = m_json["meshes"][meshIndex]["primitives"][0]["attributes"]["NORMAL"];
+    unsigned int texAccInd = m_json["meshes"][meshIndex]["primitives"][0]["attributes"]["TEXCOORD_0"];
+    unsigned int idAccInd = m_json["meshes"][meshIndex]["primitives"][0]["indices"];
+    
+    
+    //Get vertices components via accessor
+    std::vector<float> posVec = getFloats(m_json["accessors"][posAccInd]);
+    std::vector<glm::vec3> positions = getFloatsVector3(posVec);
+    
+    std::vector<float> normalVec = getFloats(m_json["accessors"][normAccInd]);
+    std::vector<glm::vec3> normals = getFloatsVector3(normalVec);
+    
+    std::vector<float> texVec = getFloats(m_json["accessors"][texAccInd]);
+    std::vector<glm::vec2> texUvs = getFloatsVector2(texVec);
+    
+    
+    //Combines vertex components
+    std::vector<Vertex> vertices = assembleVertices(positions, normals, texUvs);
+    std::vector<GLuint> indices = getIndices(m_json["accessors"][idAccInd]);
+    std::vector<Texture> textures = loadTextures();
+    
+    return new Mesh(vertices, indices, textures);
+}
+
+
+
+
+std::vector<Texture> Gltf::loadTextures(){
     
     std::vector<Texture> textures;
     
@@ -175,19 +286,17 @@ std::vector<Texture> Gltf::getTextures(){
     
     unsigned int slot = 0;
     for(int i = 0; i < m_json["images"].size(); i++){
-        
         std::string texPath = m_json["images"][i]["uri"];
         //Check if texture doesn't already exists
-        if(loadedTextures.find(texPath) != loadedTextures.end()){
-            //TODO: make size dynamic
-            Texture texture((dir+texPath).c_str(), 1024, 1024, slot++);
-            textures.push_back(texture);
+        if(loadedTextures.find(texPath) == loadedTextures.end()){
+            Debugger::verbose("Loading texture: " + texPath, TEXTURE);
+            std::string texturePath = (dir+texPath).c_str();
+            Texture* texture = new Texture(texturePath, slot++);
+            textures.push_back(*texture);
             loadedTextures[texPath] = texture;
         }else{
-            textures.push_back(loadedTextures[texPath]);
+            textures.push_back(*loadedTextures[texPath]);
         }
-
-        
     }
     
     return textures;
@@ -195,4 +304,12 @@ std::vector<Texture> Gltf::getTextures(){
 }
 
 
-
+void Gltf::draw(){
+    //Setup our meshes collection and assign shader etc...
+    
+    for(int i = 0; i < m_meshes.size(); i++){
+        
+        
+    }
+    
+}

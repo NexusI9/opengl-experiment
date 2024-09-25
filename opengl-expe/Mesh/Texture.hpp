@@ -17,7 +17,7 @@ class Texture{
     
 public:
     
-    Texture(const std::string& fullpath, const int width, const int height, const int slot);
+    Texture(std::string& fullpath, unsigned int slot);
     void load();
 
 private:
@@ -57,10 +57,8 @@ private:
     };
     
     const char* m_path;
-    int m_width;
-    int m_height;
-    int m_slot;
-    GLuint m_id;
+    unsigned int m_slot;
+    GLuint ID;
 
 };
 

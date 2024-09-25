@@ -71,8 +71,6 @@ int Window::draw(){
         //refresh screen
         glClear(GL_COLOR_BUFFER_BIT);
         
-        //draw
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
     
     m_isOpen = false;

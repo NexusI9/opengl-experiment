@@ -7,7 +7,7 @@
 
 #ifndef Vertex_h
 #define Vertex_h
-#include <GL/glew.h>
+#include <glm/glm.hpp>
 
 struct Vertex
 {

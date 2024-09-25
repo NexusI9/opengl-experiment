@@ -18,14 +18,14 @@
 class Shader{
    
 public:
-    Shader();
+    Shader(const char* vertexShader, const char* fragmentShader, const char *fragName);
     ~Shader();
     
     void loadVertexShader(const char* path);
     void loadFragmentShader(const char* path, const char* fragName);
     void loadProgram();
     
-    GLuint load(const char* shader, GLenum type);
+    GLuint ID;
     
     //Attributes
     void setAttribute(const char* attributeName, int attrNumber, int stride, void* ptr);
@@ -44,7 +44,8 @@ public:
 private:
     GLuint m_fragShader;
     GLuint m_vertShader;
-    GLuint m_program;
+    
+    GLuint load(const char* path, GLenum type);
     
     const char * m_fragName;
     
