@@ -11,12 +11,10 @@
 
 #include "Context/Window.hpp"
 
-#include "Utility/Transform.hpp"
-#include "Utility/Clock.hpp"
+#include "./Utility/Constant.h"
 
 #include "Scene/Camera.hpp"
-
-#include "Mesh/Mesh.hpp"
+#include "Scene/Scene.hpp"
 #include "Mesh/Gltf.hpp"
 
 
@@ -29,14 +27,15 @@ int main(int argc, const char * argv[]) {
     Window window(WINDOW_WIDTH, WINDOW_HEIGHT, (std::string)"openGL Experiment");
     window.init();
 
+    Camera camera(45.0f, (float) WINDOW_WIDTH / WINDOW_HEIGHT, 1.0f, 10.0f, 0);
     
-    const std::string root = std::string(getenv("HOME"))+ std::string("/Documents/XCode/opengl/opengl-expe/");
+    Gltf cube((ROOT_DIR+std::string("Assets/Models/cube.gltf")).c_str());
     
-
-    Gltf cube((root+std::string("Assets/Models/cube.gltf")).c_str());
+    Scene scene;
+    scene.add(&cube);
     
     
-    window.draw();
+    window.draw(scene);
     
     return 0;
 }

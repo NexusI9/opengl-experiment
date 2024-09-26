@@ -34,7 +34,6 @@ m_textures(textures){
 
 Mesh::~Mesh(){
     delete shader;
-    delete texture;
 }
 
 void Mesh::loadShader(const std::string& vertShader, const std::string& fragShader, const std::string& fragName){
@@ -62,14 +61,18 @@ void Mesh::loadShader(const std::string& vertShader, const std::string& fragShad
     shader->setAttribute("color", (int) m_vertices.size(), 3, (void*)( 6 * m_vertices.size()));
     shader->setAttribute("uv", (int) m_vertices.size(), 2, (void*)( 9 * m_vertices.size()));
     
+}
+
+void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::quat rotation, glm::vec3 scale){
+    
+    if(shader) shader->use();
+    m_vao.bind();
+    //draw
+    
+    glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
     
 }
 
-void Mesh::loadTexture(std::string& path, unsigned int slot){
-    
-    texture = new Texture(path, slot);
-    texture->load();
-    
-}
+
 
 

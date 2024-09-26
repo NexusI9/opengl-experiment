@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 #include <vector>
 
 #include "Vertex.h"
@@ -32,13 +33,9 @@ public:
     
     void loadShader(const std::string& vertShader, const std::string& fragShader, const std::string& fragName);
     
-    void loadTexture(std::string& path, unsigned int slot);
+    void draw(Camera& camera, glm::mat4 matrix, glm::vec3 translation, glm::quat rotation, glm::vec3 scale);
     
-    void draw(Camera& camera, glm::mat4 matrix, Transform& tranform);
-    
-    Shader* shader = nullptr;
-    Texture* texture = nullptr;
-    
+    Shader* shader = nullptr; 
 
 private:
     

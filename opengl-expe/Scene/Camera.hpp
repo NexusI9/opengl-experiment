@@ -11,13 +11,15 @@
 #include <stdio.h>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
+#include "./BaseObject.h"
 
 
-class Camera{
+class Camera : public BaseObject{
 
 public:
     
     Camera(float fov, float ratio, float nearPlane, float farPlane, GLuint bindingIndex);
+    
     glm::mat4 getViewMatrix();
     glm::mat4 getProjectionMatrix();
     glm::mat4 getCombinedMatrix();

@@ -14,6 +14,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 
+#include "../Scene/Scene.hpp"
+
 
 class Window{
     
@@ -23,7 +25,7 @@ public:
     ~Window(); //Destructor
     
     void init();
-    int draw();
+    int draw(Scene& scene);
     bool m_isOpen;
 
     

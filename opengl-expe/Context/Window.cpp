@@ -45,7 +45,7 @@ void Window::init(){
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-int Window::draw(){
+int Window::draw(Scene& scene){
     
     m_isOpen = true;
     bool loop = true;
@@ -66,6 +66,7 @@ int Window::draw(){
             
         }
         
+        scene.draw();
         SDL_GL_SwapWindow(m_window);
         
         //refresh screen

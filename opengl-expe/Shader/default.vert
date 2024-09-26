@@ -11,6 +11,8 @@ layout(std140) uniform Camera{ //uniform block
     mat4 projection;
 };
 
+out vec3 Position;
+out vec3 Normal;
 out vec3 Color;
 out vec2 Uv;
 

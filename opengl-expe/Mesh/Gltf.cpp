@@ -9,9 +9,10 @@
 #include "../Utility/Utility.hpp"
 #include <iostream>
 #include "../Utility/Debugger.hpp"
+#include "../Utility/Constant.h"
 
 
-Gltf::Gltf(const char* path):m_path(path){
+Gltf::Gltf(const char* path) : BaseObject(Type::OBJECT), m_path(path){
     
     std::string file = Utility::importFile(path);
     m_json = nlohmann::json::parse(file);
@@ -265,13 +266,22 @@ Mesh* Gltf::loadMesh(unsigned int meshIndex){
     std::vector<float> texVec = getFloats(m_json["accessors"][texAccInd]);
     std::vector<glm::vec2> texUvs = getFloatsVector2(texVec);
     
-    
     //Combines vertex components
     std::vector<Vertex> vertices = assembleVertices(positions, normals, texUvs);
     std::vector<GLuint> indices = getIndices(m_json["accessors"][idAccInd]);
     std::vector<Texture> textures = loadTextures();
     
-    return new Mesh(vertices, indices, textures);
+    //init mesh
+    Mesh* mesh = new Mesh(vertices, indices, textures);
+    
+    //load shaders
+    //Setup our meshes collection and assign shader etc...
+    const std::string vertShaderPath = ROOT_DIR + "Shader/default.vert";
+    const std::string fragShaderPath = ROOT_DIR + "Shader/default.frag";
+    
+    mesh->loadShader(vertShaderPath, fragShaderPath, "outColor");
+    
+    return mesh;
 }
 
 
@@ -304,11 +314,10 @@ std::vector<Texture> Gltf::loadTextures(){
 }
 
 
-void Gltf::draw(){
-    //Setup our meshes collection and assign shader etc...
+void Gltf::draw(Camera& camera){
     
-    for(int i = 0; i < m_meshes.size(); i++){
-        
+    for(NodeMesh& node : m_meshes){
+        if(node.mesh) node.mesh->draw(camera, node.matrix, node.translation, node.rotation, node.scale);
         
     }
     

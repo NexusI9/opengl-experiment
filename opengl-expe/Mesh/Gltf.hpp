@@ -19,6 +19,7 @@
 #include "Texture.hpp"
 #include "Vertex.h"
 #include "Mesh.hpp"
+#include "../Scene/BaseObject.h"
 
 
 
@@ -31,13 +32,13 @@ struct NodeMesh{
 };
 
 
-class Gltf{
+class Gltf : public BaseObject{
   
 public:
     Gltf(const char* path);
     
     static std::unordered_map<std::string, Texture*> loadedTextures;
-    
+    void draw(Camera& camera);
     //std::vector<Vertex>& getVertices();
     //std::vector<GLuint>& getIndices();
     //std::vector<Texture>& getTextures();
@@ -64,7 +65,6 @@ private:
     std::vector<glm::vec4> getFloatsVector4(std::vector<float> floatVec);
     
     void traverseNode(unsigned int node, glm::mat4 matrix = glm::mat4(1.0f));
-    void draw();
     
     Mesh* loadMesh(unsigned int meshIndex);
     std::vector<NodeMesh> m_meshes;

@@ -14,6 +14,7 @@
 #include <string>
 
 enum VerboseFlag{
+    ALL,
     TEXTURE,
     MESH,
     VERTEX,
@@ -29,6 +30,11 @@ public:
     
     static void verbose(const std::string& value, VerboseFlag flag);
     
+private:
+    static const char* m_verboseFlag[5];
+
+    
+
     
 };
 
