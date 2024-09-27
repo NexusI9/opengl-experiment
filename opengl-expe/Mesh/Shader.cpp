@@ -36,9 +36,9 @@ GLuint Shader::load(const char* path, GLenum type){
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
     
     if(status == GL_TRUE){
-        Debugger::verbose(("Successfully compiled shader: " + (std::string) path), SHADER);
+        Debugger::print(("Successfully compiled shader: " + (std::string) path), SHADER);
     }else{
-        Debugger::verbose("Error while compiling shader: " + (std::string) path + ", check Log below for more info.\n" + getShaderLog(&shader), SHADER);
+        Debugger::print("Error while compiling shader: " + (std::string) path + ", check Log below for more info.\n" + getShaderLog(&shader), SHADER);
     }
     
     return shader;

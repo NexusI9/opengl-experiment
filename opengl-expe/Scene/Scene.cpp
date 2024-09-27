@@ -6,6 +6,7 @@
 //
 
 #include "Scene.hpp"
+#include <iostream>
 
 
 Scene::Scene(){}

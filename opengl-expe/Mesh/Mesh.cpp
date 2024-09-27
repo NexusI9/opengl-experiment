@@ -10,6 +10,7 @@
 
 #include "Mesh.hpp"
 #include "../Utility/Utility.hpp"
+#include "../Utility/Debugger.hpp"
 
 
 Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& elements, std::vector<Texture>& textures):
@@ -65,11 +66,19 @@ void Mesh::loadShader(const std::string& vertShader, const std::string& fragShad
 
 void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::quat rotation, glm::vec3 scale){
     
-    if(shader) shader->use();
-    m_vao.bind();
-    //draw
+    if(shader == nullptr){
+        Debugger::print("No shader were found, mesh won't be rendered.", MESH);
+        return;
+    }
     
+    shader->use();
+    m_vao.bind();
+    
+    //draw
+    //setup camera matrix
+   
     glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+    m_vao.unbind();
     
 }
 

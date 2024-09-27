@@ -62,7 +62,7 @@ std::vector<float> Gltf::getFloats(nlohmann::json accessor){
     unsigned int dataStart = byteOffset + accByteOffset;
     unsigned int dataLength = count * stride;
     for(unsigned int i = dataStart; i < dataStart + dataLength * 4; i+=4){
-        unsigned char bytes[] = { m_data[i+1], m_data[i+2], m_data[i+3],  m_data[i+4] };
+        unsigned char bytes[] = { m_data[i], m_data[i+1], m_data[i+2],  m_data[i+3] };
         float floatValue;
         std::memcpy(&floatValue, bytes, sizeof(float)); //convert bytes to float;
         floatVec.push_back(floatValue);
@@ -236,6 +236,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     if(node.find("mesh") != node.end()){
         nodeMesh.mesh = loadMesh(node["mesh"]);
         nodeMesh.matrix = nextNodeMatrix;
+        m_meshes.push_back(nodeMesh);
     }
     
     //Iterate through children
@@ -299,7 +300,7 @@ std::vector<Texture> Gltf::loadTextures(){
         std::string texPath = m_json["images"][i]["uri"];
         //Check if texture doesn't already exists
         if(loadedTextures.find(texPath) == loadedTextures.end()){
-            Debugger::verbose("Loading texture: " + texPath, TEXTURE);
+            Debugger::print("Loading texture: " + texPath, TEXTURE);
             std::string texturePath = (dir+texPath).c_str();
             Texture* texture = new Texture(texturePath, slot++);
             textures.push_back(*texture);
@@ -315,10 +316,8 @@ std::vector<Texture> Gltf::loadTextures(){
 
 
 void Gltf::draw(Camera& camera){
-    
     for(NodeMesh& node : m_meshes){
         if(node.mesh) node.mesh->draw(camera, node.matrix, node.translation, node.rotation, node.scale);
         
     }
-    
 }

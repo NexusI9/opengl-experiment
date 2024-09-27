@@ -19,7 +19,7 @@ const char* Debugger::m_verboseFlag[5] = {
     "SHADER"
 };
 
-void Debugger::verbose(const std::string& value, VerboseFlag flag){
+void Debugger::print(const std::string& value, VerboseFlag flag){
     if(printVerbose){
         if(flag && verboseFlag != flag){
                 std::cout << "[" << m_verboseFlag[flag] << "] " << value << std::endl;
@@ -28,4 +28,12 @@ void Debugger::verbose(const std::string& value, VerboseFlag flag){
             std::cout << value << std::endl;
         }
     }
+}
+
+void Debugger::printVec3(glm::vec3& vector){
+    std::cout << "x: " << vector.x << "\ty: " << vector.y << "\tz: " << vector.z << std::endl;
+}
+
+void Debugger::printVec2(glm::vec2& vector){
+    std::cout << "x: " << vector.x << "\ty: " << vector.y << std::endl;
 }
