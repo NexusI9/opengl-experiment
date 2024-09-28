@@ -11,6 +11,6 @@ uniform sampler2D diffuse0;
 
 void main(){
     //texture(tex, Uv) *
-    outColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    outColor = vec4(Color, 1.0f);
 
 }

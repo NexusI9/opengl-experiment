@@ -64,7 +64,7 @@ void Mesh::loadShader(const std::string& vertShader, const std::string& fragShad
 }
 
 void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::quat rotation, glm::vec3 scale){
-    
+
     if(shader == nullptr){
         Debugger::print("No shader were found, mesh won't be rendered.", MESH);
         return;

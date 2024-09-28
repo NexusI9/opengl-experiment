@@ -23,10 +23,13 @@ void Scene::add(BaseObject* object){
      */
     
     if(Gltf* gltfObj = dynamic_cast<Gltf*>(object)) m_objects.push_back(gltfObj);
+    else if(Rectangle* rectObj = dynamic_cast<Rectangle*>(object)) m_rectangles.push_back(rectObj);
     else if (Camera* camObj = dynamic_cast<Camera*>(object)) {
         m_cameras.push_back(camObj);
         //Define new camera as default if no camera
         if(m_activeCamera == nullptr) m_activeCamera = camObj;
+    }else{
+        throw std::invalid_argument("Error while adding scene object, not a valid type");
     }
     
 }
@@ -35,6 +38,10 @@ void Scene::draw(){
     
     if(m_activeCamera){
         for(auto& object : m_objects){
+            object->draw(*m_activeCamera);
+        }
+        
+        for(auto& object : m_rectangles){
             object->draw(*m_activeCamera);
         }
     }

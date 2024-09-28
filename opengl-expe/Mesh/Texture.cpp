@@ -9,7 +9,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include "Texture.hpp"
-#include "GL/glew.h"
+#include <GL/glew.h>
 
 
 Texture::Texture(std::string& fullpath, unsigned int slot):m_path((const char*)fullpath.c_str()), m_slot(slot){}

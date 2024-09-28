@@ -16,6 +16,7 @@
 #include "Scene/Camera.hpp"
 #include "Scene/Scene.hpp"
 #include "Mesh/Gltf.hpp"
+#include "Mesh/Rectangle.hpp"
 
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
@@ -31,10 +32,11 @@ int main(int argc, const char * argv[]) {
     camera.lookAt(glm::vec3(2.2f, 1.2f, 1.2f), glm::vec3(0.0f));
     //camera.translate(glm::vec3(0.0f, 2.0f, 0.0f));
     
-    Gltf cube((ROOT_DIR+std::string("Assets/Models/cube.gltf")).c_str());
+    //Gltf cube((ROOT_DIR+std::string("Assets/Models/cube.gltf")).c_str());
+    Rectangle rect;
     
     Scene scene;
-    scene.add(&cube);
+    scene.add(&rect);
     
     window.draw(scene);
     

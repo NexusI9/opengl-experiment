@@ -10,6 +10,7 @@
 		56154C4E2C9679580030D131 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56154C4C2C9679580030D131 /* Renderer.cpp */; };
 		561C7AEE2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; };
 		561C7AEF2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		561F08282CA82E2F007570EA /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561F08262CA82E2F007570EA /* Rectangle.cpp */; };
 		5631D4FD2C9B97C800A99F30 /* Gltf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5631D4FB2C9B97C800A99F30 /* Gltf.cpp */; };
 		563F4C062C95380400AD7777 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563F4C042C95380400AD7777 /* Camera.cpp */; };
 		563F4C0A2C95655400AD7777 /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563F4C082C95655400AD7777 /* Clock.cpp */; };
@@ -58,6 +59,8 @@
 		56154C4C2C9679580030D131 /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
 		56154C4D2C9679580030D131 /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
+		561F08262CA82E2F007570EA /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
+		561F08272CA82E2F007570EA /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
 		562CB3162C9E5ED50081658C /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		5631D4FB2C9B97C800A99F30 /* Gltf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Gltf.cpp; sourceTree = "<group>"; };
 		5631D4FC2C9B97C800A99F30 /* Gltf.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gltf.hpp; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				5631D4FB2C9B97C800A99F30 /* Gltf.cpp */,
 				5631D4FC2C9B97C800A99F30 /* Gltf.hpp */,
 				562CB3162C9E5ED50081658C /* Vertex.h */,
+				561F08262CA82E2F007570EA /* Rectangle.cpp */,
+				561F08272CA82E2F007570EA /* Rectangle.hpp */,
 			);
 			path = Mesh;
 			sourceTree = "<group>";
@@ -322,6 +327,7 @@
 				56B0943D2CA2FDE200293E4B /* Debugger.cpp in Sources */,
 				56154C4E2C9679580030D131 /* Renderer.cpp in Sources */,
 				5661A9F12C841247002E52DA /* main.cpp in Sources */,
+				561F08282CA82E2F007570EA /* Rectangle.cpp in Sources */,
 				563F4C0A2C95655400AD7777 /* Clock.cpp in Sources */,
 				564CEB542C888AAF00A0869F /* Shader.cpp in Sources */,
 				5631D4FD2C9B97C800A99F30 /* Gltf.cpp in Sources */,

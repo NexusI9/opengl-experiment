@@ -14,6 +14,7 @@
 
 #include "./Camera.hpp"
 #include "../Mesh/Gltf.hpp"
+#include "../Mesh/Rectangle.hpp"
 
 
 
@@ -26,6 +27,7 @@ public:
     
     std::vector<Camera*> m_cameras;
     std::vector<Gltf*> m_objects;
+    std::vector<Rectangle*> m_rectangles;
     
     Camera* m_activeCamera;
     
