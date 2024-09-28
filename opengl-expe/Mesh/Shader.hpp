@@ -14,6 +14,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../Backend/VAO.hpp"
+#include "../Backend/VBO.hpp"
+
 
 class Shader{
    
@@ -28,7 +31,7 @@ public:
     GLuint ID;
     
     //Attributes
-    void setAttribute(const char* attributeName, int attrNumber, int stride, void* ptr);
+    void setAttribute(VAO& vao, VBO& vbo, const char* attributeName, int attrNumber, int stride, void* ptr);
         
     //Uniforms
     void setVec3(const std::string& name, float x, float y, float z);

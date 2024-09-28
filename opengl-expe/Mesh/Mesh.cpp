@@ -44,8 +44,6 @@ void Mesh::loadShader(const std::string& vertShader, const std::string& fragShad
     const char* cFragName = fragName.c_str();
     
     shader = new Shader(cVertShader, cFragShader, cFragName);
-
-    shader->loadProgram();
     
     //map out the VAO data into our shader
     shader->use();
@@ -57,10 +55,11 @@ void Mesh::loadShader(const std::string& vertShader, const std::string& fragShad
      3: uv          (vec2)
      our reference point is the Vertex structure
      */
-    shader->setAttribute("position", (int) m_vertices.size(), 3, nullptr);
-    shader->setAttribute("normal", (int) m_vertices.size(), 3, (void*)( 3 * m_vertices.size()));
-    shader->setAttribute("color", (int) m_vertices.size(), 3, (void*)( 6 * m_vertices.size()));
-    shader->setAttribute("uv", (int) m_vertices.size(), 2, (void*)( 9 * m_vertices.size()));
+    
+    shader->setAttribute(m_vao, m_vbo, "position", 3, sizeof(Vertex), (void*) 0);
+    shader->setAttribute(m_vao, m_vbo, "normal", 3, sizeof(Vertex), (void*)( 3 * sizeof(float)));
+    shader->setAttribute(m_vao, m_vbo, "color", 3, sizeof(Vertex), (void*)( 6 *  sizeof(float)));
+    shader->setAttribute(m_vao, m_vbo, "uv", 2, sizeof(Vertex), (void*)( 9 * sizeof(float)));
     
 }
 
@@ -74,9 +73,10 @@ void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::qu
     shader->use();
     m_vao.bind();
     
-    //draw
-    //setup camera matrix
-   
+    shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
+    glm::mat4 tr = Transform::translate(0.0f, 1.2f, 1.2f);
+    shader->setMatrix4("model", tr);
+    
     glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
     m_vao.unbind();
     

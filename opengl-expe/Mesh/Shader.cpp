@@ -15,6 +15,7 @@
 Shader::Shader(const char* vertexShader, const char* fragmentShader, const char *fragName){
     loadVertexShader(vertexShader);
     loadFragmentShader(fragmentShader, fragName);
+    loadProgram();
 }
 
 Shader::~Shader(){}
@@ -113,28 +114,36 @@ void Shader::checkUseProgram(){
     if(activeProgram != ID) glUseProgram(ID);
 }
 
-void Shader::setAttribute(const char *attributeName, int attrNumber, int strIDe, void* pointer=nullptr){
-    //Shader attributes ("in") are set from the vertex array
-    
-    if(!ID){
-        std::cout << "No program has been found, make sure a program is loaded using the loadShader method" << std::endl;
-    }
-    
-    //use program if not already in use;
-    checkUseProgram();
-    
+void Shader::setAttribute(VAO& vao, VBO& vbo, const char *attributeName, int attrNumber, int strIDe, void* pointer=nullptr){
     /* Create a "Generic Vertex Attribute"
      An attribute (index) taht associates an index to a shader variable
      This Generic Attribute's Index needs to be equal to our shader variable Index
      [Shader > "position"] <= glVertexAttribPointer <=[Generic Vertex Attribute] => [VBO] <= [VAO]
             GPU                                                   CPU                GPU      CPU
-     This Generic Vertex Attribute is like a brIDge that's lnking the Vertex Shader to the VBO
+     This Generic Vertex Attribute is like a bridge that's lnking the Vertex Shader to the VBO
+     Shader attributes ("in") are set from the vertex array
      */
     
-    GLint attrName = glGetAttribLocation(ID, attributeName);
-    //Must enable an attribute before you can use it in a shader
-    glEnableVertexAttribArray(attrName);
-    glVertexAttribPointer(attrName, attrNumber, GL_FLOAT, GL_FALSE, strIDe, pointer);
+    if(!ID){
+        std::cout << "No program has been found, make sure a program is loaded using the loadShader method" << std::endl;
+    }
+    
+    vao.bind();
+    vbo.bind();
+    
+    //use program if not already in use;
+    checkUseProgram();
+    
+    GLint attrLocation = glGetAttribLocation(ID, attributeName);
+  
+    //Must enable an attribute before using it in a shader
+    glEnableVertexAttribArray(attrLocation);
+    glVertexAttribPointer(attrLocation, attrNumber, GL_FLOAT, GL_FALSE, strIDe, pointer);
+    
+    vao.unbind();
+    vbo.unbind();
+    
+    
 }
 
 void Shader::setVec3(const std::string &name, float x, float y, float z){
