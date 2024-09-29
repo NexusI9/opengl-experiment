@@ -28,3 +28,17 @@ void VBO::unbind(){
 void VBO::remove(){
     glDeleteBuffers(1, &ID);
 }
+
+int VBO::size(){
+    
+    glBindBuffer(GL_ARRAY_BUFFER, ID);
+
+    // Get size parameter.
+    int32_t bsize = 0;
+    glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &bsize);
+    
+    // Unbind VBO.
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    
+    return bsize;
+}

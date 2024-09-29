@@ -31,7 +31,7 @@ public:
     GLuint ID;
     
     //Attributes
-    void setAttribute(VAO& vao, VBO& vbo, const char* attributeName, int attrNumber, int stride, void* ptr);
+    void setAttribute(VAO& vao, VBO& vbo, const char* attributeName, int attrNumber, int stride, void* offset);
         
     //Uniforms
     void setVec3(const std::string& name, float x, float y, float z);

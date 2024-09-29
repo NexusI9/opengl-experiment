@@ -40,7 +40,7 @@ Rectangle::Rectangle() : BaseObject(Type::OBJECT){
         glm::vec2(0.0f,  0.0f),
         glm::vec2(1.0f,  0.0f),
         glm::vec2(1.0f,  1.0f),
-        glm::vec2(1.0f,  1.0f)
+        glm::vec2(0.0f,  1.0f)
     };
     
 
@@ -52,7 +52,8 @@ Rectangle::Rectangle() : BaseObject(Type::OBJECT){
         tempVertex.texUV = uv[i];
         m_vertices.push_back(tempVertex);
     }
-    
+
+
     
     m_elements = {0, 1, 2, 2, 3, 0};
     

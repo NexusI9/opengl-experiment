@@ -66,11 +66,12 @@ int Window::draw(Scene& scene){
             
         }
         
+        //refresh screen
+        glClear(GL_COLOR_BUFFER_BIT);
+        
         scene.draw();
         SDL_GL_SwapWindow(m_window);
         
-        //refresh screen
-        glClear(GL_COLOR_BUFFER_BIT);
         
     }
     

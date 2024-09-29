@@ -114,7 +114,7 @@ void Shader::checkUseProgram(){
     if(activeProgram != ID) glUseProgram(ID);
 }
 
-void Shader::setAttribute(VAO& vao, VBO& vbo, const char *attributeName, int attrNumber, int strIDe, void* pointer=nullptr){
+void Shader::setAttribute(VAO& vao, VBO& vbo, const char *attributeName, int attrNumber, int stride, void* offset=nullptr){
     /* Create a "Generic Vertex Attribute"
      An attribute (index) taht associates an index to a shader variable
      This Generic Attribute's Index needs to be equal to our shader variable Index
@@ -131,18 +131,13 @@ void Shader::setAttribute(VAO& vao, VBO& vbo, const char *attributeName, int att
     vao.bind();
     vbo.bind();
     
-    //use program if not already in use;
-    checkUseProgram();
-    
     GLint attrLocation = glGetAttribLocation(ID, attributeName);
-  
     //Must enable an attribute before using it in a shader
+    glVertexAttribPointer(attrLocation, attrNumber, GL_FLOAT, GL_FALSE, stride, offset);
     glEnableVertexAttribArray(attrLocation);
-    glVertexAttribPointer(attrLocation, attrNumber, GL_FLOAT, GL_FALSE, strIDe, pointer);
     
     vao.unbind();
-    vbo.unbind();
-    
+    vbo.unbind();    
     
 }
 

@@ -24,6 +24,7 @@ public:
     void bind();
     void unbind();
     void remove();
+    int size();
     
 };
 

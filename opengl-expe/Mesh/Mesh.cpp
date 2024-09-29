@@ -20,6 +20,14 @@ m_textures(textures){
     //Instantiate our buffers and array object and load data in it
     //We then proceed to layout the VAO data only when loading the Shader
     
+    /*for(Vertex& vertex : m_vertices){
+            Debugger::printVec3(vertex.position);
+            Debugger::printVec3(vertex.normal);
+            Debugger::printVec3(vertex.color);
+            Debugger::printVec2(vertex.texUV);
+            std::cout<<"\n"<<std::endl;
+    }*/
+    
     //Vertex Array Object (define how to interpret vbo data)
     m_vao.bind();
     
@@ -30,6 +38,8 @@ m_textures(textures){
     m_ebo.setData(m_elements);
     
     m_vao.unbind();
+    m_vbo.unbind();
+    m_ebo.unbind();
     
 };
 
@@ -46,7 +56,7 @@ void Mesh::loadShader(const std::string& vertShader, const std::string& fragShad
     shader = new Shader(cVertShader, cFragShader, cFragName);
     
     //map out the VAO data into our shader
-    shader->use();
+    
     /*
      By default we will the the following location order:
      0: position    (vec3)
@@ -60,7 +70,7 @@ void Mesh::loadShader(const std::string& vertShader, const std::string& fragShad
     shader->setAttribute(m_vao, m_vbo, "normal", 3, sizeof(Vertex), (void*)( 3 * sizeof(float)));
     shader->setAttribute(m_vao, m_vbo, "color", 3, sizeof(Vertex), (void*)( 6 *  sizeof(float)));
     shader->setAttribute(m_vao, m_vbo, "uv", 2, sizeof(Vertex), (void*)( 9 * sizeof(float)));
-    
+    shader->use();
 }
 
 void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::quat rotation, glm::vec3 scale){
@@ -72,11 +82,11 @@ void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::qu
     
     shader->use();
     m_vao.bind();
+    m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
     
-    shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
-    glm::mat4 tr = Transform::translate(0.0f, 1.2f, 1.2f);
-    shader->setMatrix4("model", tr);
-    
+    //shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
+    //glm::mat4 tr = Transform::translate(0.0f, 1.2f, 1.2f);
+    //shader->setMatrix4("model", tr);
     glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
     m_vao.unbind();
     
