@@ -29,7 +29,7 @@ public:
     std::vector<Gltf*> m_objects;
     std::vector<Rectangle*> m_rectangles;
     
-    Camera* m_activeCamera;
+    Camera* m_activeCamera = nullptr;
     
     void add(BaseObject* object);
     void setActiveCamera(Camera& camera);

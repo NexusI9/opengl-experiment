@@ -84,9 +84,9 @@ void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::qu
     m_vao.bind();
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
     
-    //shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
-    //glm::mat4 tr = Transform::translate(0.0f, 1.2f, 1.2f);
-    //shader->setMatrix4("model", tr);
+    shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
+    shader->setMatrix4("model", matrix);
+
     glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
     m_vao.unbind();
     

@@ -28,15 +28,16 @@ int main(int argc, const char * argv[]) {
     Window window(WINDOW_WIDTH, WINDOW_HEIGHT, (std::string)"openGL Experiment");
     window.init();
 
-    Camera camera(45.0f, (float) WINDOW_WIDTH / WINDOW_HEIGHT, 1.0f, 10.0f, 0);
-    //camera.lookAt(glm::vec3(2.2f, 1.2f, 1.2f), glm::vec3(0.0f));
-    camera.translate(glm::vec3(0.0f, 2.0f, 0.0f));
+    Camera camera(45.0f, (float) WINDOW_WIDTH / WINDOW_HEIGHT, 0.1f, 10.0f, 0);
+    camera.lookAt(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f));
+    //camera.translate(glm::vec3(0.0f, 0.0f, 0.0f));
     
-    //Gltf cube((ROOT_DIR+std::string("Assets/Models/cube.gltf")).c_str());
-    Rectangle rect;
+    Gltf cube((ROOT_DIR+std::string("Assets/Models/cube.gltf")).c_str());
+    //Rectangle rect;
     
     Scene scene;
-    scene.add(&rect);
+    scene.add(&camera);
+    scene.add(&cube);
     
     window.draw(scene);
     

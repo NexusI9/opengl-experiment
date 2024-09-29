@@ -44,6 +44,8 @@ void Scene::draw(){
         for(auto& object : m_rectangles){
             object->draw(*m_activeCamera);
         }
+    }else{
+        throw std::invalid_argument("No active camera where found, make sure to add at least one Camera object to the scene");
     }
 
     
