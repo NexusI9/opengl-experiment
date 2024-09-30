@@ -17,29 +17,41 @@ Window::Window(int w, int h, const std::string& t)
 void Window::init(){
     
     //Initialize SDL with SDLI_INIT_VIDEO bitfield (includes everything for opengl)
-    if(SDL_Init(SDL_INIT_EVERYTHING) < 0 ){
+    if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0 ){
         std::cout << "Could not initialize SDL, Error: " << SDL_GetError() << std::endl;
     }
     
-    //Forward compatibility for opengl 3.2
+    
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+    //SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+    //SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+    //SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,4);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    //SDL_GL_SetSwapInterval(1 /*VSYNC*/);
+    // enable double buffering (should be on by default)
+    //SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     
     //Create window/ "stencil buffer"
     m_window = SDL_CreateWindow((char *) m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_OPENGL);
     
     if(NULL == m_window){
         std::cout << "Window not created, Error: " << SDL_GetError() << std::endl;
+        return;
     }
     
     //Create OpenGL Context and link it to Window
     m_context = SDL_GL_CreateContext(m_window);
+    //SDL_GL_MakeCurrent(m_window, m_context);
     
     //GLEW init
     glewExperimental = GL_TRUE;
     glewInit();
+    
+    glViewport(0, 0, m_width, m_height);
+    glEnable(GL_DEPTH_TEST);
     
     //Clear color to black
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -48,31 +60,35 @@ void Window::init(){
 int Window::draw(Scene& scene){
     
     m_isOpen = true;
-    bool loop = true;
+    bool isRunning = true;
+
     
     //Main loop
-    while(loop){
+    while(isRunning){
+        
+        SDL_Event e;
         //Add event listener
-        if(SDL_PollEvent(&m_windowEvent)){
-            
-            switch (m_windowEvent.type) {
-                case SDL_QUIT:
-                    loop = false;
-                    break;
-                    
-                default:
-                    break;
+        while(SDL_PollEvent(&e)) {
+            switch (e.type) {
+                case SDL_QUIT:              isRunning = false;
+                case SDL_KEYDOWN:           isRunning = false;
+                //case SDL_MOUSEBUTTONDOWN:   isRunning = false;
+                break;
             }
-            
         }
         
         //refresh screen
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         scene.draw();
+        
+        GLenum err;
+        while ((err = glGetError()) != GL_NO_ERROR) {
+             std::cerr << "OpenGL error: " << err << std::endl;
+        }
+
         SDL_GL_SwapWindow(m_window);
-        
-        
+        SDL_Delay(60); //SDL_Delay pauses the execution.
     }
     
     m_isOpen = false;

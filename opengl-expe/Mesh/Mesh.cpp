@@ -76,16 +76,18 @@ void Mesh::loadShader(const std::string& vertShader, const std::string& fragShad
 void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::quat rotation, glm::vec3 scale){
 
     if(shader == nullptr){
-        Debugger::print("No shader were found, mesh won't be rendered.", MESH);
+        Debugger::print("No shader were found, mesh won't be rendered.", Verbose::Flag::MESH);
         return;
     }
     
     shader->use();
+    shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
+    shader->setMatrix4("model", matrix);
+    
     m_vao.bind();
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
     
-    shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
-    shader->setMatrix4("model", matrix);
+
 
     glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
     m_vao.unbind();

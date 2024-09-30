@@ -20,6 +20,8 @@ Gltf::Gltf(const char* path) : BaseObject(Type::OBJECT), m_path(path){
     
     traverseNode(0);
     
+    Debugger::print("Loading: ", Verbose::Flag::MESH);
+    
 }
 
 std::unordered_map<std::string, Texture*> Gltf::loadedTextures;
@@ -300,7 +302,7 @@ std::vector<Texture> Gltf::loadTextures(){
         std::string texPath = m_json["images"][i]["uri"];
         //Check if texture doesn't already exists
         if(loadedTextures.find(texPath) == loadedTextures.end()){
-            Debugger::print("Loading texture: " + texPath, TEXTURE);
+            Debugger::print("Loading texture: " + texPath, Verbose::Flag::TEXTURE);
             std::string texturePath = (dir+texPath).c_str();
             Texture* texture = new Texture(texturePath, slot++);
             textures.push_back(*texture);
@@ -316,8 +318,23 @@ std::vector<Texture> Gltf::loadTextures(){
 
 
 void Gltf::draw(Camera& camera){
+    
+    /*
+     
+     glm::mat4(1.0f),
+     glm::vec3(0.0f),
+     glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
+     glm::vec3(1.0f)
+     
+     if(node.mesh) node.mesh->draw(camera, node.matrix, node.translation, node.rotation, node.scale);
+     */
     for(NodeMesh& node : m_meshes){
-        if(node.mesh) node.mesh->draw(camera, node.matrix, node.translation, node.rotation, node.scale);
+        if(node.mesh) node.mesh->draw(camera,
+                                      glm::mat4(1.0f),
+                                      glm::vec3(0.0f),
+                                      glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
+                                      glm::vec3(1.0f)
+                                      );
         
     }
 }

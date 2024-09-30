@@ -35,7 +35,7 @@ private:
     int m_height;
     const std::string& m_title;
     
-    SDL_Event m_windowEvent;
+    //SDL_Event m_windowEvent;
     SDL_Window* m_window;
     SDL_GLContext m_context;
 };

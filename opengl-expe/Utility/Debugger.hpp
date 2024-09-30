@@ -14,22 +14,32 @@
 #include <string>
 #include <glm/glm.hpp>
 
-enum VerboseFlag{
-    NONE,
-    TEXTURE,
-    MESH,
-    VERTEX,
-    SHADER
+
+struct Verbose{
+    
+    enum class Flag{
+        NONE,
+        TEXTURE,
+        MESH,
+        VERTEX,
+        SHADER
+    };
+    
+    int integer(Verbose::Flag flag){
+        return static_cast<std::underlying_type<Verbose::Flag>::type>(flag);
+    }
+    
 };
+
 
 class Debugger{
 
 public:
     
     static bool printVerbose;
-    static VerboseFlag verboseFlag;
+    static Verbose::Flag verboseFlag;
     
-    static void print(const std::string& value, VerboseFlag flag = NONE);
+    static void print(const std::string& value, Verbose::Flag flag = Verbose::Flag::NONE);
     static void printVec3(glm::vec3& vector);
     static void printVec2(glm::vec2& vector);
     

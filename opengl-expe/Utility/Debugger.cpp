@@ -9,7 +9,7 @@
 
 bool Debugger::printVerbose = true;
 
-VerboseFlag Debugger::verboseFlag;
+Verbose::Flag Debugger::verboseFlag;
 
 const char* Debugger::m_verboseFlag[5] = {
     "ALL",
@@ -19,11 +19,11 @@ const char* Debugger::m_verboseFlag[5] = {
     "SHADER"
 };
 
-void Debugger::print(const std::string& value, VerboseFlag flag){
+void Debugger::print(const std::string& value, Verbose::Flag flag){
+
     if(printVerbose){
-        if(flag && verboseFlag != flag){
-                std::cout << "[" << m_verboseFlag[flag] << "] " << value << std::endl;
-            
+        if(static_cast<int>(verboseFlag) != static_cast<int>(flag)){
+                std::cout << "[" << m_verboseFlag[static_cast<int>(flag)] << "] " << value << std::endl;
         }else{
             std::cout << value << std::endl;
         }
