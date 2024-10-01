@@ -19,6 +19,8 @@ public:
     
     Texture(std::string& fullpath, unsigned int slot);
     void load();
+    void bind();
+    void unbind();
 
 private:
     

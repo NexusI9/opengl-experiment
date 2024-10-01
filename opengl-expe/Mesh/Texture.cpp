@@ -23,15 +23,19 @@ void Texture::load(){
     glGenTextures(1, &ID);
     
     if(m_slot > 31){
-        std::cout << "Texture slot out of bound, reassigned to 0 (GL_TEXTURE0)\n";
         m_slot = 0;
+        throw std::runtime_error("Texture slot out of bound ("+std::to_string(m_slot)+")");
     }
+    if(!picture){
+        throw std::runtime_error("Texture could not be loaded");
+    }
+    
     const GLenum slot = textureSlot[m_slot];
     //Assign texture to slot
     glActiveTexture(slot);
     
     //Make texture active (bind)
-    glBindTexture(GL_TEXTURE_2D, ID);
+    bind();
     
     //fillup texture buffer
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, picture->w, picture->h, 0, GL_RGB, GL_UNSIGNED_BYTE, picture->pixels);
@@ -47,6 +51,14 @@ void Texture::load(){
     glGenerateMipmap(GL_TEXTURE_2D);
     
     //unbind
-    glBindTexture(GL_TEXTURE_2D, 0);
+    unbind();
     
+}
+
+void Texture::bind(){
+    glBindTexture(GL_TEXTURE_2D, ID);
+}
+
+void Texture::unbind(){
+    glBindTexture(GL_TEXTURE_2D, 0);
 }

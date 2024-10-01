@@ -296,7 +296,7 @@ std::vector<Texture> Gltf::loadTextures(){
     
     std::string pathStr = (std::string) m_path;
     std::string dir = Utility::fileDir(pathStr);
-    
+
     unsigned int slot = 0;
     for(int i = 0; i < m_json["images"].size(); i++){
         std::string texPath = m_json["images"][i]["uri"];
@@ -305,7 +305,11 @@ std::vector<Texture> Gltf::loadTextures(){
             Debugger::print("Loading texture: " + texPath, Verbose::Flag::TEXTURE);
             std::string texturePath = (dir+texPath).c_str();
             Texture* texture = new Texture(texturePath, slot++);
+            texture->load();
+            
+            //Add to Mesh array
             textures.push_back(*texture);
+            //Add to static cache array
             loadedTextures[texPath] = texture;
         }else{
             textures.push_back(*loadedTextures[texPath]);

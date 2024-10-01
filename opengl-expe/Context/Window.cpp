@@ -21,18 +21,11 @@ void Window::init(){
         std::cout << "Could not initialize SDL, Error: " << SDL_GetError() << std::endl;
     }
     
-    
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-    //SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
-    //SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-    //SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,4);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    //SDL_GL_SetSwapInterval(1 /*VSYNC*/);
-    // enable double buffering (should be on by default)
-    //SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     
     //Create window/ "stencil buffer"
     m_window = SDL_CreateWindow((char *) m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_OPENGL);

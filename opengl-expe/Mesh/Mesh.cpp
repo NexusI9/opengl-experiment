@@ -76,6 +76,13 @@ void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::qu
     shader->use();
     shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
     shader->setMatrix4("model", matrix);
+    
+    //Apply texture to shader
+    for(int t = 0; t < m_textures.size(); t++){
+        m_textures[t].bind();
+        shader->setSampler2D("texture"+std::to_string(t), t);
+        m_textures[t].unbind();
+    }
      
     
     m_vao.bind();

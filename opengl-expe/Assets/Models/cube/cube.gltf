@@ -56,8 +56,8 @@
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"512x512 Texel Density Texture 1",
-			"uri":"textures/512x512%20Texel%20Density%20Texture%201.png"
+			"name":"512x512-Texel-Density-Texture-5",
+			"uri":"textures/512x512-Texel-Density-Texture-5.png"
 		}
 	],
 	"accessors":[

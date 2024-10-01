@@ -44,7 +44,7 @@ private:
     
     std::vector<Vertex> m_vertices;
     std::vector<GLuint> m_elements;
-    std::vector<Texture>& m_textures;
+    std::vector<Texture> m_textures;
     
     VAO m_vao;
     VBO m_vbo;
