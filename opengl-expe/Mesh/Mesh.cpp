@@ -13,27 +13,19 @@
 #include "../Utility/Debugger.hpp"
 
 
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& elements, std::vector<Texture>& textures):
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> elements, std::vector<Texture> textures):
 m_vertices(vertices),
 m_elements(elements),
 m_textures(textures){
     //Instantiate our buffers and array object and load data in it
     //We then proceed to layout the VAO data only when loading the Shader
-    
-    /*for(Vertex& vertex : m_vertices){
-            Debugger::printVec3(vertex.position);
-            Debugger::printVec3(vertex.normal);
-            Debugger::printVec3(vertex.color);
-            Debugger::printVec2(vertex.texUV);
-            std::cout<<"\n"<<std::endl;
-    }*/
-    
+
     //Vertex Array Object (define how to interpret vbo data)
     m_vao.bind();
     
     //Vertex buffer Array (simply buffer the vertex data))
     m_vbo.setData(m_vertices);
-    
+
     //Elements array
     m_ebo.setData(m_elements);
     
@@ -48,7 +40,7 @@ Mesh::~Mesh(){
 }
 
 void Mesh::loadShader(const std::string& vertShader, const std::string& fragShader, const std::string& fragName){
-    
+        
     const char* cVertShader = vertShader.c_str();
     const char* cFragShader = fragShader.c_str();
     const char* cFragName = fragName.c_str();
@@ -71,27 +63,32 @@ void Mesh::loadShader(const std::string& vertShader, const std::string& fragShad
     shader->setAttribute(m_vao, m_vbo, "color", 3, sizeof(Vertex), (void*)( 6 *  sizeof(float)));
     shader->setAttribute(m_vao, m_vbo, "uv", 2, sizeof(Vertex), (void*)( 9 * sizeof(float)));
     shader->use();
+
 }
 
 void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::quat rotation, glm::vec3 scale){
-
+    
     if(shader == nullptr){
         Debugger::print("No shader were found, mesh won't be rendered.", Verbose::Flag::MESH);
         return;
     }
-    
+
     shader->use();
     shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
     shader->setMatrix4("model", matrix);
+     
     
     m_vao.bind();
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
-    
 
-
+    //std::cout<< m_elements.size() <<std::endl;
     glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
     m_vao.unbind();
     
+}
+
+std::vector<GLuint> Mesh::getIndices(){
+    return m_elements;
 }
 
 

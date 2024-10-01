@@ -32,12 +32,12 @@ int main(int argc, const char * argv[]) {
     camera.lookAt(glm::vec3(5.0f, 5.0f, 2.0f), glm::vec3(0.0f));
     //camera.translate(glm::vec3(0.0f, 0.0f, 0.0f));
     
-    //Gltf cube((ROOT_DIR+std::string("Assets/Models/cube.gltf")).c_str());
-    Rectangle rect;
+    Gltf cube((ROOT_DIR+std::string("Assets/Models/cube.gltf")).c_str());
+    //Rectangle rect;
     
     Scene scene;
     scene.add(&camera);
-    scene.add(&rect);
+    scene.add(&cube);
     
     window.draw(scene);
     

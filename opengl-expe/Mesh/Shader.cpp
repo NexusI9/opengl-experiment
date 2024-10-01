@@ -137,7 +137,7 @@ void Shader::setAttribute(VAO& vao, VBO& vbo, const char *attributeName, int att
     glEnableVertexAttribArray(attrLocation);
     
     vao.unbind();
-    vbo.unbind();    
+    vbo.unbind();
     
 }
 

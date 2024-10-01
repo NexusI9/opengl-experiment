@@ -50,9 +50,14 @@ void Window::init(){
     glewExperimental = GL_TRUE;
     glewInit();
     
-    glViewport(0, 0, m_width, m_height);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
     
+    glViewport(0, 0, m_width, m_height);
+
+    SDL_GL_SetSwapInterval(1);
     //Clear color to black
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
@@ -88,7 +93,6 @@ int Window::draw(Scene& scene){
         }
 
         SDL_GL_SwapWindow(m_window);
-        SDL_Delay(60); //SDL_Delay pauses the execution.
     }
     
     m_isOpen = false;

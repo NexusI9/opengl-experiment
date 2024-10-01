@@ -319,22 +319,8 @@ std::vector<Texture> Gltf::loadTextures(){
 
 void Gltf::draw(Camera& camera){
     
-    /*
-     
-     glm::mat4(1.0f),
-     glm::vec3(0.0f),
-     glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
-     glm::vec3(1.0f)
-     
-     if(node.mesh) node.mesh->draw(camera, node.matrix, node.translation, node.rotation, node.scale);
-     */
     for(NodeMesh& node : m_meshes){
-        if(node.mesh) node.mesh->draw(camera,
-                                      glm::mat4(1.0f),
-                                      glm::vec3(0.0f),
-                                      glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
-                                      glm::vec3(1.0f)
-                                      );
-        
+        if(node.mesh) node.mesh->draw(camera, node.matrix, node.translation, node.rotation, node.scale);
     }
+    
 }
