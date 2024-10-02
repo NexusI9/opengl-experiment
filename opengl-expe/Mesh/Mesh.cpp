@@ -81,7 +81,6 @@ void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::qu
     for(int t = 0; t < m_textures.size(); t++){
         m_textures[t].bind();
         shader->setSampler2D("texture"+std::to_string(t), t);
-        m_textures[t].unbind();
     }
      
     

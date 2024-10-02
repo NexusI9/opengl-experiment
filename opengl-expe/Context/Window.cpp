@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "Window.hpp"
+#include "../Utility/Constant.h"
 
 Window::Window(int w, int h, const std::string& t)
 : m_width(w), m_height(h), m_title(t){
@@ -26,6 +27,8 @@ void Window::init(){
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, MSAA_SAMPLING);
     
     //Create window/ "stencil buffer"
     m_window = SDL_CreateWindow((char *) m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_OPENGL);
@@ -43,6 +46,7 @@ void Window::init(){
     glewExperimental = GL_TRUE;
     glewInit();
     
+    glEnable(GL_MULTISAMPLE);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);

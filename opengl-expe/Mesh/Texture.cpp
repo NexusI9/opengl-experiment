@@ -10,6 +10,7 @@
 #include <iostream>
 #include "Texture.hpp"
 #include <GL/glew.h>
+#include "../Utility/Constant.h"
 
 
 Texture::Texture(std::string& fullpath, unsigned int slot):m_path((const char*)fullpath.c_str()), m_slot(slot){}
@@ -36,9 +37,14 @@ void Texture::load(){
     
     //Make texture active (bind)
     bind();
-    
+
     //fillup texture buffer
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, picture->w, picture->h, 0, GL_RGB, GL_UNSIGNED_BYTE, picture->pixels);
+    
+    //Enable multisample
+    //glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, MSAA_SAMPLING, GL_RGB, picture->w, picture->h, GL_TRUE);
+    //glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, ID, 0);
+
     
     //Set Wrapping
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
