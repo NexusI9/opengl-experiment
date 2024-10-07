@@ -11,10 +11,10 @@
 #include <stdio.h>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
-#include "./BaseObject.h"
+#include "./GameObject.hpp"
 
 
-class Camera : public BaseObject{
+class Camera {
 
 public:
     

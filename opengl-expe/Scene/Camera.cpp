@@ -12,7 +12,11 @@
 #include <iostream>
 
 Camera::Camera(float fov, float ratio, float nearPlane, float farPlane, GLuint bindingIndex):
-BaseObject(Type::CAMERA), m_fov(fov), m_ratio(ratio), m_nearPlane(nearPlane), m_farPlane(farPlane), m_matrixBindingIndex(bindingIndex){
+m_fov(fov),
+m_ratio(ratio),
+m_nearPlane(nearPlane),
+m_farPlane(farPlane),
+m_matrixBindingIndex(bindingIndex){
     
     //init projection matrix
     updateProjectionMatrix(fov, ratio, nearPlane, farPlane);

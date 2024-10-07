@@ -11,7 +11,7 @@
 #include "../Utility/Constant.h"
 
 
-Rectangle::Rectangle() : BaseObject(Type::OBJECT){
+Rectangle::Rectangle() : Loader(){
     
     std::vector<glm::vec3> positions{
         glm::vec3(-0.5f,  0.5f,   0.0f),
@@ -57,26 +57,14 @@ Rectangle::Rectangle() : BaseObject(Type::OBJECT){
     
     m_elements = {0, 1, 2, 2, 3, 0};
     
-    m_mesh = new Mesh(m_vertices, m_elements, m_textures);
+    m_meshes.push_back(new Mesh(m_vertices, m_elements, m_textures));
+    m_meshGroup = new MeshGroup(m_meshes);
     
     const std::string vertShaderPath = ROOT_DIR + "Shader/default.vert";
     const std::string fragShaderPath = ROOT_DIR + "Shader/default.frag";
     
-    m_mesh->loadShader(vertShaderPath, fragShaderPath, "outColor");
+    //m_mesh->loadShader(vertShaderPath, fragShaderPath, "outColor");
     
 }
 
 Rectangle::~Rectangle(){}
-
-
-
-void Rectangle::draw(Camera& camera){
-
-    if(m_mesh) m_mesh->draw(
-                            camera,
-                            glm::mat4(1.0f),
-                            glm::vec3(0.0f),
-                            glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
-                            glm::vec3(1.0f)
-                            );
-}

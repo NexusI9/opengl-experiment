@@ -6,19 +6,24 @@
 //
 
 #include "Gltf.hpp"
-#include "../Utility/Utility.hpp"
 #include <iostream>
+
+#include "../Utility/Utility.hpp"
 #include "../Utility/Debugger.hpp"
 #include "../Utility/Constant.h"
 
 
-Gltf::Gltf(const char* path) : BaseObject(Type::OBJECT), m_path(path){
+Gltf::Gltf(const char* path) : Loader(), m_path(path){
     
     std::string file = Utility::importFile(path);
     m_json = nlohmann::json::parse(file);
     m_data = getData();
     
+    //Generate Mesh
     traverseNode(0);
+    
+    //Create MeshGroup
+    m_meshGroup = new MeshGroup(m_meshes);
     
     Debugger::print("Loading: ", Verbose::Flag::MESH);
     
@@ -238,7 +243,8 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     if(node.find("mesh") != node.end()){
         nodeMesh.mesh = loadMesh(node["mesh"]);
         nodeMesh.matrix = nextNodeMatrix;
-        m_meshes.push_back(nodeMesh);
+        m_nodeMeshes.push_back(nodeMesh);
+        m_meshes.push_back(nodeMesh.mesh);
     }
     
     //Iterate through children
@@ -282,7 +288,7 @@ Mesh* Gltf::loadMesh(unsigned int meshIndex){
     const std::string vertShaderPath = ROOT_DIR + "Shader/default.vert";
     const std::string fragShaderPath = ROOT_DIR + "Shader/default.frag";
     
-    mesh->loadShader(vertShaderPath, fragShaderPath, "outColor");
+    //mesh->loadShader(vertShaderPath, fragShaderPath, "outColor");
     
     return mesh;
 }
@@ -317,14 +323,5 @@ std::vector<Texture> Gltf::loadTextures(){
     }
     
     return textures;
-    
-}
-
-
-void Gltf::draw(Camera& camera){
-    
-    for(NodeMesh& node : m_meshes){
-        if(node.mesh) node.mesh->draw(camera, node.matrix, node.translation, node.rotation, node.scale);
-    }
     
 }

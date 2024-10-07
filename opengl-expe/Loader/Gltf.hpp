@@ -14,13 +14,14 @@
 #include <glm/glm.hpp>
 
 #include "../Vendor/nlohmann/json.hpp"
-#include "Shader.hpp"
+#include "../Material/Texture.hpp"
+
 #include "../Scene/Camera.hpp"
-#include "Texture.hpp"
+#include "../Scene/GameObject.h"
+
+#include "Loader.h"
 #include "Vertex.h"
 #include "Mesh.hpp"
-#include "../Scene/BaseObject.h"
-
 
 
 struct NodeMesh{
@@ -32,13 +33,13 @@ struct NodeMesh{
 };
 
 
-class Gltf : public BaseObject{
+class Gltf : public Loader{
   
 public:
     Gltf(const char* path);
     
     static std::unordered_map<std::string, Texture*> loadedTextures;
-    void draw(Camera& camera);
+    
     //std::vector<Vertex>& getVertices();
     //std::vector<GLuint>& getIndices();
     //std::vector<Texture>& getTextures();
@@ -67,7 +68,7 @@ private:
     void traverseNode(unsigned int node, glm::mat4 matrix = glm::mat4(1.0f));
     
     Mesh* loadMesh(unsigned int meshIndex);
-    std::vector<NodeMesh> m_meshes;
+    std::vector<NodeMesh> m_nodeMeshes;
     
 };
 

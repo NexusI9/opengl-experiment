@@ -14,6 +14,7 @@
 
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> elements, std::vector<Texture> textures):
+GameObject(Type::OBJECT),
 m_vertices(vertices),
 m_elements(elements),
 m_textures(textures){
@@ -39,34 +40,7 @@ Mesh::~Mesh(){
     delete shader;
 }
 
-void Mesh::loadShader(const std::string& vertShader, const std::string& fragShader, const std::string& fragName){
-        
-    const char* cVertShader = vertShader.c_str();
-    const char* cFragShader = fragShader.c_str();
-    const char* cFragName = fragName.c_str();
-    
-    shader = new Shader(cVertShader, cFragShader, cFragName);
-    
-    //map out the VAO data into our shader
-    
-    /*
-     By default we will the the following location order:
-     0: position    (vec3)
-     1: normal      (vec3)
-     2: color       (vec3)
-     3: uv          (vec2)
-     our reference point is the Vertex structure
-     */
-    
-    shader->setAttribute(m_vao, m_vbo, "position", 3, sizeof(Vertex), (void*) 0);
-    shader->setAttribute(m_vao, m_vbo, "normal", 3, sizeof(Vertex), (void*)( 3 * sizeof(float)));
-    shader->setAttribute(m_vao, m_vbo, "color", 3, sizeof(Vertex), (void*)( 6 *  sizeof(float)));
-    shader->setAttribute(m_vao, m_vbo, "uv", 2, sizeof(Vertex), (void*)( 9 * sizeof(float)));
-    shader->use();
-
-}
-
-void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::quat rotation, glm::vec3 scale){
+void Mesh::draw(Camera &camera){
     
     if(shader == nullptr){
         Debugger::print("No shader were found, mesh won't be rendered.", Verbose::Flag::MESH);
@@ -75,7 +49,7 @@ void Mesh::draw(Camera &camera, glm::mat4 matrix, glm::vec3 translation, glm::qu
 
     shader->use();
     shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
-    shader->setMatrix4("model", matrix);
+    //shader->setMatrix4("model", matrix);
     
     //Apply texture to shader
     for(int t = 0; t < m_textures.size(); t++){

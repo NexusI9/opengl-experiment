@@ -13,10 +13,8 @@
 #include <glm/glm.hpp>
 
 #include "./Camera.hpp"
-#include "../Mesh/Gltf.hpp"
-#include "../Mesh/Rectangle.hpp"
-
-
+#include "../Mesh/Mesh.hpp"
+#include "../Mesh/MeshGroup.hpp"
 
 class Scene{
     
@@ -25,14 +23,12 @@ public:
     Scene();
     ~Scene();
     
-    std::vector<Camera*> m_cameras;
-    std::vector<Gltf*> m_objects;
-    std::vector<Rectangle*> m_rectangles;
+    std::vector<GameObject*> m_objects;
     
     Camera* m_activeCamera = nullptr;
     
-    void add(BaseObject* object);
-    void setActiveCamera(Camera& camera);
+    void add(GameObject* object);
+    void setCamera(Camera& camera);
     
     void draw();
     

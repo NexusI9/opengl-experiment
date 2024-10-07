@@ -12,27 +12,23 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "./Vertex.h"
-#include "./Mesh.hpp"
-#include "./Texture.hpp"
+#include "../Mesh/Vertex.h"
+#include "../Mesh/Mesh.hpp"
+#include "../Material/Texture.hpp"
 #include "../Scene/Camera.hpp"
-#include "../Scene/BaseObject.h"
+#include "./Loader.h"
 
 
-class Rectangle : public BaseObject{
+class Rectangle : public Loader{
     
 public:
     
     Rectangle();
     ~Rectangle();
     
-    void draw(Camera& camera);
-    
     std::vector<Vertex> m_vertices;
     std::vector<GLuint> m_elements;
     std::vector<Texture> m_textures;
-    
-    Mesh* m_mesh;
     
 };
 

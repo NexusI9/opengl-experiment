@@ -13,16 +13,20 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-#include "Vertex.h"
-#include "Shader.hpp"
-#include "Texture.hpp"
+#include "../Scene/GameObject.hpp"
+
+#include "./Vertex.h"
+#include "../Material/Shader.hpp"
+#include "../Material/Texture.hpp"
 #include "../Utility/Transform.hpp"
+#include "../Material/Material.hpp"
+
 #include "../Scene/Camera.hpp"
 #include "../Backend/VBO.hpp"
 #include "../Backend/VAO.hpp"
 #include "../Backend/EBO.hpp"
 
-class Mesh{
+class Mesh : public GameObject{
     
 public:
     
@@ -32,9 +36,7 @@ public:
     
     ~Mesh();
     
-    void loadShader(const std::string& vertShader, const std::string& fragShader, const std::string& fragName);
-    
-    void draw(Camera& camera, glm::mat4 matrix, glm::vec3 translation, glm::quat rotation, glm::vec3 scale);
+    void draw(Camera& camera);
     
     std::vector<GLuint> getIndices();
     
