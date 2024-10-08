@@ -10,7 +10,5 @@ out vec4 outColor;
 uniform sampler2D texture0;
 
 void main(){
-    //texture(tex, Uv) *
     outColor = texture(texture0, Uv) * vec4(1.0f,1.0f,1.0f, 1.0f);
-
 }

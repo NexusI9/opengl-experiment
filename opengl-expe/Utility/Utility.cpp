@@ -10,7 +10,7 @@
 #include <sstream>
 #include <iostream>
 
-std::string Utility::importFile(const char *path){
+std::string importFile(const char *path){
     
     std::ifstream file(path);
     if(!file) {
@@ -36,6 +36,6 @@ std::string Utility::importFile(const char *path){
 }
 
 
-std::string Utility::fileDir(std::string& path){
+std::string fileDir(std::string& path){
     return path.substr(0, path.find_last_of("/") + 1);
 }

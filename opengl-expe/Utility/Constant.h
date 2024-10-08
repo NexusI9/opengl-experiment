@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 
+
 const std::string ROOT_DIR = (std::string) getenv("HOME") + "/Documents/XCode/opengl/opengl-expe/";
 
 const int MSAA_SAMPLING = 4;

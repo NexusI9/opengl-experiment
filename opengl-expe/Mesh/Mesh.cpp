@@ -11,7 +11,7 @@
 #include "Mesh.hpp"
 #include "../Utility/Utility.hpp"
 #include "../Utility/Debugger.hpp"
-
+#include "../Utility/Template.h"
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> elements, std::vector<Texture> textures):
 GameObject(Type::OBJECT),
@@ -36,35 +36,30 @@ m_textures(textures){
     
 };
 
-Mesh::~Mesh(){
-    delete shader;
-}
+Mesh::~Mesh(){}
 
-void Mesh::draw(Camera &camera){
+void Mesh::draw(Camera& camera){
     
-    if(shader == nullptr){
-        Debugger::print("No shader were found, mesh won't be rendered.", Verbose::Flag::MESH);
+    if(!material){
+        Debugger::print("No Material were found, so mesh might be missing");
         return;
     }
-
-    shader->use();
-    shader->setUniformBlock("Camera", camera.getMatrixBindingIndex());
-    //shader->setMatrix4("model", matrix);
     
-    //Apply texture to shader
-    for(int t = 0; t < m_textures.size(); t++){
-        m_textures[t].bind();
-        shader->setSampler2D("texture"+std::to_string(t), t);
-    }
-     
+    material->draw(camera);
     
     m_vao.bind();
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
 
-    //std::cout<< m_elements.size() <<std::endl;
     glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
     m_vao.unbind();
+    m_ebo.unbind();
     
+}
+
+
+void Mesh::setMaterial(Material& mat){
+    material = &mat;
+    material->init(m_vao, m_vbo, m_vertices, m_textures);
 }
 
 std::vector<GLuint> Mesh::getIndices(){

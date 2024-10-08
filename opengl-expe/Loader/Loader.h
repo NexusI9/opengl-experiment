@@ -10,8 +10,8 @@
 
 #include <stdio.h>
 #include <vector>
-#include "Mesh.hpp"
-#include "MeshGroup.hpp"
+#include "../Mesh/Mesh.hpp"
+#include "../Mesh/MeshGroup.hpp"
 
 class Loader{
   

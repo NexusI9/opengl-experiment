@@ -17,11 +17,11 @@
 #include "../Material/Texture.hpp"
 
 #include "../Scene/Camera.hpp"
-#include "../Scene/GameObject.h"
+#include "../Scene/GameObject.hpp"
 
 #include "Loader.h"
-#include "Vertex.h"
-#include "Mesh.hpp"
+#include "../Mesh/Vertex.h"
+#include "../Mesh/Mesh.hpp"
 
 
 struct NodeMesh{

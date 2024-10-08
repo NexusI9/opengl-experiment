@@ -11,15 +11,14 @@
 #include <stdio.h>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
-#include "./GameObject.hpp"
-
 
 class Camera {
 
 public:
     
     Camera(float fov, float ratio, float nearPlane, float farPlane, GLuint bindingIndex);
-    
+    ~Camera(){};
+
     glm::mat4 getViewMatrix();
     glm::mat4 getProjectionMatrix();
     glm::mat4 getCombinedMatrix();

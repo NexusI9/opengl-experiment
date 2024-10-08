@@ -18,6 +18,7 @@
 #include "Loader/Gltf.hpp"
 #include "Loader/Rectangle.hpp"
 #include "Mesh/MeshGroup.hpp"
+#include "Material/BasicMaterial.hpp"
 
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
@@ -33,9 +34,10 @@ int main(int argc, const char * argv[]) {
     camera.lookAt(glm::vec3(5.0f, 5.0f, 2.0f), glm::vec3(0.0f));
     //camera.translate(glm::vec3(0.0f, 0.0f, 0.0f));
     
-    
-    Gltf cubeLoader((ROOT_DIR+std::string("Assets/Models/cube/cube.gltf")).c_str());
+    Gltf cubeLoader((std::string(ROOT_DIR+"Assets/Models/cube/cube.gltf")).c_str());
     MeshGroup* cubeMesh = cubeLoader.getMesh();
+    BasicMaterial cubeMat;
+    cubeMesh->setMaterial(cubeMat);
     
     //Rectangle rect;
     

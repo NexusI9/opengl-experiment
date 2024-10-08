@@ -9,7 +9,9 @@
 
 
 void MeshGroup::draw(Camera& camera){
-    
     for(Mesh* mesh : m_meshes) mesh->draw(camera);
+}
 
+void MeshGroup::setMaterial(Material& material){
+    for(Mesh* mesh : m_meshes) mesh->setMaterial(material);
 }

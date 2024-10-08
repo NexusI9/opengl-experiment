@@ -15,7 +15,7 @@
 
 Gltf::Gltf(const char* path) : Loader(), m_path(path){
     
-    std::string file = Utility::importFile(path);
+    std::string file = importFile(path);
     m_json = nlohmann::json::parse(file);
     m_data = getData();
     
@@ -37,9 +37,9 @@ std::vector<unsigned char> Gltf::getData(){
     std::string uri = m_json["buffers"][0]["uri"]; //gltf .bin uri
     
     std::string fileStr = std::string(m_path);
-    std::string dir = Utility::fileDir(fileStr);
+    std::string dir = fileDir(fileStr);
     
-    bytesText = Utility::importFile( (dir + uri).c_str() );
+    bytesText = importFile( (dir + uri).c_str() );
     std::vector<unsigned char> data(bytesText.begin(), bytesText.end());
     
     return data;
@@ -301,7 +301,7 @@ std::vector<Texture> Gltf::loadTextures(){
     std::vector<Texture> textures;
     
     std::string pathStr = (std::string) m_path;
-    std::string dir = Utility::fileDir(pathStr);
+    std::string dir = fileDir(pathStr);
 
     unsigned int slot = 0;
     for(int i = 0; i < m_json["images"].size(); i++){

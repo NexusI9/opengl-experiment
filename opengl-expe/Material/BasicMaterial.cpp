@@ -6,15 +6,16 @@
 //
 
 #include "BasicMaterial.hpp"
+#include "../Utility/Constant.h"
 
 
-void BasicMaterial::loadShader(const std::string &vertShader, const std::string &fragShader, const std::string &fragName) {
+void BasicMaterial::loadShader() {
 
-    const char* cVertShader = vertShader.c_str();
-    const char* cFragShader = fragShader.c_str();
-    const char* cFragName = fragName.c_str();
+    const std::string cVertShader = std::string(ROOT_DIR + "Material/Shader/default.vert");
+    const std::string cFragShader = std::string(ROOT_DIR + "Material/Shader/default.frag");
+    const std::string cFragName = "outColor";
     
-    m_shader = new Shader(cVertShader, cFragShader, cFragName);
+    m_shader = new Shader(cVertShader.c_str(), cFragShader.c_str(), cFragName.c_str());
     
     //map out the VAO data into our shader
     
@@ -26,10 +27,10 @@ void BasicMaterial::loadShader(const std::string &vertShader, const std::string 
      3: uv          (vec2)
      our reference point is the Vertex structure
      */
-    
-    m_shader->setAttribute(m_vao, m_vbo, "position", 3, sizeof(Vertex), (void*) 0);
-    m_shader->setAttribute(m_vao, m_vbo, "normal", 3, sizeof(Vertex), (void*)( 3 * sizeof(float)));
-    m_shader->setAttribute(m_vao, m_vbo, "color", 3, sizeof(Vertex), (void*)( 6 *  sizeof(float)));
-    m_shader->setAttribute(m_vao, m_vbo, "uv", 2, sizeof(Vertex), (void*)( 9 * sizeof(float)));
+
+    m_shader->setAttribute(*m_vao, *m_vbo, "position", 3, sizeof(Vertex), (void*) 0);
+    m_shader->setAttribute(*m_vao, *m_vbo, "normal", 3, sizeof(Vertex), (void*)( 3 * sizeof(float)));
+    m_shader->setAttribute(*m_vao, *m_vbo, "color", 3, sizeof(Vertex), (void*)( 6 *  sizeof(float)));
+    m_shader->setAttribute(*m_vao, *m_vbo, "uv", 2, sizeof(Vertex), (void*)( 9 * sizeof(float)));
     m_shader->use();
 }

@@ -36,11 +36,10 @@ public:
     
     ~Mesh();
     
-    void draw(Camera& camera);
+    void draw(Camera& camera) override;
+    void setMaterial(Material& material) override;
     
     std::vector<GLuint> getIndices();
-    
-    Shader* shader = nullptr; 
 
 private:
     
@@ -51,6 +50,8 @@ private:
     VAO m_vao;
     VBO m_vbo;
     EBO m_ebo;
+    
+    Material* material;
     
     GLenum m_usage;
     

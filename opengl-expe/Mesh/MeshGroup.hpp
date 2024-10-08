@@ -24,15 +24,14 @@ public:
         for(Mesh* mesh : m_meshes) delete mesh;
     };
     
-    std::vector<Mesh*> getMeshes(){ return m_meshes; };
+    std::vector<Mesh*> getMeshes(){ return m_meshes; }
     
-    void draw(Camera& camera);
+    void draw(Camera& camera) override;
+    void setMaterial(Material& material) override;
     
 private:
     
     std::vector<Mesh*> m_meshes;
-    
-    
     
 };
 

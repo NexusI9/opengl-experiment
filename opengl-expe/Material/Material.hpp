@@ -10,10 +10,12 @@
 
 #include <stdio.h>
 #include <string>
+#include "./Texture.hpp"
 #include "./Shader.hpp"
 #include "../Mesh/Vertex.h"
 #include "../Backend/VBO.hpp"
 #include "../Backend/VAO.hpp"
+#include "../Scene/Camera.hpp"
 
 /*
  A "Material" Object acts as a shader preset. Meaning that the directory may hold a Bunch of premade materials (BasicMaterial, CustomMaterial).
@@ -26,22 +28,31 @@ class Material{
     
 public:
     
-    Material(VAO& vao, VBO& vbo, std::vector<Vertex>& vertices): m_vao(vao), m_vbo(vbo), m_vertices(vertices){
-    };
-    
+    Material(){};
     ~Material(){
         delete m_shader;
     };
     
+    void init(VAO& vao, VBO& vbo, std::vector<Vertex>& vertices, std::vector<Texture>& textures){
+        m_vao = &vao;
+        m_vbo = &vbo;
+        m_vertices = &vertices;
+        m_textures = &textures;
+        
+        loadShader();
+    }
+    
+    void draw(Camera& camera);
+    
 protected:
     
-    VAO& m_vao;
-    VBO& m_vbo;
-    Shader* m_shader;
+    VAO* m_vao = nullptr;
+    VBO* m_vbo = nullptr;
+    Shader* m_shader = nullptr;
+    std::vector<Vertex>* m_vertices = nullptr;
+    std::vector<Texture>* m_textures = nullptr;
     
-    std::vector<Vertex>& m_vertices;
-    
-    virtual void loadShader(const std::string& vertShader, const std::string& fragShader, const std::string& fragName) = 0;
+    virtual void loadShader() = 0;
     
 };
 

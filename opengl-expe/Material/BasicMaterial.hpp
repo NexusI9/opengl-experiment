@@ -18,7 +18,7 @@ class BasicMaterial : public Material{
     
 public:
     
-    BasicMaterial(VAO& vao, VBO& vbo, std::vector<Vertex>& vertices) : Material(vao, vbo, vertices){};
+    BasicMaterial() : Material(){};
     ~BasicMaterial(){};
     
     void setDiffuseMap(Texture* map);
@@ -27,7 +27,10 @@ public:
     void setHeightMap(Texture* map);
     void setEmissiveColor(glm::vec3 color);
     
-    void loadShader(const std::string &vertShader, const std::string &fragShader, const std::string &fragName) override;
+    void init(VAO& vao, VBO& vbo, std::vector<Vertex>& vertices);
+ 
+protected:
+    void loadShader() override;
     
 private:
     

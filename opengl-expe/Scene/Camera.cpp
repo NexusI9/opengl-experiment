@@ -50,6 +50,7 @@ void Camera::updateProjectionMatrix(float fov, float ratio, float nearPlane, flo
 }
 
 
+
 glm::mat4 Camera::getViewMatrix(){
     return m_view;
 }

@@ -12,14 +12,8 @@
 #include <string>
 
 
-class Utility{
-    
-    
-public:
-    
-    static std::string importFile(const char* shaderFile);
-    static std::string fileDir(std::string& path);
-    
-};
+std::string importFile(const char* shaderFile);
+std::string fileDir(std::string& path);
+
 
 #endif /* Shader_hpp */
