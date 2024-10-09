@@ -18,7 +18,10 @@ class Model{
 public:
     
     Model(){};
-    virtual ~Model(){};
+    virtual ~Model(){
+        delete m_meshGroup;
+    };
+    
     MeshGroup* getMesh(){
         return m_meshGroup;
     };
@@ -26,7 +29,7 @@ public:
 protected:
     
     MeshGroup* m_meshGroup;
-    std::vector<Mesh*> m_meshes;
+    std::vector<Mesh> m_meshes;
     
 };
 

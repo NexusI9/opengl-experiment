@@ -241,10 +241,15 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     
     //Finally load mesh if exists
     if(node.find("mesh") != node.end()){
-        nodeMesh.mesh = loadMesh(node["mesh"]);
+        Mesh mesh = loadMesh(node["mesh"]);
+        
+        //Push to Node Mesh object
+        nodeMesh.mesh = new Mesh(mesh);
         nodeMesh.matrix = nextNodeMatrix;
         m_nodeMeshes.push_back(nodeMesh);
-        m_meshes.push_back(nodeMesh.mesh);
+        
+        //Push to MeshGroup object
+        m_meshes.push_back(mesh);
     }
     
     //Iterate through children
@@ -256,7 +261,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     
 }
 
-Mesh* Gltf::loadMesh(unsigned int meshIndex){
+Mesh Gltf::loadMesh(unsigned int meshIndex){
     
     //Get accessor indices
     unsigned int posAccInd = m_json["meshes"][meshIndex]["primitives"][0]["attributes"]["POSITION"];
@@ -281,16 +286,7 @@ Mesh* Gltf::loadMesh(unsigned int meshIndex){
     std::vector<Texture> textures = loadTextures();
     
     //init mesh
-    Mesh* mesh = new Mesh(vertices, indices, textures);
-    
-    //load shaders
-    //Setup our meshes collection and assign shader etc...
-    const std::string vertShaderPath = ROOT_DIR + "Shader/default.vert";
-    const std::string fragShaderPath = ROOT_DIR + "Shader/default.frag";
-    
-    //mesh->loadShader(vertShaderPath, fragShaderPath, "outColor");
-    
-    return mesh;
+    return Mesh(vertices, indices, textures);
 }
 
 

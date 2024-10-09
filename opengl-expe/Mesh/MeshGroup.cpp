@@ -9,13 +9,13 @@
 
 
 void MeshGroup::draw(Camera& camera){
-    for(Mesh* mesh : m_meshes) mesh->draw(camera);
+    for(Mesh& mesh : m_meshes) mesh.draw(camera);
 }
 
 void MeshGroup::setMaterial(Material& material){
-    for(Mesh* mesh : m_meshes) mesh->setMaterial(material);
+    for(Mesh& mesh : m_meshes) mesh.setMaterial(material);
 }
 
 void MeshGroup::setDrawMode(DrawMode mode){
-    for(Mesh* mesh : m_meshes) mesh->setDrawMode(mode);
+    for(Mesh& mesh : m_meshes) mesh.setDrawMode(mode);
 }

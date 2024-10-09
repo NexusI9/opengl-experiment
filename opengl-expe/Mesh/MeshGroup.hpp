@@ -20,12 +20,10 @@ class MeshGroup : public MeshBase{
     
 public:
     
-    MeshGroup(std::vector<Mesh*> meshes): m_meshes(meshes){};
-    ~MeshGroup(){
-        for(Mesh* mesh : m_meshes) delete mesh;
-    };
+    MeshGroup(std::vector<Mesh>& meshes): m_meshes(meshes){};
+    ~MeshGroup(){};
     
-    std::vector<Mesh*> getMeshes(){ return m_meshes; }
+    std::vector<Mesh>& getMeshes(){ return m_meshes; }
     
     void draw(Camera& camera) override;
     void setMaterial(Material& material) override;
@@ -33,7 +31,7 @@ public:
     
 private:
     
-    std::vector<Mesh*> m_meshes;
+    std::vector<Mesh>& m_meshes;
     
 };
 
