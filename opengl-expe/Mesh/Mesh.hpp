@@ -13,20 +13,19 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-#include "../Scene/GameObject.hpp"
-
 #include "./Vertex.h"
 #include "../Material/Shader.hpp"
 #include "../Material/Texture.hpp"
 #include "../Utility/Transform.hpp"
 #include "../Material/Material.hpp"
 
+#include "./MeshBase.h"
 #include "../Scene/Camera.hpp"
 #include "../Backend/VBO.hpp"
 #include "../Backend/VAO.hpp"
 #include "../Backend/EBO.hpp"
 
-class Mesh : public GameObject{
+class Mesh : public MeshBase{
     
 public:
     
@@ -36,10 +35,12 @@ public:
     
     ~Mesh();
     
+    std::vector<GLuint> getIndices();
+    
     void draw(Camera& camera) override;
     void setMaterial(Material& material) override;
+    void setDrawMode(DrawMode mode) override;
     
-    std::vector<GLuint> getIndices();
 
 private:
     

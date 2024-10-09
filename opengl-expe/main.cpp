@@ -15,8 +15,7 @@
 
 #include "Scene/Camera.hpp"
 #include "Scene/Scene.hpp"
-#include "Loader/Gltf.hpp"
-#include "Loader/Rectangle.hpp"
+#include "Model/Gltf.hpp"
 #include "Mesh/MeshGroup.hpp"
 #include "Material/BasicMaterial.hpp"
 
@@ -38,8 +37,6 @@ int main(int argc, const char * argv[]) {
     MeshGroup* cubeMesh = cubeLoader.getMesh();
     BasicMaterial cubeMat;
     cubeMesh->setMaterial(cubeMat);
-    
-    //Rectangle rect;
     
     Scene scene;
     scene.setCamera(camera);

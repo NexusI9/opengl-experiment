@@ -12,14 +12,15 @@
 #include <vector>
 
 #include "./Mesh.hpp"
-#include "../Scene/GameObject.hpp"
+#include "./MeshBase.h"
 #include "../Scene/Camera.hpp"
 
-class MeshGroup : public GameObject{
+
+class MeshGroup : public MeshBase{
     
 public:
     
-    MeshGroup(std::vector<Mesh*> meshes):GameObject(Type::OBJECT), m_meshes(meshes){};
+    MeshGroup(std::vector<Mesh*> meshes): m_meshes(meshes){};
     ~MeshGroup(){
         for(Mesh* mesh : m_meshes) delete mesh;
     };
@@ -28,6 +29,7 @@ public:
     
     void draw(Camera& camera) override;
     void setMaterial(Material& material) override;
+    void setDrawMode(DrawMode mode) override;
     
 private:
     

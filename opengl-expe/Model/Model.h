@@ -5,20 +5,20 @@
 //  Created by EL KHANTOUR Nassim on 05/10/2024.
 //
 
-#ifndef Loader_h
-#define Loader_h
+#ifndef Model_h
+#define Model_h
 
 #include <stdio.h>
 #include <vector>
 #include "../Mesh/Mesh.hpp"
 #include "../Mesh/MeshGroup.hpp"
 
-class Loader{
+class Model{
   
 public:
     
-    Loader(){};
-    virtual ~Loader(){};
+    Model(){};
+    virtual ~Model(){};
     MeshGroup* getMesh(){
         return m_meshGroup;
     };

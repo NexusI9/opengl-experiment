@@ -14,7 +14,6 @@
 #include "../Utility/Template.h"
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> elements, std::vector<Texture> textures):
-GameObject(Type::OBJECT),
 m_vertices(vertices),
 m_elements(elements),
 m_textures(textures){
@@ -60,6 +59,20 @@ void Mesh::draw(Camera& camera){
 void Mesh::setMaterial(Material& mat){
     material = &mat;
     material->init(m_vao, m_vbo, m_vertices, m_textures);
+}
+
+void Mesh::setDrawMode(DrawMode mode){
+    
+    if(mode == DrawMode::WIREFRAME){
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }else if(mode == DrawMode::DEFAULT){
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }else if(mode == DrawMode::DEBUGGER){
+        //Display points a cubes with index number and wireframes
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
+    
+    
 }
 
 std::vector<GLuint> Mesh::getIndices(){

@@ -16,10 +16,10 @@
 #include "../Mesh/Mesh.hpp"
 #include "../Material/Texture.hpp"
 #include "../Scene/Camera.hpp"
-#include "./Loader.h"
+#include "./Model.h"
 
 
-class Rectangle : public Loader{
+class Rectangle : public Model{
     
 public:
     

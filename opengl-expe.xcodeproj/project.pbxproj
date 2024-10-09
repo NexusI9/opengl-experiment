@@ -84,7 +84,7 @@
 		564A44172C82B4E70065D0C1 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../../../usr/local/Cellar/sdl2/2.30.6/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
 		564A441B2C82EB5C0065D0C1 /* Window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		564A441C2C82F4330065D0C1 /* Window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
-		564AFD842CB188BC0021161A /* Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Loader.h; sourceTree = "<group>"; };
+		564AFD842CB188BC0021161A /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		564B5E9A2CA03BDD00C3A1E3 /* VBO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VBO.cpp; sourceTree = "<group>"; };
 		564B5E9B2CA03BDD00C3A1E3 /* VBO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VBO.hpp; sourceTree = "<group>"; };
 		564B5E9D2CA054B900C3A1E3 /* VAO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VAO.cpp; sourceTree = "<group>"; };
@@ -102,11 +102,12 @@
 		5661A9F62C84235D002E52DA /* default.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = default.frag; sourceTree = "<group>"; };
 		5695ED442CA595CC00AF16D4 /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		5695ED452CA595CC00AF16D4 /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
-		5695ED472CA59E0300AF16D4 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
+		5695ED472CA59E0300AF16D4 /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		56B0943B2CA2FDE200293E4B /* Debugger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Debugger.cpp; sourceTree = "<group>"; };
 		56B0943C2CA2FDE200293E4B /* Debugger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Debugger.hpp; sourceTree = "<group>"; };
 		56C0240A2CAD8853004D3F6F /* BasicMaterial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BasicMaterial.cpp; sourceTree = "<group>"; };
 		56C0240B2CAD8853004D3F6F /* BasicMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BasicMaterial.hpp; sourceTree = "<group>"; };
+		56F09AB02CB6B84E005BC541 /* MeshBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBase.h; sourceTree = "<group>"; };
 		56F10FC92CB56ED200AD9FC4 /* Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,7 +134,7 @@
 				563F4C052C95380400AD7777 /* Camera.hpp */,
 				5695ED442CA595CC00AF16D4 /* Scene.cpp */,
 				5695ED452CA595CC00AF16D4 /* Scene.hpp */,
-				5695ED472CA59E0300AF16D4 /* GameObject.hpp */,
+				5695ED472CA59E0300AF16D4 /* GameObject.h */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -173,7 +174,7 @@
 		564A440C2C82AE3E0065D0C1 /* opengl-expe */ = {
 			isa = PBXGroup;
 			children = (
-				565D01232CB2C6DC00487774 /* Loader */,
+				565D01232CB2C6DC00487774 /* Model */,
 				56C024092CAD880F004D3F6F /* Material */,
 				564B5E992CA03BBF00C3A1E3 /* Backend */,
 				563F4C072C95606F00AD7777 /* Scene */,
@@ -211,16 +212,16 @@
 			path = Backend;
 			sourceTree = "<group>";
 		};
-		565D01232CB2C6DC00487774 /* Loader */ = {
+		565D01232CB2C6DC00487774 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				564AFD842CB188BC0021161A /* Loader.h */,
+				564AFD842CB188BC0021161A /* Model.h */,
 				5631D4FB2C9B97C800A99F30 /* Gltf.cpp */,
 				5631D4FC2C9B97C800A99F30 /* Gltf.hpp */,
 				561F08262CA82E2F007570EA /* Rectangle.cpp */,
 				561F08272CA82E2F007570EA /* Rectangle.hpp */,
 			);
-			path = Loader;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		5661A9F22C841F63002E52DA /* Context */ = {
@@ -240,6 +241,7 @@
 				562CB3162C9E5ED50081658C /* Vertex.h */,
 				5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */,
 				5618917E2CB40F1A004BCC55 /* MeshGroup.hpp */,
+				56F09AB02CB6B84E005BC541 /* MeshBase.h */,
 			);
 			path = Mesh;
 			sourceTree = "<group>";

@@ -11,7 +11,7 @@
 #include "../Utility/Constant.h"
 
 
-Rectangle::Rectangle() : Loader(){
+Rectangle::Rectangle(){
     
     std::vector<glm::vec3> positions{
         glm::vec3(-0.5f,  0.5f,   0.0f),

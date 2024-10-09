@@ -5,8 +5,8 @@
 //  Created by EL KHANTOUR Nassim on 26/09/2024.
 //
 
-#ifndef GameObject_hpp
-#define GameObject_hpp
+#ifndef GameObject_h
+#define GameObject_h
 
 #include "./Camera.hpp"
 #include "../Material/Material.hpp"
@@ -20,12 +20,11 @@ public:
         LIGHT,
         MATERIAL
     };
-    
+
     GameObject(Type t) : type(t){}
     virtual ~GameObject(){} //make class "polymorphic", for dynamic casting
     
     virtual void draw(Camera& camera) = 0;
-    virtual void setMaterial(Material& material) = 0;
     Type type;
 
 };

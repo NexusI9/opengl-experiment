@@ -17,9 +17,9 @@
 #include "../Material/Texture.hpp"
 
 #include "../Scene/Camera.hpp"
-#include "../Scene/GameObject.hpp"
+#include "../Scene/GameObject.h"
 
-#include "Loader.h"
+#include "Model.h"
 #include "../Mesh/Vertex.h"
 #include "../Mesh/Mesh.hpp"
 
@@ -33,7 +33,7 @@ struct NodeMesh{
 };
 
 
-class Gltf : public Loader{
+class Gltf : public Model{
   
 public:
     Gltf(const char* path);

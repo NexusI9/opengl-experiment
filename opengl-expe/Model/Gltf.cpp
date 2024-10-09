@@ -13,7 +13,7 @@
 #include "../Utility/Constant.h"
 
 
-Gltf::Gltf(const char* path) : Loader(), m_path(path){
+Gltf::Gltf(const char* path) : m_path(path){
     
     std::string file = importFile(path);
     m_json = nlohmann::json::parse(file);
