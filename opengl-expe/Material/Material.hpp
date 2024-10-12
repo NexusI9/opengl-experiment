@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <string>
+#include <glm/glm.hpp>
 #include "./Texture.hpp"
 #include "./Shader.hpp"
 #include "../Mesh/Vertex.h"
@@ -42,7 +43,8 @@ public:
         loadShader();
     }
     
-    void draw(Camera& camera);
+    
+    void draw(Camera& camera, glm::mat4 modelMatrix = glm::mat4(1.0f));
     
 protected:
     

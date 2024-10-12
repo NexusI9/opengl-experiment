@@ -35,12 +35,15 @@ public:
     
     ~Mesh();
     
-    std::vector<GLuint> getIndices();
+    std::vector<GLuint>& getIndices();
     
     void draw(Camera& camera) override;
     void setMaterial(Material& material) override;
     void setDrawMode(DrawMode mode) override;
     
+    void setPosition(float x, float y, float z) override;
+    void setScale(float x, float y, float z) override;
+    void setRotation(float degree, float x, float y, float z) override;
 
 private:
     

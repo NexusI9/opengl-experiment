@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <iostream>
 #include "../Utility/Constant.h"
+#include "../Mesh/MeshGroup.hpp"
 
 
 Rectangle::Rectangle(){

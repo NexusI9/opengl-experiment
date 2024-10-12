@@ -12,6 +12,8 @@
 #include "../Utility/Utility.hpp"
 #include "../Utility/Debugger.hpp"
 #include "../Utility/Template.h"
+#include "../Utility/Transform.hpp"
+
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> elements, std::vector<Texture> textures):
 m_vertices(vertices),
@@ -44,7 +46,7 @@ void Mesh::draw(Camera& camera){
         return;
     }
     
-    material->draw(camera);
+    material->draw(camera, m_modelMatrix);
     
     m_vao.bind();
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
@@ -66,6 +68,7 @@ void Mesh::setDrawMode(DrawMode mode){
     if(mode == DrawMode::WIREFRAME){
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }else if(mode == DrawMode::DEFAULT){
+        if(material) setMaterial(*material); //set back material
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }else if(mode == DrawMode::DEBUGGER){
         //Display points a cubes with index number and wireframes
@@ -75,7 +78,19 @@ void Mesh::setDrawMode(DrawMode mode){
     
 }
 
-std::vector<GLuint> Mesh::getIndices(){
+void Mesh::setPosition(float x, float y, float z){
+    setModelMatrix(Transform::translate(x, y, z));
+}
+
+void Mesh::setRotation(float degree, float x, float y, float z){
+    setModelMatrix(Transform::rotate(degree, x, y, z));
+}
+
+void Mesh::setScale(float x, float y, float z){
+    setModelMatrix(Transform::scale(x, y, z));
+}
+
+std::vector<GLuint>& Mesh::getIndices(){
     return m_elements;
 }
 

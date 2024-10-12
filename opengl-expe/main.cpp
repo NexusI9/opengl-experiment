@@ -37,7 +37,8 @@ int main(int argc, const char * argv[]) {
     MeshGroup* cubeMesh = cubeModel.getMesh();
     BasicMaterial cubeMat;
     cubeMesh->setMaterial(cubeMat);
-    cubeMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
+    cubeMesh->setScale(1.0f, 2.0f, 0.5f);
+    //cubeMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
     
     Scene scene;
     scene.setCamera(camera);
