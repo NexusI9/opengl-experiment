@@ -5,8 +5,8 @@
 //  Created by EL KHANTOUR Nassim on 04/10/2024.
 //
 
-#ifndef Material_hpp
-#define Material_hpp
+#ifndef MaterialBase_hpp
+#define MaterialBase_hpp
 
 #include <stdio.h>
 #include <string>
@@ -25,12 +25,12 @@
  Of course the "CustomMaterial" above may provide more flexibility.
  */
 
-class Material{
+class MaterialBase{
     
 public:
     
-    Material(){};
-    ~Material(){
+    MaterialBase(){};
+    ~MaterialBase(){
         delete m_shader;
     };
     
@@ -42,7 +42,6 @@ public:
         
         loadShader();
     }
-    
     
     void draw(Camera& camera, glm::mat4 modelMatrix = glm::mat4(1.0f));
     

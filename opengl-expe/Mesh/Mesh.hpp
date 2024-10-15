@@ -17,13 +17,15 @@
 #include "../Material/Shader.hpp"
 #include "../Material/Texture.hpp"
 #include "../Utility/Transform.hpp"
-#include "../Material/Material.hpp"
+#include "../Material/MaterialBase.hpp"
+#include "../Material/SolidMaterial.hpp"
 
 #include "./MeshBase.h"
 #include "../Scene/Camera.hpp"
 #include "../Backend/VBO.hpp"
 #include "../Backend/VAO.hpp"
 #include "../Backend/EBO.hpp"
+#include "../Utility/Color.h"
 
 class Mesh : public MeshBase{
     
@@ -33,12 +35,14 @@ public:
          std::vector<GLuint> elements,
          std::vector<Texture> textures);
     
-    ~Mesh();
+    ~Mesh(){
+        delete m_wireMaterial;
+    };
     
     std::vector<GLuint>& getIndices();
     
     void draw(Camera& camera) override;
-    void setMaterial(Material& material) override;
+    void setMaterial(MaterialBase& material) override;
     void setDrawMode(DrawMode mode) override;
     
     void setPosition(float x, float y, float z) override;
@@ -46,6 +50,11 @@ public:
     void setRotation(float degree, float x, float y, float z) override;
 
 private:
+    
+    SolidMaterial* m_wireMaterial = nullptr;
+    void setWireMaterial(glm::vec3 color = Color::Green);
+    
+    MaterialBase* material;
     
     std::vector<Vertex> m_vertices;
     std::vector<GLuint> m_elements;
@@ -55,7 +64,6 @@ private:
     VBO m_vbo;
     EBO m_ebo;
     
-    Material* material;
     
     GLenum m_usage;
     

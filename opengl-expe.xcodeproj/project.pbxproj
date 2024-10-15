@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5614DBA42CB02A920098B374 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5614DBA22CB02A920098B374 /* Material.cpp */; };
+		5614DBA42CB02A920098B374 /* MaterialBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5614DBA22CB02A920098B374 /* MaterialBase.cpp */; };
 		5618917F2CB40F1A004BCC55 /* MeshGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */; };
 		561C7AEE2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; };
 		561C7AEF2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -31,7 +31,6 @@
 		5661A9F12C841247002E52DA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5661A9F02C841247002E52DA /* main.cpp */; };
 		5695ED462CA595CC00AF16D4 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5695ED442CA595CC00AF16D4 /* Scene.cpp */; };
 		56B0943D2CA2FDE200293E4B /* Debugger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56B0943B2CA2FDE200293E4B /* Debugger.cpp */; };
-		56C0240C2CAD8853004D3F6F /* BasicMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C0240A2CAD8853004D3F6F /* BasicMaterial.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,13 +57,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5614DBA22CB02A920098B374 /* Material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
-		5614DBA32CB02A920098B374 /* Material.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Material.hpp; sourceTree = "<group>"; };
+		5614DBA22CB02A920098B374 /* MaterialBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialBase.cpp; sourceTree = "<group>"; };
+		5614DBA32CB02A920098B374 /* MaterialBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MaterialBase.hpp; sourceTree = "<group>"; };
 		5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshGroup.cpp; sourceTree = "<group>"; };
 		5618917E2CB40F1A004BCC55 /* MeshGroup.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshGroup.hpp; sourceTree = "<group>"; };
 		561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		561F08262CA82E2F007570EA /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
 		561F08272CA82E2F007570EA /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
+		562BD0E82CBABC8F005D7273 /* SolidMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SolidMaterial.hpp; sourceTree = "<group>"; };
+		562BD0E92CBABE0C005D7273 /* solid.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solid.frag; sourceTree = "<group>"; };
+		562BD0EA2CBABE40005D7273 /* solid.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solid.vert; sourceTree = "<group>"; };
 		562CB3162C9E5ED50081658C /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		5631D4FB2C9B97C800A99F30 /* Gltf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Gltf.cpp; sourceTree = "<group>"; };
 		5631D4FC2C9B97C800A99F30 /* Gltf.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gltf.hpp; sourceTree = "<group>"; };
@@ -105,10 +107,10 @@
 		5695ED472CA59E0300AF16D4 /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		56B0943B2CA2FDE200293E4B /* Debugger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Debugger.cpp; sourceTree = "<group>"; };
 		56B0943C2CA2FDE200293E4B /* Debugger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Debugger.hpp; sourceTree = "<group>"; };
-		56C0240A2CAD8853004D3F6F /* BasicMaterial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BasicMaterial.cpp; sourceTree = "<group>"; };
-		56C0240B2CAD8853004D3F6F /* BasicMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BasicMaterial.hpp; sourceTree = "<group>"; };
+		56C0240B2CAD8853004D3F6F /* DefaultMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DefaultMaterial.hpp; sourceTree = "<group>"; };
 		56F09AB02CB6B84E005BC541 /* MeshBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBase.h; sourceTree = "<group>"; };
 		56F10FC92CB56ED200AD9FC4 /* Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
+		56FCC72C2CBD447800B43654 /* Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +253,8 @@
 			children = (
 				5661A9F52C842349002E52DA /* default.vert */,
 				5661A9F62C84235D002E52DA /* default.frag */,
+				562BD0E92CBABE0C005D7273 /* solid.frag */,
+				562BD0EA2CBABE40005D7273 /* solid.vert */,
 			);
 			path = Shader;
 			sourceTree = "<group>";
@@ -268,6 +272,7 @@
 				56B0943C2CA2FDE200293E4B /* Debugger.hpp */,
 				56414CA02CA45B470094518B /* Constant.h */,
 				56F10FC92CB56ED200AD9FC4 /* Template.h */,
+				56FCC72C2CBD447800B43654 /* Color.h */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -278,12 +283,12 @@
 				5661A9F42C842286002E52DA /* Shader */,
 				564988B72C91CA0C007E0B33 /* Texture.cpp */,
 				564988B82C91CA0C007E0B33 /* Texture.hpp */,
-				56C0240A2CAD8853004D3F6F /* BasicMaterial.cpp */,
-				56C0240B2CAD8853004D3F6F /* BasicMaterial.hpp */,
+				56C0240B2CAD8853004D3F6F /* DefaultMaterial.hpp */,
+				562BD0E82CBABC8F005D7273 /* SolidMaterial.hpp */,
 				564CEB522C888AAF00A0869F /* Shader.cpp */,
 				564CEB532C888AAF00A0869F /* Shader.hpp */,
-				5614DBA22CB02A920098B374 /* Material.cpp */,
-				5614DBA32CB02A920098B374 /* Material.hpp */,
+				5614DBA22CB02A920098B374 /* MaterialBase.cpp */,
+				5614DBA32CB02A920098B374 /* MaterialBase.hpp */,
 			);
 			path = Material;
 			sourceTree = "<group>";
@@ -346,7 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5614DBA42CB02A920098B374 /* Material.cpp in Sources */,
+				5614DBA42CB02A920098B374 /* MaterialBase.cpp in Sources */,
 				56494CB22C94824B001E9CFA /* Transform.cpp in Sources */,
 				5661A9EF2C840910002E52DA /* Mesh.cpp in Sources */,
 				564B5E9F2CA054B900C3A1E3 /* VAO.cpp in Sources */,
@@ -356,7 +361,6 @@
 				563F4C062C95380400AD7777 /* Camera.cpp in Sources */,
 				564988B92C91CA0C007E0B33 /* Texture.cpp in Sources */,
 				5618917F2CB40F1A004BCC55 /* MeshGroup.cpp in Sources */,
-				56C0240C2CAD8853004D3F6F /* BasicMaterial.cpp in Sources */,
 				5695ED462CA595CC00AF16D4 /* Scene.cpp in Sources */,
 				564B5EA22CA058C100C3A1E3 /* EBO.cpp in Sources */,
 				56B0943D2CA2FDE200293E4B /* Debugger.cpp in Sources */,

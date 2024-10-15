@@ -26,7 +26,7 @@ public:
     std::vector<Mesh>& getMeshes(){ return m_meshes; }
     
     void draw(Camera& camera) override;
-    void setMaterial(Material& material) override;
+    void setMaterial(MaterialBase& material) override;
     void setDrawMode(DrawMode mode) override;
     
     void setPosition(float x, float y, float z) override;

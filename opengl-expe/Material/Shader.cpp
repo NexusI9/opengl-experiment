@@ -141,9 +141,9 @@ void Shader::setAttribute(VAO& vao, VBO& vbo, const char *attributeName, int att
     
 }
 
-void Shader::setVec3(const std::string &name, float x, float y, float z){
+void Shader::setVec3(const std::string &name, glm::vec3 vector){
     checkUniformLocation(name);
-    glUniform3f(m_uniformsLocations[name], x, y, z);
+    glUniform3fv(m_uniformsLocations[name], 1, glm::value_ptr(vector));
 }
 
 void Shader::setVec2(const std::string &name, float x, float y){

@@ -9,7 +9,7 @@
 #define MeshBase_h
 
 #include "../Scene/GameObject.h"
-#include"../Material/Material.hpp"
+#include"../Material/MaterialBase.hpp"
 #include <glm/glm.hpp>
 
 class MeshBase : public GameObject{
@@ -24,7 +24,7 @@ public:
         DEBUGGER
     };
     
-    virtual void setMaterial(Material& material) = 0;
+    virtual void setMaterial(MaterialBase& material) = 0;
     virtual void setDrawMode(DrawMode mode) = 0;
     
     virtual void setPosition(float x, float y, float z) = 0;

@@ -12,7 +12,7 @@ void MeshGroup::draw(Camera& camera){
     for(Mesh& mesh : m_meshes) mesh.draw(camera);
 }
 
-void MeshGroup::setMaterial(Material& material){
+void MeshGroup::setMaterial(MaterialBase& material){
     for(Mesh& mesh : m_meshes) mesh.setMaterial(material);
 }
 

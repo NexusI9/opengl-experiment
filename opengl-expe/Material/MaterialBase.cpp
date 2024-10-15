@@ -5,11 +5,11 @@
 //  Created by EL KHANTOUR Nassim on 04/10/2024.
 //
 
-#include "Material.hpp"
+#include "MaterialBase.hpp"
 #include "../Utility/Debugger.hpp"
 
 
-void Material::draw(Camera& camera, glm::mat4 modelMatrix){
+void MaterialBase::draw(Camera& camera, glm::mat4 modelMatrix){
     
     if(m_shader == nullptr){
         Debugger::print("No shader were found, mesh won't be rendered.", Verbose::Flag::MESH);

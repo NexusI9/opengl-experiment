@@ -9,7 +9,6 @@
 #define GameObject_h
 
 #include "./Camera.hpp"
-#include "../Material/Material.hpp"
 
 class GameObject{
     

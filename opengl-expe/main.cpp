@@ -17,7 +17,7 @@
 #include "Scene/Scene.hpp"
 #include "Model/Gltf.hpp"
 #include "Mesh/MeshGroup.hpp"
-#include "Material/BasicMaterial.hpp"
+#include "Material/DefaultMaterial.hpp"
 
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
@@ -35,10 +35,10 @@ int main(int argc, const char * argv[]) {
     
     Gltf cubeModel((std::string(ROOT_DIR+"Assets/Models/cube/cube.gltf")).c_str());
     MeshGroup* cubeMesh = cubeModel.getMesh();
-    BasicMaterial cubeMat;
+    DefaultMaterial cubeMat;
     cubeMesh->setMaterial(cubeMat);
     cubeMesh->setScale(1.0f, 2.0f, 0.5f);
-    //cubeMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
+    cubeMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
     
     Scene scene;
     scene.setCamera(camera);
