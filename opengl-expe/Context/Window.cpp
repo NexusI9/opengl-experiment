@@ -51,6 +51,7 @@ void Window::init(){
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
+    glEnable(GL_PROGRAM_POINT_SIZE);
     
     glViewport(0, 0, m_width, m_height);
 

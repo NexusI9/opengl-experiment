@@ -13,8 +13,8 @@
 #include <glm/glm.hpp>
 
 #include "./Camera.hpp"
-#include "../Mesh/Mesh.hpp"
-#include "../Mesh/MeshGroup.hpp"
+#include "./GameObject.h"
+
 
 class Scene{
     

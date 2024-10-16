@@ -42,7 +42,7 @@ m_textures(textures){
 void Mesh::draw(Camera& camera){
     
     if(!material){
-        Debugger::print("No Material were found, so mesh might be missing");
+        Debugger::print("No Material were found, some mesh might be missing");
         return;
     }
     
@@ -52,6 +52,8 @@ void Mesh::draw(Camera& camera){
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
 
     glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+    if(m_drawMode == DrawMode::DEBUGGER) glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+    
     m_vao.unbind();
     m_ebo.unbind();
     
@@ -63,8 +65,10 @@ void Mesh::setMaterial(MaterialBase& mat){
     material->init(m_vao, m_vbo, m_vertices, m_textures);
 }
 
-void Mesh::setDrawMode(DrawMode mode){
-
+void Mesh::setDrawMode(DrawMode mode, Scene* scene){
+    
+    m_drawMode = mode;
+    
     if(mode == DrawMode::WIREFRAME){
         setWireMaterial();
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -72,23 +76,36 @@ void Mesh::setDrawMode(DrawMode mode){
         if(material) setMaterial(*material); //set back material
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }else if(mode == DrawMode::DEBUGGER){
-        setWireMaterial();
-        //Display points a cubes with index number and wireframes
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        if(scene == nullptr){
+            std::cout << "A Scene need to be specified to draw Mesh in Debug Mode" << std::endl;
+            setDrawMode(DrawMode::DEFAULT);
+        }else{
+            setWireMaterial();
+            //Display points a cubes with index number and wireframes
+            //glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        }
     }
     
 }
 
 void Mesh::setPosition(float x, float y, float z){
+    m_position = glm::vec3(x,y,z);
     setModelMatrix(Transform::translate(x, y, z));
 }
 
 void Mesh::setRotation(float degree, float x, float y, float z){
+    m_rotation = glm::vec3(x,y,z);
     setModelMatrix(Transform::rotate(degree, x, y, z));
 }
 
 void Mesh::setScale(float x, float y, float z){
+    m_scale = glm::vec3(x,y,z);
     setModelMatrix(Transform::scale(x, y, z));
+}
+
+void Mesh::lookAt(float x, float y, float z){
+    setModelMatrix(Transform::lookAt(m_position, glm::vec3(x,y,z)));
 }
 
 std::vector<GLuint>& Mesh::getIndices(){
@@ -96,9 +113,8 @@ std::vector<GLuint>& Mesh::getIndices(){
 }
 
 void Mesh::setWireMaterial(glm::vec3 color){
-    if(m_wireMaterial == nullptr) m_wireMaterial = new SolidMaterial();
+    if(m_wireMaterial == nullptr) m_wireMaterial = new SolidMaterial(color);
     setMaterial(*m_wireMaterial);
-    m_wireMaterial->setColor(color);
 }
 
 

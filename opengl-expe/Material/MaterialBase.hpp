@@ -32,6 +32,10 @@ public:
     MaterialBase(){};
     ~MaterialBase(){
         delete m_shader;
+        /*delete m_vao;
+        delete m_vbo;
+        delete m_vertices;
+        delete m_textures;*/
     };
     
     void init(VAO& vao, VBO& vbo, std::vector<Vertex>& vertices, std::vector<Texture>& textures){

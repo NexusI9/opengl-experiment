@@ -14,18 +14,23 @@
 #include <vector>
 
 #include "./Vertex.h"
+
 #include "../Material/Shader.hpp"
 #include "../Material/Texture.hpp"
-#include "../Utility/Transform.hpp"
 #include "../Material/MaterialBase.hpp"
 #include "../Material/SolidMaterial.hpp"
 
 #include "./MeshBase.h"
+
 #include "../Scene/Camera.hpp"
+#include "../Scene/Scene.hpp"
+
 #include "../Backend/VBO.hpp"
 #include "../Backend/VAO.hpp"
 #include "../Backend/EBO.hpp"
+
 #include "../Utility/Color.h"
+#include "../Utility/Transform.hpp"
 
 class Mesh : public MeshBase{
     
@@ -43,11 +48,12 @@ public:
     
     void draw(Camera& camera) override;
     void setMaterial(MaterialBase& material) override;
-    void setDrawMode(DrawMode mode) override;
+    void setDrawMode(DrawMode mode, Scene* scene = nullptr) override;
     
     void setPosition(float x, float y, float z) override;
     void setScale(float x, float y, float z) override;
     void setRotation(float degree, float x, float y, float z) override;
+    void lookAt(float x, float y, float z) override;
 
 private:
     

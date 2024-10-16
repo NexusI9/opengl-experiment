@@ -7,7 +7,8 @@
 
 #include "Scene.hpp"
 #include <iostream>
-
+#include "../Mesh/Mesh.hpp"
+#include "../Mesh/MeshGroup.hpp"
 
 Scene::Scene(){}
 Scene::~Scene(){}
@@ -21,7 +22,7 @@ void Scene::add(GameObject* object){
      ------
      In this case, use RTTI define the type of object and push it into respectiv vectors
      */
-    
+
     if(Mesh* meshObj = dynamic_cast<Mesh*>(object)){
         m_objects.push_back(meshObj);
     }

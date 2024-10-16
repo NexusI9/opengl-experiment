@@ -16,8 +16,8 @@ void MeshGroup::setMaterial(MaterialBase& material){
     for(Mesh& mesh : m_meshes) mesh.setMaterial(material);
 }
 
-void MeshGroup::setDrawMode(DrawMode mode){
-    for(Mesh& mesh : m_meshes) mesh.setDrawMode(mode);
+void MeshGroup::setDrawMode(DrawMode mode, Scene* scene){
+    for(Mesh& mesh : m_meshes) mesh.setDrawMode(mode, scene);
 }
 
 void MeshGroup::setPosition(float x, float y, float z){
@@ -40,5 +40,16 @@ void MeshGroup::setScale(float x, float y, float z){
     for(Mesh& mesh : m_meshes){
         glm::mat4 meshMatrix = mesh.getModelMatrix();
         mesh.setModelMatrix(meshMatrix * Transform::scale(x, y, z));
+    };
+}
+
+
+void MeshGroup::lookAt(float x, float y, float z){
+    for(Mesh& mesh : m_meshes){
+        //get current mesh matrix
+        glm::mat4 meshMatrix = mesh.getModelMatrix();
+        glm::vec3 meshPosition = mesh.getPosition();
+        //multiply the original mesh position to the new one to not overriding it
+        mesh.setModelMatrix(meshMatrix * Transform::lookAt(meshPosition,glm::vec3(x,y,z)));
     };
 }

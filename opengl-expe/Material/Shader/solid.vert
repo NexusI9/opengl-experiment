@@ -10,6 +10,6 @@ layout(std140) uniform Camera{ //uniform block
 };
 
 void main(){
-
+    gl_PointSize = 12.0;
     gl_Position = projection * view * model * vec4(position, 1.0);
 }

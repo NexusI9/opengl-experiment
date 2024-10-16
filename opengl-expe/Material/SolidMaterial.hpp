@@ -15,9 +15,8 @@
 class SolidMaterial : public MaterialBase{
     
 public:
-    SolidMaterial(){}
+    SolidMaterial(glm::vec3 clr = Color::Green):color(clr){}
 
-    
     void setColor(glm::vec3 cl){
         if(m_shader == nullptr){ return; }
         color = cl;
@@ -38,6 +37,9 @@ protected:
         //map out the VAO data into our shader
         m_shader->setAttribute(*m_vao, *m_vbo, "position", 3, sizeof(Vertex), (void*) 0);
         m_shader->use();
+        
+        //Set material color
+        setColor(color);
     };
     
 private:

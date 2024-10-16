@@ -11,10 +11,10 @@
 #include <stdio.h>
 #include <vector>
 
-#include "./Mesh.hpp"
 #include "./MeshBase.h"
+#include "./Mesh.hpp"
 #include "../Scene/Camera.hpp"
-
+#include "../Scene/Scene.hpp"
 
 class MeshGroup : public MeshBase{
     
@@ -27,11 +27,12 @@ public:
     
     void draw(Camera& camera) override;
     void setMaterial(MaterialBase& material) override;
-    void setDrawMode(DrawMode mode) override;
+    void setDrawMode(DrawMode mode, Scene* scene = nullptr) override;
     
     void setPosition(float x, float y, float z) override;
     void setScale(float x, float y, float z) override;
     void setRotation(float degree, float x, float y, float z) override;
+    void lookAt(float x, float y, float z) override;
     
 private:
     

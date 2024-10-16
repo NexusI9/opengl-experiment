@@ -64,11 +64,13 @@ glm::mat4 Camera::getCombinedMatrix(){
 }
 
 void Camera::lookAt(glm::vec3 position, glm::vec3 target){
+    m_position = position;
     m_view = Transform::lookAt(position, target);
     updateMatrixUBO();
 }
 
 void Camera::translate(glm::vec3 position){
+    m_position = position;
     m_view = Transform::translate(position.x, position.y, position.z);
     updateMatrixUBO();
 }

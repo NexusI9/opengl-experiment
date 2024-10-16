@@ -19,6 +19,9 @@
 #include "Mesh/MeshGroup.hpp"
 #include "Material/DefaultMaterial.hpp"
 
+#include "Utility/Color.h"
+#include "Model/Rectangle.hpp"
+#include "Material/SolidMaterial.hpp"
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 
@@ -29,18 +32,19 @@ int main(int argc, const char * argv[]) {
     Window window(WINDOW_WIDTH, WINDOW_HEIGHT, (std::string)"openGL Experiment");
     window.init();
 
+    Scene scene;
+    
     Camera camera(45.0f, (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f, 0);
-    camera.lookAt(glm::vec3(5.0f, 5.0f, 2.0f), glm::vec3(0.0f));
-    //camera.translate(glm::vec3(0.0f, 0.0f, 0.0f));
+    camera.lookAt(glm::vec3(5.0f, 5.0f, 5.0f), glm::vec3(0.0f));
+
     
     Gltf cubeModel((std::string(ROOT_DIR+"Assets/Models/cube/cube.gltf")).c_str());
     MeshGroup* cubeMesh = cubeModel.getMesh();
     DefaultMaterial cubeMat;
     cubeMesh->setMaterial(cubeMat);
     cubeMesh->setScale(1.0f, 2.0f, 0.5f);
-    cubeMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
+    cubeMesh->setDrawMode(MeshBase::DrawMode::DEFAULT, &scene);
     
-    Scene scene;
     scene.setCamera(camera);
     scene.add(cubeMesh);
     

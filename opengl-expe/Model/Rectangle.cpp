@@ -44,7 +44,6 @@ Rectangle::Rectangle(){
         glm::vec2(0.0f,  1.0f)
     };
     
-
     for (size_t i = 0; i < positions.size(); ++i) {
         Vertex tempVertex;
         tempVertex.position = positions[i];
@@ -54,8 +53,6 @@ Rectangle::Rectangle(){
         m_vertices.push_back(tempVertex);
     }
 
-
-    
     m_elements = {0, 1, 2, 2, 3, 0};
     
     m_meshes.push_back(Mesh(m_vertices, m_elements, m_textures));
