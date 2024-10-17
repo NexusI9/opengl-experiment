@@ -36,7 +36,7 @@ m_textures(textures){
     m_vbo.unbind();
     m_ebo.unbind();
     
-    
+    setDrawMode(DrawMode::DEFAULT);
 };
 
 void Mesh::draw(Camera& camera){
@@ -47,11 +47,18 @@ void Mesh::draw(Camera& camera){
     m_vao.bind();
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
 
+    
     if(m_drawMode == DrawMode::POINTS){
+        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+    }else if(m_drawMode == DrawMode::WIREFRAME){
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDrawElements(GL_LINES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
     }else{
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
         if(m_drawMode == DrawMode::DEBUGGER){
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
             glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
         }
     }
@@ -71,18 +78,17 @@ void Mesh::setDrawMode(DrawMode mode){
     
     m_drawMode = mode;
     
-    if(mode == DrawMode::WIREFRAME){
-        setWireMaterial();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    }else if(mode == DrawMode::DEFAULT){
-        if(material) setMaterial(*material); //set back material
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }else if(mode == DrawMode::DEBUGGER){
-        setWireMaterial();
-        //Display points a cubes with index number and wireframes
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    }else if(mode == DrawMode::POINTS){
-        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+    switch(mode){
+        case DrawMode::WIREFRAME:
+        case DrawMode::DEBUGGER:
+        case DrawMode::POINTS:
+            setWireMaterial();
+            break;
+            
+        case DrawMode::DEFAULT:
+        default:
+            if(material) setMaterial(*material); //set back material
+            break;
     }
     
 }

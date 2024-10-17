@@ -41,15 +41,18 @@ void Debugger::printVec2(glm::vec2& vector){
 
 void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 color){
     
+    std::vector<glm::vec3> ray{start, end};
+    static Points line(ray);
+    
+    MeshGroup* lineMesh = line.getMesh();
+    lineMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
+    scene.add(lineMesh);
 }
 
 void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color){
     
     static Points points(pts);
     MeshGroup* pointMesh = points.getMesh();
-    
-    static SolidMaterial pointMat(color);
-    pointMesh->setMaterial(pointMat);
     
     pointMesh->setDrawMode(MeshBase::DrawMode::POINTS);
     scene.add(pointMesh);
