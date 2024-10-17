@@ -47,13 +47,17 @@ void Mesh::draw(Camera& camera){
     m_vao.bind();
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
 
-    
+    //Point drawing
     if(m_drawMode == DrawMode::POINTS){
         glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+        
+    //Wireframe drawing
     }else if(m_drawMode == DrawMode::WIREFRAME){
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glDrawElements(GL_LINES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+    
+    //Default + Debug drawing
     }else{
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
@@ -110,10 +114,6 @@ void Mesh::setScale(float x, float y, float z){
 
 void Mesh::lookAt(float x, float y, float z){
     setModelMatrix(Transform::lookAt(m_position, glm::vec3(x,y,z)));
-}
-
-std::vector<GLuint>& Mesh::getIndices(){
-    return m_elements;
 }
 
 void Mesh::setWireMaterial(glm::vec3 color){

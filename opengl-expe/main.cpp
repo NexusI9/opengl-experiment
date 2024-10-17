@@ -41,17 +41,7 @@ int main(int argc, const char * argv[]) {
     DefaultMaterial cubeMat;
     cubeMesh->setMaterial(cubeMat);
     cubeMesh->setScale(1.0f, 2.0f, 0.5f);
-    //cubeMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
     
-    std::vector<glm::vec3> points{
-        glm::vec3(0.3f, 1.0f, 0.3f),
-        glm::vec3(2.3f, 1.3f, 3.3f),
-        glm::vec3(2.3f, 1.0f, 0.3f),
-        glm::vec3(2.3f, 1.0f, 2.3f)
-    };
-    
-    Debugger::drawPoints(points, scene);
-    Debugger::drawRay(points[0], points[1], scene);
     scene.add(cubeMesh);
     
     window.draw(scene);

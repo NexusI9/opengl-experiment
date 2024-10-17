@@ -41,21 +41,28 @@ class Debugger{
 
 public:
     
+    ~Debugger(){
+        delete mesh;
+    }
+    
     static bool printVerbose;
     static Verbose::Flag verboseFlag;
     
     static void print(const std::string& value, Verbose::Flag flag = Verbose::Flag::NONE);
     static void printVec3(glm::vec3& vector);
     static void printVec2(glm::vec2& vector);
+    static void printMesh(Mesh& mesh);
     
     static void drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 color = Color::Green);
     static void drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color = Color::Green);
     static void drawMesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Scene& scene, glm::vec3 color = Color::Green);
     
+    static Mesh* mesh;
+    
 private:
     
     static const char* m_verboseFlag[5];
-    static MeshGroup* point(float scale = 0.3f);
+    
 };
 
 

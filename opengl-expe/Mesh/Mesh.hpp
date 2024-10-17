@@ -44,8 +44,6 @@ public:
         delete m_wireMaterial;
     };
     
-    std::vector<GLuint>& getIndices();
-    
     void draw(Camera& camera) override;
     void setMaterial(MaterialBase& material) override;
     void setDrawMode(DrawMode mode) override;
@@ -54,6 +52,10 @@ public:
     void setScale(float x, float y, float z) override;
     void setRotation(float degree, float x, float y, float z) override;
     void lookAt(float x, float y, float z) override;
+    
+    std::vector<Vertex>& getVertices(){ return m_vertices; };
+    std::vector<GLuint>& getIndices(){ return m_elements; };
+    std::vector<Texture>& getTextures(){ return m_textures; };
 
 private:
     
