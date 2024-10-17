@@ -22,11 +22,12 @@ public:
     enum class DrawMode{
         DEFAULT,
         WIREFRAME,
-        DEBUGGER
+        DEBUGGER,
+        POINTS
     };
     
     virtual void setMaterial(MaterialBase& material) = 0;
-    virtual void setDrawMode(DrawMode mode, Scene* scene = nullptr) = 0;
+    virtual void setDrawMode(DrawMode mode) = 0;
     
     virtual void setPosition(float x, float y, float z) = 0;
     virtual void setScale(float x, float y, float z) = 0;

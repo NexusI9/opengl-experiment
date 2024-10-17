@@ -48,9 +48,9 @@ public:
     static void printVec3(glm::vec3& vector);
     static void printVec2(glm::vec2& vector);
     
-    static void drawRay(glm::vec3 start, glm::vec3 end, Scene& scene);
-    static void drawPoint(glm::vec3 pt, Scene& scene);
-    static void drawMesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Scene& scene);
+    static void drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 color = Color::Green);
+    static void drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color = Color::Green);
+    static void drawMesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Scene& scene, glm::vec3 color = Color::Green);
     
 private:
     

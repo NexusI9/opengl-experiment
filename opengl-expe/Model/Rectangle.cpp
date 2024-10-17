@@ -59,5 +59,3 @@ Rectangle::Rectangle(){
     m_meshGroup = new MeshGroup(m_meshes);
     
 }
-
-Rectangle::~Rectangle(){}

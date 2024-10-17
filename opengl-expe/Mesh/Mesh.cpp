@@ -40,19 +40,21 @@ m_textures(textures){
 };
 
 void Mesh::draw(Camera& camera){
-    
-    if(!material){
-        Debugger::print("No Material were found, some mesh might be missing");
-        return;
-    }
-    
-    material->draw(camera, m_modelMatrix);
-    
+
+    if(material!=nullptr) material->draw(camera, m_modelMatrix);
+    else Debugger::print("No material set, some mesh will be missing");
+        
     m_vao.bind();
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
 
-    glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
-    if(m_drawMode == DrawMode::DEBUGGER) glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+    if(m_drawMode == DrawMode::POINTS){
+        glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+    }else{
+        glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+        if(m_drawMode == DrawMode::DEBUGGER){
+            glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+        }
+    }
     
     m_vao.unbind();
     m_ebo.unbind();
@@ -65,7 +67,7 @@ void Mesh::setMaterial(MaterialBase& mat){
     material->init(m_vao, m_vbo, m_vertices, m_textures);
 }
 
-void Mesh::setDrawMode(DrawMode mode, Scene* scene){
+void Mesh::setDrawMode(DrawMode mode){
     
     m_drawMode = mode;
     
@@ -76,15 +78,11 @@ void Mesh::setDrawMode(DrawMode mode, Scene* scene){
         if(material) setMaterial(*material); //set back material
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }else if(mode == DrawMode::DEBUGGER){
-        if(scene == nullptr){
-            std::cout << "A Scene need to be specified to draw Mesh in Debug Mode" << std::endl;
-            setDrawMode(DrawMode::DEFAULT);
-        }else{
-            setWireMaterial();
-            //Display points a cubes with index number and wireframes
-            //glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        }
+        setWireMaterial();
+        //Display points a cubes with index number and wireframes
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }else if(mode == DrawMode::POINTS){
+        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
     }
     
 }

@@ -27,7 +27,7 @@ public:
     
     void draw(Camera& camera) override;
     void setMaterial(MaterialBase& material) override;
-    void setDrawMode(DrawMode mode, Scene* scene = nullptr) override;
+    void setDrawMode(DrawMode mode) override;
     
     void setPosition(float x, float y, float z) override;
     void setScale(float x, float y, float z) override;

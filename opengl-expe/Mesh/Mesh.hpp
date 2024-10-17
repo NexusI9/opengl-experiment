@@ -48,7 +48,7 @@ public:
     
     void draw(Camera& camera) override;
     void setMaterial(MaterialBase& material) override;
-    void setDrawMode(DrawMode mode, Scene* scene = nullptr) override;
+    void setDrawMode(DrawMode mode) override;
     
     void setPosition(float x, float y, float z) override;
     void setScale(float x, float y, float z) override;
@@ -60,7 +60,7 @@ private:
     SolidMaterial* m_wireMaterial = nullptr;
     void setWireMaterial(glm::vec3 color = Color::Green);
     
-    MaterialBase* material;
+    MaterialBase* material = nullptr;
     
     std::vector<Vertex> m_vertices;
     std::vector<GLuint> m_elements;

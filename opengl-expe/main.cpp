@@ -19,9 +19,7 @@
 #include "Mesh/MeshGroup.hpp"
 #include "Material/DefaultMaterial.hpp"
 
-#include "Utility/Color.h"
-#include "Model/Rectangle.hpp"
-#include "Material/SolidMaterial.hpp"
+#include "Utility/Debugger.hpp"
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 
@@ -36,17 +34,25 @@ int main(int argc, const char * argv[]) {
     
     Camera camera(45.0f, (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f, 0);
     camera.lookAt(glm::vec3(5.0f, 5.0f, 5.0f), glm::vec3(0.0f));
-
+    scene.setCamera(camera);
     
     Gltf cubeModel((std::string(ROOT_DIR+"Assets/Models/cube/cube.gltf")).c_str());
     MeshGroup* cubeMesh = cubeModel.getMesh();
     DefaultMaterial cubeMat;
     cubeMesh->setMaterial(cubeMat);
     cubeMesh->setScale(1.0f, 2.0f, 0.5f);
-    cubeMesh->setDrawMode(MeshBase::DrawMode::DEFAULT, &scene);
+    cubeMesh->setDrawMode(MeshBase::DrawMode::DEFAULT);
     
-    scene.setCamera(camera);
-    scene.add(cubeMesh);
+    std::vector<glm::vec3> points{
+        glm::vec3(0.3f, 1.0f, 0.3f),
+        glm::vec3(2.3f, 1.3f, 3.3f),
+        glm::vec3(2.3f, 1.0f, 0.3f),
+        glm::vec3(2.3f, 1.0f, 2.3f)
+    };
+    
+    Debugger::drawPoints(points, scene);
+
+    //scene.add(cubeMesh);
     
     window.draw(scene);
     

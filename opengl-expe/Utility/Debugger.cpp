@@ -6,6 +6,7 @@
 //
 
 #include "Debugger.hpp"
+#include "../Model/Points.hpp"
 
 bool Debugger::printVerbose = true;
 
@@ -38,32 +39,22 @@ void Debugger::printVec2(glm::vec2& vector){
     std::cout << "x: " << vector.x << "\ty: " << vector.y << std::endl;
 }
 
-void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene){
+void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 color){
     
 }
 
-void Debugger::drawPoint(glm::vec3 pt, Scene& scene){
- 
+void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color){
+    
+    static Points points(pts);
+    MeshGroup* pointMesh = points.getMesh();
+    
+    static SolidMaterial pointMat(color);
+    pointMesh->setMaterial(pointMat);
+    
+    pointMesh->setDrawMode(MeshBase::DrawMode::POINTS);
+    scene.add(pointMesh);
 }
 
-void Debugger::drawMesh(std::vector<Vertex> &vertices, std::vector<GLuint> &indices, Scene& scene){
+void Debugger::drawMesh(std::vector<Vertex> &vertices, std::vector<GLuint> &indices, Scene& scene, glm::vec3 color){
     
-    MeshGroup* point = Debugger::point(3.0f);
-    //std::cout << sizeof(point) << std::endl;
-    scene.add(point);
-    
-}
-
-MeshGroup* Debugger::point(float scale){
-    
-    //Generate plane
-    static Rectangle rectangle;
-    MeshGroup* meshes = rectangle.getMesh();
-    
-    //Apply to plane texture
-    static SolidMaterial mat(Color::Green);
-    meshes->setMaterial(mat);
-    //meshes->setScale(scale, scale, scale);
-    
-    return meshes;
 }
