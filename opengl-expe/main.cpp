@@ -42,6 +42,15 @@ int main(int argc, const char * argv[]) {
     cubeMesh->setMaterial(cubeMat);
     cubeMesh->setScale(1.0f, 2.0f, 0.5f);
     
+
+    std::vector<glm::vec3> pts{
+        glm::vec3(0.3f, 2.0f, 3.0f),
+        glm::vec3(1.0f, 3.4f, 2.0f),
+        glm::vec3(-1.0f, 1.4f, -3.0f)
+    };
+    
+    Debugger::drawPoints(pts, scene);
+    
     scene.add(cubeMesh);
     
     window.draw(scene);

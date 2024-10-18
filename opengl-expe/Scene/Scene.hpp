@@ -9,7 +9,7 @@
 #define Scene_hpp
 
 #include <stdio.h>
-#include <vector>
+#include <unordered_map>
 #include <glm/glm.hpp>
 
 #include "./Camera.hpp"
@@ -23,14 +23,20 @@ public:
     Scene();
     ~Scene();
     
-    std::vector<GameObject*> m_objects;
+    std::unordered_map<int, GameObject*> m_objects;
     
     Camera* m_activeCamera = nullptr;
     
     void add(GameObject* object);
     void setCamera(Camera& camera);
+    void displayGrid(bool display);
     
     void draw();
+    void erase(int id);
+    
+private:
+    
+    int genObjectId(int id = 0);
     
 };
 

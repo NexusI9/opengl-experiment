@@ -91,14 +91,14 @@ void Shader::loadFragmentShader(const char* path, const char* fragName){
 
 void Shader::checkUniformLocation(const std::string& name){
     if(m_uniformsLocations.find(name) == m_uniformsLocations.end()){
-        //dIDn't find location, assign location to cache
+        //didn't find location, assign location to cache
         m_uniformsLocations[name] = glGetUniformLocation(ID, (GLchar*) name.c_str());
     }
 }
 
 void Shader::checkUniformBlockLocation(const std::string& name){
     if(m_uniformBlocksLocations.find(name) == m_uniformBlocksLocations.end()){
-        //dIDn't find location, assign location to cache
+        //didn't find location, assign location to cache
         m_uniformBlocksLocations[name] = glGetUniformBlockIndex(ID, (GLchar*) name.c_str());
     }
 }

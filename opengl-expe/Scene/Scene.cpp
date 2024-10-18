@@ -22,16 +22,27 @@ void Scene::add(GameObject* object){
      ------
      In this case, use RTTI define the type of object and push it into respectiv vectors
      */
-
+    
+    //Assign id for later referencing (erase..)
+    int id = genObjectId();
+    object->ID = id;
+    
+    //Push to global map
     if(Mesh* meshObj = dynamic_cast<Mesh*>(object)){
-        m_objects.push_back(meshObj);
+        m_objects[id] = meshObj;
     }
     if(MeshGroup* groupObj = dynamic_cast<MeshGroup*>(object)){
-        m_objects.push_back(groupObj);
-    }else{
+        m_objects[id] = groupObj;
+        std::cout << id << std::endl;
+    }
+    else{
         throw std::invalid_argument("Error while adding scene object, not a valid type");
     }
     
+}
+
+void Scene::erase(int id){
+    m_objects.erase( m_objects.find(id) );
 }
 
 void Scene::setCamera(Camera &camera){
@@ -41,13 +52,17 @@ void Scene::setCamera(Camera &camera){
 void Scene::draw(){
     
     if(m_activeCamera){
-        for(auto& object : m_objects){
-            object->draw(*m_activeCamera);
+        for(int i = 0; i < m_objects.size(); i++){
+            m_objects[i]->draw(*m_activeCamera);
         }
     }else{
         throw std::invalid_argument("No active camera where found, make sure to add at least one Camera object to the scene");
     }
-
     
+}
+
+int Scene::genObjectId(int id){
+    if(m_objects.find(id) != m_objects.end()) return genObjectId(++id);
+    return id;
 }
 

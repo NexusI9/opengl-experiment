@@ -32,6 +32,8 @@
 		5695ED462CA595CC00AF16D4 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5695ED442CA595CC00AF16D4 /* Scene.cpp */; };
 		56B0943D2CA2FDE200293E4B /* Debugger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56B0943B2CA2FDE200293E4B /* Debugger.cpp */; };
 		56C4E9CA2CC0047100F22DEF /* Points.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C4E9C82CC0047100F22DEF /* Points.cpp */; };
+		56F69D512CC15EB40070C722 /* Gizmos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F69D4F2CC15EB40070C722 /* Gizmos.cpp */; };
+		56F69D552CC15F060070C722 /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F69D532CC15F060070C722 /* Grid.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +77,8 @@
 		563F4C052C95380400AD7777 /* Camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
 		563F4C082C95655400AD7777 /* Clock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
 		563F4C092C95655400AD7777 /* Clock.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Clock.hpp; sourceTree = "<group>"; };
+		564005D12CC28922007FCDDC /* grid.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = grid.vert; sourceTree = "<group>"; };
+		564005D22CC28933007FCDDC /* grid.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = grid.frag; sourceTree = "<group>"; };
 		56414CA02CA45B470094518B /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		56494CAE2C948207001E9CFA /* libglm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglm.dylib; path = ../../../../../usr/local/Cellar/glm/1.0.1/lib/libglm.dylib; sourceTree = "<group>"; };
 		56494CB02C94824B001E9CFA /* Transform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
@@ -113,6 +117,10 @@
 		56C4E9C92CC0047100F22DEF /* Points.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Points.hpp; sourceTree = "<group>"; };
 		56F09AB02CB6B84E005BC541 /* MeshBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBase.h; sourceTree = "<group>"; };
 		56F10FC92CB56ED200AD9FC4 /* Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
+		56F69D4F2CC15EB40070C722 /* Gizmos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Gizmos.cpp; sourceTree = "<group>"; };
+		56F69D502CC15EB40070C722 /* Gizmos.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gizmos.hpp; sourceTree = "<group>"; };
+		56F69D532CC15F060070C722 /* Grid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Grid.cpp; sourceTree = "<group>"; };
+		56F69D542CC15F060070C722 /* Grid.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Grid.hpp; sourceTree = "<group>"; };
 		56FCC72C2CBD447800B43654 /* Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +148,10 @@
 				5695ED442CA595CC00AF16D4 /* Scene.cpp */,
 				5695ED452CA595CC00AF16D4 /* Scene.hpp */,
 				5695ED472CA59E0300AF16D4 /* GameObject.h */,
+				56F69D4F2CC15EB40070C722 /* Gizmos.cpp */,
+				56F69D502CC15EB40070C722 /* Gizmos.hpp */,
+				56F69D532CC15F060070C722 /* Grid.cpp */,
+				56F69D542CC15F060070C722 /* Grid.hpp */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -260,6 +272,8 @@
 				5661A9F62C84235D002E52DA /* default.frag */,
 				562BD0E92CBABE0C005D7273 /* solid.frag */,
 				562BD0EA2CBABE40005D7273 /* solid.vert */,
+				564005D12CC28922007FCDDC /* grid.vert */,
+				564005D22CC28933007FCDDC /* grid.frag */,
 			);
 			path = Shader;
 			sourceTree = "<group>";
@@ -360,6 +374,7 @@
 				56494CB22C94824B001E9CFA /* Transform.cpp in Sources */,
 				56C4E9CA2CC0047100F22DEF /* Points.cpp in Sources */,
 				5661A9EF2C840910002E52DA /* Mesh.cpp in Sources */,
+				56F69D512CC15EB40070C722 /* Gizmos.cpp in Sources */,
 				564B5E9F2CA054B900C3A1E3 /* VAO.cpp in Sources */,
 				564A441D2C82F4330065D0C1 /* Window.cpp in Sources */,
 				564B5E9C2CA03BDD00C3A1E3 /* VBO.cpp in Sources */,
@@ -367,6 +382,7 @@
 				563F4C062C95380400AD7777 /* Camera.cpp in Sources */,
 				564988B92C91CA0C007E0B33 /* Texture.cpp in Sources */,
 				5618917F2CB40F1A004BCC55 /* MeshGroup.cpp in Sources */,
+				56F69D552CC15F060070C722 /* Grid.cpp in Sources */,
 				5695ED462CA595CC00AF16D4 /* Scene.cpp in Sources */,
 				564B5EA22CA058C100C3A1E3 /* EBO.cpp in Sources */,
 				56B0943D2CA2FDE200293E4B /* Debugger.cpp in Sources */,

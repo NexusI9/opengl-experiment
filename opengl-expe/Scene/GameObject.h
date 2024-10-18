@@ -17,10 +17,12 @@ public:
     enum class Type{
         OBJECT,
         LIGHT,
-        MATERIAL
+        MATERIAL,
     };
 
+    int ID;
     GameObject(Type t) : type(t){}
+    
     virtual ~GameObject(){} //make class "polymorphic", for dynamic casting
     
     virtual void draw(Camera& camera) = 0;
