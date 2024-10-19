@@ -9,6 +9,7 @@
 #include <iostream>
 #include "../Mesh/Mesh.hpp"
 #include "../Mesh/MeshGroup.hpp"
+#include "../Utility/Debugger.hpp"
 
 
 void Scene::add(GameObject* object){
@@ -69,6 +70,7 @@ void Scene::showGrid(bool show){
         m_grid = new Grid(100.0f, 100.0f);
         MeshGroup* gridMesh = m_grid->getMesh();
         add(gridMesh);
+        
     }
 }
 

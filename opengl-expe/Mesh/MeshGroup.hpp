@@ -33,6 +33,18 @@ public:
     void setRotation(float degree, float x, float y, float z) override;
     void lookAt(float x, float y, float z) override;
     
+    void addChild(Mesh* mesh){
+        m_meshes.push_back(mesh);
+    }
+    
+    void transferChildren(MeshGroup* target){
+        for(Mesh* child : m_meshes) target->addChild(child);
+    }
+    
+    int size(){
+        return (int) m_meshes.size();
+    }
+    
 private:
     
     std::vector<Mesh*>& m_meshes;

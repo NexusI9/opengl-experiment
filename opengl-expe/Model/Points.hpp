@@ -17,7 +17,6 @@
 #include "../Mesh/Mesh.hpp"
 #include "../Material/Texture.hpp"
 #include "./Model.h"
-#include "../Scene/Scene.hpp"
 
 
 class Points : public Model{
