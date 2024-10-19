@@ -49,6 +49,8 @@ void Window::init(){
     glEnable(GL_MULTISAMPLE);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
     glEnable(GL_PROGRAM_POINT_SIZE);

@@ -17,5 +17,7 @@ void main(){
     float edge_tone = 1.0; // 0.5 for the edge
     
     uv = sign(vec2(edge) - mod(Uv, size));
-    outColor = vec4(face_tone - sign(uv.x + uv.y + 2.0) * (face_tone - edge_tone));
+    vec4 pattern = vec4(face_tone - sign(uv.x + uv.y + 1.0) * (face_tone - edge_tone));
+    vec4 color = vec4(color, 1.0);
+    outColor = color * pattern;
 }
