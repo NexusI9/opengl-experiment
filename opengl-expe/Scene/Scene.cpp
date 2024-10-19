@@ -66,7 +66,7 @@ int Scene::genObjectId(int id){
 void Scene::showGrid(bool show){
     delete m_grid;
     if(show == true){
-        m_grid = new Grid();
+        m_grid = new Grid(100.0f, 100.0f);
         MeshGroup* gridMesh = m_grid->getMesh();
         add(gridMesh);
     }

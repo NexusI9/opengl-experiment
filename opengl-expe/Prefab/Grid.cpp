@@ -18,18 +18,17 @@ MeshGroup* Grid::getMesh(){
     gridMesh->setScale(m_scale, m_scale, m_scale);
     
     m_material = new SolidMaterial(
-                               Color::Cyan,
-                               std::string(ROOT_DIR + "Material/Shader/grid.vert"),
-                               std::string(ROOT_DIR + "Material/Shader/grid.frag")
-                                   );
+                                   Color::Grey,
+                                   std::string(ROOT_DIR + "Material/Shader/grid.vert"),
+                                   std::string(ROOT_DIR + "Material/Shader/grid.frag")
+                                );
 
     gridMesh->setMaterial(*m_material);
 
     Shader* shader = m_material->getShader();
-    if(shader){
-        shader->setInt("division", 20);
-        shader->setFloat("thickness", 32.0f);
-    }
+    shader->setInt("division", m_division);
+    shader->setFloat("gridScale", m_scale);
+    shader->setFloat("thickness", m_thickness);
     
     return gridMesh;
 }

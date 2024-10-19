@@ -24,6 +24,7 @@ public:
     static constexpr glm::vec3 Magenta   =   glm::vec3(1.0f, 0.0f, 1.0f);
     static constexpr glm::vec3 White     =   glm::vec3(1.0f, 1.0f, 1.0f);
     static constexpr glm::vec3 Black     =   glm::vec3(0.0f, 0.0f, 0.0f);
+    static constexpr glm::vec3 Grey     =    glm::vec3(0.5f, 0.5f, 0.5f);
     
 };
 
