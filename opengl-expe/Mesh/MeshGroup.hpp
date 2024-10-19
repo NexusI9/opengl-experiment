@@ -14,16 +14,15 @@
 #include "./MeshBase.h"
 #include "./Mesh.hpp"
 #include "../Scene/Camera.hpp"
-#include "../Scene/Scene.hpp"
 
 class MeshGroup : public MeshBase{
     
 public:
     
-    MeshGroup(std::vector<Mesh>& meshes): m_meshes(meshes){};
+    MeshGroup(std::vector<Mesh*>& meshes): m_meshes(meshes){};
     ~MeshGroup(){};
     
-    std::vector<Mesh>& getMeshes(){ return m_meshes; }
+    std::vector<Mesh*>& getMeshes(){ return m_meshes; }
     
     void draw(Camera& camera) override;
     void setMaterial(MaterialBase& material) override;
@@ -36,7 +35,7 @@ public:
     
 private:
     
-    std::vector<Mesh>& m_meshes;
+    std::vector<Mesh*>& m_meshes;
     
 };
 

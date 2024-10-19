@@ -41,6 +41,7 @@ protected:
         
         //map out the VAO data into our shader
         m_shader->setAttribute(*m_vao, *m_vbo, "position", 3, sizeof(Vertex), (void*) 0);
+        m_shader->setAttribute(*m_vao, *m_vbo, "uv", 2, sizeof(Vertex), (void*)( 9 * sizeof(float)));
         m_shader->use();
         
         //Set material color

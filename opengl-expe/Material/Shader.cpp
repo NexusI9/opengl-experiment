@@ -141,6 +141,16 @@ void Shader::setAttribute(VAO& vao, VBO& vbo, const char *attributeName, int att
     
 }
 
+void Shader::setInt(const std::string &name, int value){
+    checkUniformLocation(name);
+    glUniform1i(m_uniformsLocations[name], value);
+}
+
+void Shader::setFloat(const std::string &name, float value){
+    checkUniformLocation(name);
+    glUniform1f(m_uniformsLocations[name], value);
+}
+
 void Shader::setVec3(const std::string &name, glm::vec3 vector){
     checkUniformLocation(name);
     glUniform3fv(m_uniformsLocations[name], 1, glm::value_ptr(vector));

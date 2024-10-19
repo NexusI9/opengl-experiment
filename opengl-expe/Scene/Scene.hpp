@@ -12,16 +12,21 @@
 #include <unordered_map>
 #include <glm/glm.hpp>
 
+
 #include "./Camera.hpp"
 #include "./GameObject.h"
+#include "../Mesh/MeshGroup.hpp"
+#include "../Prefab/Grid.hpp"
 
 
 class Scene{
     
 public:
     
-    Scene();
-    ~Scene();
+    Scene() = default;
+    ~Scene(){
+        delete m_grid;
+    };
     
     std::unordered_map<int, GameObject*> m_objects;
     
@@ -29,7 +34,7 @@ public:
     
     void add(GameObject* object);
     void setCamera(Camera& camera);
-    void displayGrid(bool display);
+    void showGrid(bool show);
     
     void draw();
     void erase(int id);
@@ -37,6 +42,7 @@ public:
 private:
     
     int genObjectId(int id = 0);
+    Grid* m_grid = nullptr;
     
 };
 

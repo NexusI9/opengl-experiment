@@ -241,15 +241,13 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     
     //Finally load mesh if exists
     if(node.find("mesh") != node.end()){
-        Mesh mesh = loadMesh(node["mesh"]);
-        
         //Push to Node Mesh object
-        nodeMesh.mesh = new Mesh(mesh);
+        nodeMesh.mesh = loadMesh(node["mesh"]);
         nodeMesh.matrix = nextNodeMatrix;
         m_nodeMeshes.push_back(nodeMesh);
         
         //Push to MeshGroup object
-        m_meshes.push_back(mesh);
+        m_meshes.push_back(nodeMesh.mesh);
     }
     
     //Iterate through children
@@ -261,7 +259,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     
 }
 
-Mesh Gltf::loadMesh(unsigned int meshIndex){
+Mesh* Gltf::loadMesh(unsigned int meshIndex){
     
     //Get accessor indices
     unsigned int posAccInd = m_json["meshes"][meshIndex]["primitives"][0]["attributes"]["POSITION"];
@@ -286,7 +284,7 @@ Mesh Gltf::loadMesh(unsigned int meshIndex){
     std::vector<Texture> textures = loadTextures();
     
     //init mesh
-    return Mesh(vertices, indices, textures);
+    return new Mesh(vertices, indices, textures);
 }
 
 

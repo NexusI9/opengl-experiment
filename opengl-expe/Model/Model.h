@@ -19,6 +19,9 @@ public:
     
     Model(){};
     virtual ~Model(){
+        //dispose inner Mesh
+        for(auto& mesh : m_meshGroup->getMeshes()) delete mesh;
+        //dispose global meshgroup
         delete m_meshGroup;
     };
     
@@ -29,7 +32,9 @@ public:
 protected:
     
     MeshGroup* m_meshGroup;
-    std::vector<Mesh> m_meshes;
+    
+    //"root" so no use reference vector to keep original generated Mesh in memory
+    std::vector<Mesh*> m_meshes;
     
 };
 

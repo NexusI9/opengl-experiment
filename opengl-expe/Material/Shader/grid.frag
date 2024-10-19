@@ -1,9 +1,21 @@
 #version 330 core
 
+in vec2 Uv;
+
 out vec4 outColor;
 
 uniform vec3 color;
+uniform int division;
+uniform float thickness;
 
 void main(){
-    outColor = vec4(color, 1.0f);
+    
+    vec2 uv = Uv;
+    float size = 1.0/division;   // size of the tile
+    float edge = size/thickness; // size of the edge
+    float face_tone = 0.0; // 0.9 for the face of the tile
+    float edge_tone = 1.0; // 0.5 for the edge
+    
+    uv = sign(vec2(edge) - mod(Uv, size));
+    outColor = vec4(face_tone - sign(uv.x + uv.y + 2.0) * (face_tone - edge_tone));
 }

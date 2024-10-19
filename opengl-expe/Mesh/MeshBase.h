@@ -8,10 +8,10 @@
 #ifndef MeshBase_h
 #define MeshBase_h
 
-#include "../Scene/GameObject.h"
-#include "../Scene/Scene.hpp"
-#include"../Material/MaterialBase.hpp"
 #include <glm/glm.hpp>
+
+#include "../Scene/GameObject.h"
+#include"../Material/MaterialBase.hpp"
 
 class MeshBase : public GameObject{
     
@@ -61,7 +61,6 @@ protected:
     glm::vec3 m_scale = glm::vec3(1.0f);
     glm::vec3 m_rotation = glm::vec3(1.0f);
     DrawMode m_drawMode = DrawMode::DEFAULT;
-
     
 };
 

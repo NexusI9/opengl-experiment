@@ -52,7 +52,8 @@ int main(int argc, const char * argv[]) {
     Debugger::drawPoints(pts, scene);
     
     scene.add(cubeMesh);
-    
+    scene.showGrid(true);
+
     window.draw(scene);
     
     return 0;

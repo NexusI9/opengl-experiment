@@ -29,7 +29,7 @@ class MaterialBase{
     
 public:
     
-    MaterialBase(){};
+    MaterialBase() = default;
     ~MaterialBase(){
         delete m_shader;
         /*delete m_vao;
@@ -48,6 +48,8 @@ public:
     }
     
     void draw(Camera& camera, glm::mat4 modelMatrix = glm::mat4(1.0f));
+    
+    Shader* getShader(){ return m_shader; }
     
 protected:
     

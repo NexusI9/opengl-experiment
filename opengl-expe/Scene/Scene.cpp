@@ -10,8 +10,6 @@
 #include "../Mesh/Mesh.hpp"
 #include "../Mesh/MeshGroup.hpp"
 
-Scene::Scene(){}
-Scene::~Scene(){}
 
 void Scene::add(GameObject* object){
     
@@ -33,7 +31,6 @@ void Scene::add(GameObject* object){
     }
     if(MeshGroup* groupObj = dynamic_cast<MeshGroup*>(object)){
         m_objects[id] = groupObj;
-        std::cout << id << std::endl;
     }
     else{
         throw std::invalid_argument("Error while adding scene object, not a valid type");
@@ -64,5 +61,14 @@ void Scene::draw(){
 int Scene::genObjectId(int id){
     if(m_objects.find(id) != m_objects.end()) return genObjectId(++id);
     return id;
+}
+
+void Scene::showGrid(bool show){
+    delete m_grid;
+    if(show == true){
+        m_grid = new Grid();
+        MeshGroup* gridMesh = m_grid->getMesh();
+        add(gridMesh);
+    }
 }
 

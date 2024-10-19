@@ -23,7 +23,6 @@
 #include "./MeshBase.h"
 
 #include "../Scene/Camera.hpp"
-#include "../Scene/Scene.hpp"
 
 #include "../Backend/VBO.hpp"
 #include "../Backend/VAO.hpp"

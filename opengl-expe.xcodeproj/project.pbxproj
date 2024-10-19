@@ -150,8 +150,6 @@
 				5695ED472CA59E0300AF16D4 /* GameObject.h */,
 				56F69D4F2CC15EB40070C722 /* Gizmos.cpp */,
 				56F69D502CC15EB40070C722 /* Gizmos.hpp */,
-				56F69D532CC15F060070C722 /* Grid.cpp */,
-				56F69D542CC15F060070C722 /* Grid.hpp */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -191,6 +189,7 @@
 		564A440C2C82AE3E0065D0C1 /* opengl-expe */ = {
 			isa = PBXGroup;
 			children = (
+				56B09B992CC3857000438C91 /* Prefab */,
 				565D01232CB2C6DC00487774 /* Model */,
 				56C024092CAD880F004D3F6F /* Material */,
 				564B5E992CA03BBF00C3A1E3 /* Backend */,
@@ -294,6 +293,15 @@
 				56FCC72C2CBD447800B43654 /* Color.h */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		56B09B992CC3857000438C91 /* Prefab */ = {
+			isa = PBXGroup;
+			children = (
+				56F69D532CC15F060070C722 /* Grid.cpp */,
+				56F69D542CC15F060070C722 /* Grid.hpp */,
+			);
+			path = Prefab;
 			sourceTree = "<group>";
 		};
 		56C024092CAD880F004D3F6F /* Material */ = {

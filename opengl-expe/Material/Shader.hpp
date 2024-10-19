@@ -34,9 +34,14 @@ public:
     void setAttribute(VAO& vao, VBO& vbo, const char* attributeName, int attrNumber, int stride, void* offset);
         
     //Uniforms
+    void setInt(const std::string& name, int value);
+    void setFloat(const std::string& name, float value);
+    
     void setVec3(const std::string& name, glm::vec3 vector);
     void setVec2(const std::string& name, float x, float y);
+    
     void setSampler2D(const std::string& name, int slot);
+    
     void setMatrix4(const std::string& name, glm::mat4 matrix);
     
     //Uniforms Block
