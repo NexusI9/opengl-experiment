@@ -12,7 +12,6 @@
 #include <unordered_map>
 #include <glm/glm.hpp>
 
-
 #include "./Camera.hpp"
 #include "./GameObject.h"
 #include "../Mesh/MeshGroup.hpp"
@@ -36,8 +35,10 @@ public:
     void setCamera(Camera& camera);
     void showGrid(bool show);
     
-    void draw();
-    void erase(int id);
+    void onDraw();
+    void onInput(SDL_Event& event);
+    
+    void deleteObject(int id);
     
 private:
     

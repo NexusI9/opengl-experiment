@@ -8,8 +8,12 @@
 #include "MeshGroup.hpp"
 #include "../Utility/Transform.hpp"
 
-void MeshGroup::draw(Camera& camera){
-    for(Mesh* mesh : m_meshes) mesh->draw(camera);
+void MeshGroup::onDraw(Camera& camera){
+    for(Mesh* mesh : m_meshes) mesh->onDraw(camera);
+}
+
+void MeshGroup::onInput(SDL_Event& event){
+    for(Mesh* mesh : m_meshes) mesh->onInput(event);
 }
 
 void MeshGroup::setMaterial(MaterialBase& material){

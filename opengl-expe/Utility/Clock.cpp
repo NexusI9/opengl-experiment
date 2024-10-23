@@ -24,7 +24,9 @@ std::chrono::steady_clock::time_point Clock::getCurrentTime(){
 
 float Clock::getDelta(){
     m_currentTime = std::chrono::high_resolution_clock::now();
-    return std::chrono::duration_cast<std::chrono::duration<float>>(m_currentTime - m_startTime).count();
+    float delta = std::chrono::duration_cast<std::chrono::duration<float>>(m_currentTime - m_lastTime).count();
+    m_lastTime = m_currentTime;
+    return delta;
 }
 
 

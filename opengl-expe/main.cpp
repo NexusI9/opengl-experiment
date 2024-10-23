@@ -32,8 +32,16 @@ int main(int argc, const char * argv[]) {
 
     Scene scene;
     
-    Camera camera(45.0f, (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f, 0);
-    camera.lookAt(glm::vec3(5.0f, 5.0f, 5.0f), glm::vec3(0.0f));
+    Camera camera({
+        .fov = 45.0f,
+        .ratio = (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT,
+        .nearPlane = 0.1f,
+        .farPlane = 100.0f,
+        .bindingIndex = 0
+    });
+    
+    camera.lookAt(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.0f));
+    //camera.translate(glm::vec3(2.0f, 2.0f, 2.0f));
     scene.setCamera(camera);
     
     Gltf cubeModel((std::string(ROOT_DIR+"Assets/Models/cube/cube.gltf")).c_str());

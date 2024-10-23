@@ -39,7 +39,7 @@ void Scene::add(GameObject* object){
     
 }
 
-void Scene::erase(int id){
+void Scene::deleteObject(int id){
     m_objects.erase( m_objects.find(id) );
 }
 
@@ -47,16 +47,30 @@ void Scene::setCamera(Camera &camera){
     m_activeCamera = &camera;
 }
 
-void Scene::draw(){
+void Scene::onDraw(){
     
     if(m_activeCamera){
-        for(int i = 0; i < m_objects.size(); i++){
-            m_objects[i]->draw(*m_activeCamera);
-        }
+        //Draw camera
+        m_activeCamera->onDraw();
+        
+        //Draw objects
+        for(int i = 0; i < m_objects.size(); i++) m_objects[i]->onDraw(*m_activeCamera);
+        
     }else{
         throw std::invalid_argument("No active camera where found, make sure to add at least one Camera object to the scene");
     }
     
+}
+
+void Scene::onInput(SDL_Event& event){
+    
+    //Update Camera input process
+    if(m_activeCamera) m_activeCamera->onInput(event);
+    
+    //Update Objects input process
+    for(int i = 0; i < m_objects.size(); i++){
+        m_objects[i]->onInput(event);
+    }
 }
 
 int Scene::genObjectId(int id){

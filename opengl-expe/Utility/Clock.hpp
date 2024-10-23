@@ -17,6 +17,7 @@ class Clock{
 public:
     
     Clock();
+    ~Clock(){};
     
     float getDelta();
     std::chrono::steady_clock::time_point getStartTime();
@@ -26,6 +27,7 @@ private:
     
     std::chrono::steady_clock::time_point m_startTime;
     std::chrono::steady_clock::time_point m_currentTime;
+    std::chrono::steady_clock::time_point m_lastTime;
     
     float timePointToFloat(std::chrono::steady_clock::time_point tp);
     

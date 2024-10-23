@@ -43,7 +43,9 @@ public:
         delete m_wireMaterial;
     };
     
-    void draw(Camera& camera) override;
+    void onDraw(Camera& camera) override;
+    void onInput(SDL_Event& event) override;
+    
     void setMaterial(MaterialBase& material) override;
     void setDrawMode(DrawMode mode) override;
     

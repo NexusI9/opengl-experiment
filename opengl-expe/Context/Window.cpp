@@ -9,6 +9,8 @@
 #include <iostream>
 #include "Window.hpp"
 #include "../Utility/Constant.h"
+#include "./Keyboard.hpp"
+#include "./Mouse.hpp"
 
 Window::Window(int w, int h, const std::string& t)
 : m_width(w), m_height(h), m_title(t){
@@ -66,26 +68,33 @@ int Window::draw(Scene& scene){
     
     m_isOpen = true;
     bool isRunning = true;
-
+    SDL_Event e;
     
     //Main loop
     while(isRunning){
-        
-        SDL_Event e;
         //Add event listener
         while(SDL_PollEvent(&e)) {
             switch (e.type) {
-                case SDL_QUIT:              isRunning = false;
-                case SDL_KEYDOWN:           isRunning = false;
-                //case SDL_MOUSEBUTTONDOWN:   isRunning = false;
+                case SDL_QUIT: isRunning = false;
                 break;
+                    
+                default:
+                //listen keyboard inputs
+                Keyboard::listen(e);
+                //listen mouse inputs
+                Mouse::listen(e);
             }
         }
+        
+        //Process scene input
+        scene.onInput(e);
+        
         
         //refresh screen
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        scene.draw();
+        //Process scene draw
+        scene.onDraw();
         
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR) {

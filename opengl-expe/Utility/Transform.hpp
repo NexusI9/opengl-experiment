@@ -25,6 +25,9 @@ public:
     
 private:
     
+    /**
+            Use and 4x4 identity Matrix to translate Vector3 to Mat4 so easier to combine and multiply in vertex shader
+     */
     static constexpr glm::mat4 m_identityMatrix = glm::mat4(1.0f);
     Transform() = delete; //prevent instantiation
     

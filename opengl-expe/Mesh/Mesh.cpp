@@ -39,9 +39,9 @@ m_textures(textures){
     setDrawMode(DrawMode::DEFAULT);
 };
 
-void Mesh::draw(Camera& camera){
+void Mesh::onDraw(Camera& camera){
 
-    if(material!=nullptr) material->draw(camera, m_modelMatrix);
+    if(material!=nullptr) material->onDraw(camera, m_modelMatrix);
     else Debugger::print("No material set, some mesh will be missing");
         
     m_vao.bind();
@@ -69,6 +69,10 @@ void Mesh::draw(Camera& camera){
     
     m_vao.unbind();
     m_ebo.unbind();
+    
+}
+
+void Mesh::onInput(SDL_Event& event){
     
 }
 

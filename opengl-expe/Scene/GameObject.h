@@ -8,8 +8,10 @@
 #ifndef GameObject_h
 #define GameObject_h
 
+#include <SDL2/SDL.h>
 #include "./Camera.hpp"
 
+//Abstract GameObject class
 class GameObject{
     
 public:
@@ -25,7 +27,9 @@ public:
     
     virtual ~GameObject(){} //make class "polymorphic", for dynamic casting
     
-    virtual void draw(Camera& camera) = 0;
+    virtual void onDraw(Camera& camera) = 0;
+    virtual void onInput(SDL_Event& event) = 0;
+    
     Type type;
 
 };

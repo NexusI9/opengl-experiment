@@ -47,7 +47,7 @@ public:
         loadShader();
     }
     
-    void draw(Camera& camera, glm::mat4 modelMatrix = glm::mat4(1.0f));
+    void onDraw(Camera& camera, glm::mat4 modelMatrix = glm::mat4(1.0f));
     
     Shader* getShader(){ return m_shader; }
     

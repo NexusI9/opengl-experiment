@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <vector>
+#include <SDL2/SDL.h>
 
 #include "./MeshBase.h"
 #include "./Mesh.hpp"
@@ -24,7 +25,9 @@ public:
     
     std::vector<Mesh*>& getMeshes(){ return m_meshes; }
     
-    void draw(Camera& camera) override;
+    void onDraw(Camera& camera) override;
+    void onInput(SDL_Event& event) override;
+    
     void setMaterial(MaterialBase& material) override;
     void setDrawMode(DrawMode mode) override;
     

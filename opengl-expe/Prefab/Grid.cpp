@@ -50,8 +50,6 @@ void Grid::genGrid(){
     shader->setFloat("thickness", m_thickness);
     
     m_mesh = gridMesh;
-    std::cout << m_mesh->getMeshes().size() << std::endl;
-    
 }
 
 void Grid::genAxis(Axis axis, Points* model, SolidMaterial* material){
@@ -65,5 +63,4 @@ void Grid::genAxis(Axis axis, Points* model, SolidMaterial* material){
     
     //Transfer mesh to global mesh
     axisMesh->transferChildren(m_mesh);
-    std::cout << m_mesh->getMeshes().size() << std::endl;
 }

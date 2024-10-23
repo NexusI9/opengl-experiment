@@ -29,6 +29,8 @@
 		564CEB542C888AAF00A0869F /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 564CEB522C888AAF00A0869F /* Shader.cpp */; };
 		5661A9EF2C840910002E52DA /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5661A9ED2C840910002E52DA /* Mesh.cpp */; };
 		5661A9F12C841247002E52DA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5661A9F02C841247002E52DA /* main.cpp */; };
+		567957242CC699AF00727E68 /* Mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567957222CC699AF00727E68 /* Mouse.cpp */; };
+		567957262CC69FBC00727E68 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567957252CC69FBC00727E68 /* Keyboard.cpp */; };
 		5695ED462CA595CC00AF16D4 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5695ED442CA595CC00AF16D4 /* Scene.cpp */; };
 		56B0943D2CA2FDE200293E4B /* Debugger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56B0943B2CA2FDE200293E4B /* Debugger.cpp */; };
 		56C4E9CA2CC0047100F22DEF /* Points.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C4E9C82CC0047100F22DEF /* Points.cpp */; };
@@ -107,6 +109,10 @@
 		5661A9F02C841247002E52DA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5661A9F52C842349002E52DA /* default.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = default.vert; sourceTree = "<group>"; };
 		5661A9F62C84235D002E52DA /* default.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = default.frag; sourceTree = "<group>"; };
+		567957202CC6997A00727E68 /* Keyboard.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
+		567957222CC699AF00727E68 /* Mouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mouse.cpp; sourceTree = "<group>"; };
+		567957232CC699AF00727E68 /* Mouse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mouse.hpp; sourceTree = "<group>"; };
+		567957252CC69FBC00727E68 /* Keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
 		5695ED442CA595CC00AF16D4 /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		5695ED452CA595CC00AF16D4 /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 		5695ED472CA59E0300AF16D4 /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
@@ -247,6 +253,10 @@
 			children = (
 				564A441B2C82EB5C0065D0C1 /* Window.hpp */,
 				564A441C2C82F4330065D0C1 /* Window.cpp */,
+				567957252CC69FBC00727E68 /* Keyboard.cpp */,
+				567957202CC6997A00727E68 /* Keyboard.hpp */,
+				567957222CC699AF00727E68 /* Mouse.cpp */,
+				567957232CC699AF00727E68 /* Mouse.hpp */,
 			);
 			path = Context;
 			sourceTree = "<group>";
@@ -383,6 +393,7 @@
 				56C4E9CA2CC0047100F22DEF /* Points.cpp in Sources */,
 				5661A9EF2C840910002E52DA /* Mesh.cpp in Sources */,
 				56F69D512CC15EB40070C722 /* Gizmos.cpp in Sources */,
+				567957242CC699AF00727E68 /* Mouse.cpp in Sources */,
 				564B5E9F2CA054B900C3A1E3 /* VAO.cpp in Sources */,
 				564A441D2C82F4330065D0C1 /* Window.cpp in Sources */,
 				564B5E9C2CA03BDD00C3A1E3 /* VBO.cpp in Sources */,
@@ -399,6 +410,7 @@
 				563F4C0A2C95655400AD7777 /* Clock.cpp in Sources */,
 				564CEB542C888AAF00A0869F /* Shader.cpp in Sources */,
 				5631D4FD2C9B97C800A99F30 /* Gltf.cpp in Sources */,
+				567957262CC69FBC00727E68 /* Keyboard.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
