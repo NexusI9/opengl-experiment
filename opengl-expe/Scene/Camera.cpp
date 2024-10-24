@@ -61,7 +61,7 @@ void Camera::onDraw(){
 
 void Camera::onInput(SDL_Event &event){
     
-    if(m_mode == Mode::DEBUGGER){
+    if(m_mode == GameManager::Mode::DEBUGGER){
         
         //Mouse
         glm::vec2 offset = Mouse::getOffset();
@@ -73,21 +73,19 @@ void Camera::onInput(SDL_Event &event){
         if(Keyboard::isPressed(SDLK_LSHIFT)) velocity *= 10.0f;
         
         if(Keyboard::isPressed(INPUT_FORWARD)){
-            m_position -= velocity * m_front;
-            translate(m_position);
+            m_position += velocity * m_front;
         }
         if(Keyboard::isPressed(INPUT_BACKWARD)){
-            m_position += velocity * m_front;
-            translate(m_position);
+            m_position -= velocity * m_front;
         }
         if(Keyboard::isPressed(INPUT_LEFT)){
-            m_position += velocity * glm::normalize(glm::cross(m_front, m_up));
-            translate(m_position);
+            m_position -= velocity * glm::normalize(glm::cross(m_front, m_up));
         }
         if(Keyboard::isPressed(INPUT_RIGHT)){
-            m_position -= velocity * glm::normalize(glm::cross(m_front, m_up));
-            translate(m_position);
+            m_position += velocity * glm::normalize(glm::cross(m_front, m_up));
         }
+        
+        lookAt(m_position, m_position + m_front, m_up);
         
     }
     
@@ -105,9 +103,9 @@ glm::mat4 Camera::getCombinedMatrix(){
     return  m_projection * m_view;
 }
 
-void Camera::lookAt(glm::vec3 position, glm::vec3 target){
-    m_position = position;
-    m_view = Transform::lookAt(position, target);
+void Camera::lookAt(glm::vec3 position, glm::vec3 target, glm::vec3 up){
+    //m_position = position;
+    m_view = Transform::lookAt(position, target, up);
     updateMatrixUBO();
 }
 
@@ -146,17 +144,18 @@ void Camera::updateDirection(float yaw, float pitch){
     m_pitch += pitch;
     m_yaw += yaw;
     
-    if(pitch > 89.0f) pitch = 89.0f;
-    else if (pitch < -89.0f) pitch = -89.0f;
+    if(m_pitch > 89.0f) m_pitch = 89.0f;
+    else if (m_pitch < -89.0f) m_pitch = -89.0f;
+    
+    std::cout << m_pitch << std::endl;
+    
+    glm::vec3 direction = glm::vec3(1.0f);
+    direction.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    direction.z = sin(glm::radians(m_pitch));
+    direction.y = sin(glm::radians(m_yaw) * cos(glm::radians(m_pitch)));
 
-    m_direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    m_direction.y = sin(glm::radians(pitch));
-    m_direction.z = sin(glm::radians(yaw) * cos(glm::radians(pitch)));
-    m_up = glm::normalize(m_direction);
+    m_front = glm::normalize(direction);
     
-    //m_front *= -1;
-    
-    //m_view = Transform::rotate(90.0f, 1.0f, 0.0f, 0.0f);
     updateMatrixUBO();
 }
 

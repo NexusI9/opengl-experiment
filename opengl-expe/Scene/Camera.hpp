@@ -13,6 +13,7 @@
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include "../Utility/Clock.hpp"
+#include "../Context/GameManager.hpp"
 
 struct CameraArgs{
     float fov = 45.0f;
@@ -26,12 +27,6 @@ struct CameraArgs{
 class Camera{
 
 public:
-    
-    enum class Mode{
-        DEBUGGER,
-        BUILD,
-        PLAYER
-    };
     
     Camera(const CameraArgs& args);
     ~Camera(){};
@@ -50,7 +45,7 @@ public:
     
     void updateProjectionMatrix(float fov, float ratio, float nearPlane, float farPlane);
     
-    void lookAt(glm::vec3 position, glm::vec3 target);
+    void lookAt(glm::vec3 position, glm::vec3 target, glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f));
     void translate(glm::vec3 position);
     void rotate(glm::vec3 rotation);
     
@@ -64,20 +59,17 @@ private:
     glm::vec3 m_position = glm::vec3(0.0f);
     glm::vec3 m_rotation = glm::vec3(0.0f);
     
-    
     glm::vec3 m_target = glm::vec3(0.0f,0.0f,0.0f);
-    glm::vec3 m_direction = glm::vec3(0.0f);
-    
-    glm::vec3 m_front = glm::vec3(0.0f, 0.0f, -1.0f);
-    glm::vec3 m_up = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 m_front = glm::vec3(0.0f, -1.0f, 0.0f);
+    glm::vec3 m_up = glm::vec3(0.0f, 0.0f, 1.0f);
     glm::vec3 m_right = glm::normalize(glm::cross(m_front, m_up));
     
-    float m_yaw;
-    float m_pitch;
+    float m_yaw = 0.0f;
+    float m_pitch = 0.0f;
     
     float m_speed = 8.0f;
     
-    Mode m_mode = Mode::DEBUGGER;
+    GameManager::Mode m_mode = GameManager::Mode::DEBUGGER;
     
     float m_fov;
     float m_ratio;

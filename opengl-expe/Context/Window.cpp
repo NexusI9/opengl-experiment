@@ -11,6 +11,7 @@
 #include "../Utility/Constant.h"
 #include "./Keyboard.hpp"
 #include "./Mouse.hpp"
+#include "./GameManager.hpp"
 
 Window::Window(int w, int h, const std::string& t)
 : m_width(w), m_height(h), m_title(t){
@@ -62,6 +63,13 @@ void Window::init(){
     SDL_GL_SetSwapInterval(1);
     //Clear color to black
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    
+    if(GameManager::mode == GameManager::Mode::DEBUGGER)
+    {
+        SDL_ShowCursor(SDL_DISABLE);
+        SDL_SetWindowGrab(m_window, SDL_TRUE);
+    }
+    
 }
 
 int Window::draw(Scene& scene){
@@ -76,8 +84,9 @@ int Window::draw(Scene& scene){
         while(SDL_PollEvent(&e)) {
             switch (e.type) {
                 case SDL_QUIT: isRunning = false;
-                break;
-                    
+                case SDL_KEYDOWN:
+                    if(e.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
+                
                 default:
                 //listen keyboard inputs
                 Keyboard::listen(e);

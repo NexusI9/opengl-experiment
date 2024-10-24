@@ -59,9 +59,15 @@ public:
             SDL_GetGlobalMouseState(&tempPosition.x, &tempPosition.y);
             m_position = tempPosition.vec2();
             
+            if(m_first){
+                m_lastPosition = m_position;
+                m_first = false;
+            }
+            
+            
             //update offset
             m_offset = m_position - m_lastPosition;
-            m_offset.y *= -1; //invert y
+            m_offset *= -1; //invert y
             
             //update last position
             m_lastPosition = m_position;
@@ -69,6 +75,7 @@ public:
             m_offset *= m_sensitivity;
             
         }
+        
         
     };
     
@@ -80,6 +87,7 @@ private:
     static glm::vec2 m_lastPosition;
     static glm::vec2 m_position;
     static glm::vec2 m_offset;
+    static bool m_first;
     
 };
 

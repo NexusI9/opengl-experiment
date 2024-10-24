@@ -31,6 +31,7 @@
 		5661A9F12C841247002E52DA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5661A9F02C841247002E52DA /* main.cpp */; };
 		567957242CC699AF00727E68 /* Mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567957222CC699AF00727E68 /* Mouse.cpp */; };
 		567957262CC69FBC00727E68 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567957252CC69FBC00727E68 /* Keyboard.cpp */; };
+		5688AA2D2CCA81E4006406E6 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5688AA2B2CCA81E4006406E6 /* GameManager.cpp */; };
 		5695ED462CA595CC00AF16D4 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5695ED442CA595CC00AF16D4 /* Scene.cpp */; };
 		56B0943D2CA2FDE200293E4B /* Debugger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56B0943B2CA2FDE200293E4B /* Debugger.cpp */; };
 		56C4E9CA2CC0047100F22DEF /* Points.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C4E9C82CC0047100F22DEF /* Points.cpp */; };
@@ -113,6 +114,8 @@
 		567957222CC699AF00727E68 /* Mouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mouse.cpp; sourceTree = "<group>"; };
 		567957232CC699AF00727E68 /* Mouse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mouse.hpp; sourceTree = "<group>"; };
 		567957252CC69FBC00727E68 /* Keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
+		5688AA2B2CCA81E4006406E6 /* GameManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameManager.cpp; sourceTree = "<group>"; };
+		5688AA2C2CCA81E4006406E6 /* GameManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameManager.hpp; sourceTree = "<group>"; };
 		5695ED442CA595CC00AF16D4 /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		5695ED452CA595CC00AF16D4 /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 		5695ED472CA59E0300AF16D4 /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
@@ -257,6 +260,8 @@
 				567957202CC6997A00727E68 /* Keyboard.hpp */,
 				567957222CC699AF00727E68 /* Mouse.cpp */,
 				567957232CC699AF00727E68 /* Mouse.hpp */,
+				5688AA2B2CCA81E4006406E6 /* GameManager.cpp */,
+				5688AA2C2CCA81E4006406E6 /* GameManager.hpp */,
 			);
 			path = Context;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 				563F4C062C95380400AD7777 /* Camera.cpp in Sources */,
 				564988B92C91CA0C007E0B33 /* Texture.cpp in Sources */,
 				5618917F2CB40F1A004BCC55 /* MeshGroup.cpp in Sources */,
+				5688AA2D2CCA81E4006406E6 /* GameManager.cpp in Sources */,
 				56F69D552CC15F060070C722 /* Grid.cpp in Sources */,
 				5695ED462CA595CC00AF16D4 /* Scene.cpp in Sources */,
 				564B5EA22CA058C100C3A1E3 /* EBO.cpp in Sources */,

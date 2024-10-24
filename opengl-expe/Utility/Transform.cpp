@@ -20,6 +20,6 @@ glm::mat4 Transform::rotate(float degree, float x, float y, float z){
     return glm::rotate(m_identityMatrix, glm::radians(degree), glm::vec3(x, y, z));
 }
 
-glm::mat4 Transform::lookAt(glm::vec3 position, glm::vec3 target){
-    return glm::lookAt(position, target, glm::vec3(0.0f, 0.0f, 1.0f));
+glm::mat4 Transform::lookAt(glm::vec3 position, glm::vec3 target, glm::vec3 up){
+    return glm::lookAt(position, target, up);
 }

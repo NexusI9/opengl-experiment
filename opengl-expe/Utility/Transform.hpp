@@ -21,7 +21,7 @@ public:
     static glm::mat4 translate(float x, float y, float z);
     static glm::mat4 rotate(float degree, float x, float y, float z);
     static glm::mat4 scale(float x, float y, float z);
-    static glm::mat4 lookAt(glm::vec3 position, glm::vec3 target);
+    static glm::mat4 lookAt(glm::vec3 position, glm::vec3 target, glm::vec3 up = glm::vec3(0.0f,0.0f,0.0f));
     
 private:
     
