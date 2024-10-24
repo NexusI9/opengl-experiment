@@ -64,7 +64,8 @@ void Camera::onInput(SDL_Event &event){
     if(m_mode == GameManager::Mode::DEBUGGER){
         
         //Mouse
-        glm::vec2 offset = Mouse::getOffset();
+        glm::vec2 offset = Mouse::getPosition();
+        offset *= m_sensitivity;
         updateDirection(offset.x, offset.y);
         
         //Keyboard
@@ -144,10 +145,11 @@ void Camera::updateDirection(float yaw, float pitch){
     m_pitch += pitch;
     m_yaw += yaw;
     
+    
     if(m_pitch > 89.0f) m_pitch = 89.0f;
     else if (m_pitch < -89.0f) m_pitch = -89.0f;
     
-    std::cout << m_pitch << std::endl;
+    //std::cout << m_pitch << std::endl;
     
     glm::vec3 direction = glm::vec3(1.0f);
     direction.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));

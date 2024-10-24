@@ -68,6 +68,7 @@ private:
     float m_pitch = 0.0f;
     
     float m_speed = 8.0f;
+    float m_sensitivity = 0.1f;
     
     GameManager::Mode m_mode = GameManager::Mode::DEBUGGER;
     

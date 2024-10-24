@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <glm/glm.hpp>
 #include <SDL2/SDL.h>
+#include "../Utility/Debugger.hpp"
 
 struct ScreenPosition {
     int x;
@@ -51,43 +52,22 @@ class Mouse{
 public:
     
     static void listen(SDL_Event& event){
-        
-        if(event.type == SDL_MOUSEMOTION){
             
             //update current position
             ScreenPosition tempPosition{0,0};
-            SDL_GetGlobalMouseState(&tempPosition.x, &tempPosition.y);
+            SDL_GetRelativeMouseState(&tempPosition.x, &tempPosition.y);
             m_position = tempPosition.vec2();
+            m_position *= -1; //invert
             
-            if(m_first){
-                m_lastPosition = m_position;
-                m_first = false;
-            }
-            
-            
-            //update offset
-            m_offset = m_position - m_lastPosition;
-            m_offset *= -1; //invert y
-            
-            //update last position
-            m_lastPosition = m_position;
-            
-            m_offset *= m_sensitivity;
-            
-        }
-        
-        
+            Debugger::printVec2(m_position);
+            std::cout << std::endl;
+       
     };
     
-    static glm::vec2 getOffset(){ return m_offset; };
     static glm::vec2 getPosition(){ return m_position; };
     
 private:
-    static float m_sensitivity;
-    static glm::vec2 m_lastPosition;
     static glm::vec2 m_position;
-    static glm::vec2 m_offset;
-    static bool m_first;
     
 };
 

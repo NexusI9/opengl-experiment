@@ -67,7 +67,7 @@ void Window::init(){
     if(GameManager::mode == GameManager::Mode::DEBUGGER)
     {
         SDL_ShowCursor(SDL_DISABLE);
-        SDL_SetWindowGrab(m_window, SDL_TRUE);
+        SDL_SetRelativeMouseMode(SDL_TRUE);
     }
     
 }
@@ -90,10 +90,11 @@ int Window::draw(Scene& scene){
                 default:
                 //listen keyboard inputs
                 Keyboard::listen(e);
-                //listen mouse inputs
-                Mouse::listen(e);
             }
         }
+        
+        //listen mouse inputs
+        Mouse::listen(e);
         
         //Process scene input
         scene.onInput(e);
