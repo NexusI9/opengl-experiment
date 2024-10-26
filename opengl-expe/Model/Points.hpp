@@ -19,11 +19,16 @@
 #include "./Model.h"
 
 
+struct PointArg{
+    glm::vec3 positions;
+    std::string& label;
+};
+
 class Points : public Model{
     
 public:
 
-    Points(std::vector<glm::vec3>& positions);
+    Points(std::vector<glm::vec3>& points);
     ~Points(){};
     
 private:

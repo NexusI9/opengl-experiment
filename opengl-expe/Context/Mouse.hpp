@@ -58,9 +58,6 @@ public:
             SDL_GetRelativeMouseState(&tempPosition.x, &tempPosition.y);
             m_position = tempPosition.vec2();
             m_position *= -1; //invert
-            
-            Debugger::printVec2(m_position);
-            std::cout << std::endl;
        
     };
     
