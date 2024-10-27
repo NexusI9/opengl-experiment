@@ -86,7 +86,7 @@ std::map<char, Glyph> Text::loadCharacters(){
         //TODO: add the texture in the material instead of rectangle model
         rectangle.addTexture(*texture);
         
-        MeshGroup* mesh = rectangle.copy();
+        MeshGroup* mesh = new MeshGroup(*rectangle.getMesh());
 
         DefaultMaterial material;
         mesh->setMaterial(material);
@@ -120,7 +120,7 @@ void Text::generate(){
         float xPos = glf.bearing.x * m_size;
         float yPos = (glf.size.y - glf.bearing.y) * m_size;
         
-        glf.mesh->setPosition(xPos, yPos, 0.0f);
+        //glf.mesh->setPosition(xPos, yPos, 0.0f);
         //m_mesh->addChildren(glf.mesh);
         //push mesh to meshgroup
         

@@ -25,7 +25,7 @@
 
 
 struct NodeMesh{
-    Mesh* mesh;
+    Mesh mesh;
     glm::vec3 translation;
     glm::quat rotation;
     glm::vec3 scale;
@@ -67,7 +67,7 @@ private:
     
     void traverseNode(unsigned int node, glm::mat4 matrix = glm::mat4(1.0f));
     
-    Mesh* loadMesh(unsigned int meshIndex);
+    Mesh loadMesh(unsigned int meshIndex);
     std::vector<NodeMesh> m_nodeMeshes;
     
 };

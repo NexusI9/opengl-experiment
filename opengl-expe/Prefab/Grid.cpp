@@ -57,9 +57,9 @@ void Grid::genAxis(Axis axis, Points* model, SolidMaterial* material){
     model = new Points(axis.Points);
     material = new SolidMaterial(axis.Color);
     
-    MeshGroup* axisMesh = model->getMesh();
-    axisMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
-    axisMesh->setMaterial(*material);
+    MeshGroup axisMesh = *model->getMesh();
+    axisMesh.setDrawMode(MeshBase::DrawMode::WIREFRAME);
+    axisMesh.setMaterial(*material);
     
     //Transfer mesh to global mesh
     m_mesh->addChildren(axisMesh);

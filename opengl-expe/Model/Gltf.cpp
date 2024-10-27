@@ -181,13 +181,10 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     //By default: all initial object are centered at the origin, need to extract mesh individual matrix to get their real location
     
     nlohmann::json node = m_json["nodes"][nodeIndex];
-    NodeMesh nodeMesh = {
-        nullptr,
-        glm::vec3(0.0f),
-        glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
-        glm::vec3(1.0f),
-        glm::mat4(1.0f)
-    };
+    glm::vec3 nodeTranslation(0.0f);
+    glm::quat nodeRotation(1.0f, 0.0f, 0.0f, 0.0f);
+    glm::vec3 nodeScale(1.0f);
+    glm::mat4 nodeMatrix(1.0f);
     
     //Get Translation
     if(node.find("translation") != node.end()){
@@ -195,7 +192,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
         for(unsigned int i = 0; i < node["translation"].size(); i++){
             transValues[i] = node["translation"][i];
         }
-        nodeMesh.translation = glm::make_vec3(transValues);
+        nodeTranslation = glm::make_vec3(transValues);
     }
     
     //Get Rotation
@@ -207,7 +204,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
             node["rotation"][2]
         };
         
-        nodeMesh.rotation = glm::make_quat(rotValues);
+        nodeRotation = glm::make_quat(rotValues);
     }
     
     //Get Scale
@@ -216,7 +213,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
         for(unsigned int i = 0; i < node["scale"].size(); i++){
             scaleValues[i] = node["scale"][i];
         }
-        nodeMesh.translation = glm::make_vec3(scaleValues);
+        nodeScale = glm::make_vec3(scaleValues);
     }
     
     //Get Matrix
@@ -225,7 +222,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
         for(unsigned int i = 0; i < node["matrix"].size(); i++){
             matrixValues[i] = node["matrix"][i];
         }
-        nodeMesh.matrix = glm::make_mat4(matrixValues);
+        nodeMatrix = glm::make_mat4(matrixValues);
     }
     
     //Setup next node matrix
@@ -233,17 +230,27 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     glm::mat4 scale(1.0f);
     glm::mat4 rotation(1.0f);
     
-    translate = glm::translate(translate, nodeMesh.translation);
-    rotation = glm::mat4_cast(nodeMesh.rotation);
-    scale = glm::scale(scale, nodeMesh.scale);
+    translate = glm::translate(translate, nodeTranslation);
+    rotation = glm::mat4_cast(nodeRotation);
+    scale = glm::scale(scale, nodeScale);
     
-    glm::mat4 nextNodeMatrix = matrix * nodeMesh.matrix * translate * rotation * scale;
+    glm::mat4 nextNodeMatrix = matrix * nodeMatrix * translate * rotation * scale;
     
     //Finally load mesh if exists
     if(node.find("mesh") != node.end()){
+        
         //Push to Node Mesh object
-        nodeMesh.mesh = loadMesh(node["mesh"]);
-        nodeMesh.matrix = nextNodeMatrix;
+        Mesh mesh = loadMesh(node["mesh"]);
+        nodeMatrix = nextNodeMatrix;
+        
+        NodeMesh nodeMesh = {
+            mesh,
+            glm::vec3(0.0f),
+            glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
+            glm::vec3(1.0f),
+            glm::mat4(1.0f)
+        };
+        
         m_nodeMeshes.push_back(nodeMesh);
         
         //Push to MeshGroup object
@@ -259,7 +266,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     
 }
 
-Mesh* Gltf::loadMesh(unsigned int meshIndex){
+Mesh Gltf::loadMesh(unsigned int meshIndex){
     
     //Get accessor indices
     unsigned int posAccInd = m_json["meshes"][meshIndex]["primitives"][0]["attributes"]["POSITION"];
@@ -284,7 +291,7 @@ Mesh* Gltf::loadMesh(unsigned int meshIndex){
     std::vector<Texture> textures = loadTextures();
     
     //init mesh
-    return new Mesh(vertices, indices, textures);
+    return Mesh(vertices, indices, textures);
 }
 
 

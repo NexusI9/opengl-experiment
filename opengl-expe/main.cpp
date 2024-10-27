@@ -64,7 +64,7 @@ int main(int argc, const char * argv[]) {
     
     //Draw text
     std::string textString = "Test";
-    Text text(textString, 48);
+    //Text text(textString, 48);
     
     scene.add(cubeMesh);
     scene.showGrid(true);

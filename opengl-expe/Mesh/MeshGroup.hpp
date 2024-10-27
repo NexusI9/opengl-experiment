@@ -20,10 +20,10 @@ class MeshGroup : public MeshBase{
     
 public:
     
-    MeshGroup(std::vector<Mesh*>& meshes): m_meshes(meshes){};
+    MeshGroup(std::vector<Mesh>& meshes): m_meshes(meshes){};
     ~MeshGroup(){};
     
-    std::vector<Mesh*>& getMeshes(){ return m_meshes; }
+    std::vector<Mesh>& getMeshes(){ return m_meshes; }
     
     void onDraw(Camera& camera) override;
     void onInput(SDL_Event& event) override;
@@ -36,12 +36,12 @@ public:
     void setRotation(float degree, float x, float y, float z) override;
     void lookAt(float x, float y, float z) override;
     
-    void addChild(Mesh* mesh){
+    void addChild(Mesh& mesh){
         m_meshes.push_back(mesh);
     }
     
-    void addChildren(MeshGroup* source){
-        for(Mesh* child : source->m_meshes) addChild(child);
+    void addChildren(MeshGroup& source){
+        for(Mesh& child : source.m_meshes) addChild(child);
     }
     
     int size(){
@@ -50,7 +50,7 @@ public:
     
 private:
     
-    std::vector<Mesh*>& m_meshes;
+    std::vector<Mesh>& m_meshes;
     
 };
 

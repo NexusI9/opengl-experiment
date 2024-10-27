@@ -55,7 +55,7 @@ Rectangle::Rectangle(){
 
     m_elements = {0, 1, 2, 2, 3, 0};
     
-    m_meshes.push_back(new Mesh(m_vertices, m_elements, m_textures));
+    m_meshes.push_back(Mesh(m_vertices, m_elements, m_textures));
     m_meshGroup = new MeshGroup(m_meshes);
     
 }
