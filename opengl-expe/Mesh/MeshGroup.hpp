@@ -40,8 +40,8 @@ public:
         m_meshes.push_back(mesh);
     }
     
-    void transferChildren(MeshGroup* target){
-        for(Mesh* child : m_meshes) target->addChild(child);
+    void addChildren(MeshGroup* source){
+        for(Mesh* child : source->m_meshes) addChild(child);
     }
     
     int size(){

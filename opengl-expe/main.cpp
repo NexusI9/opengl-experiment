@@ -18,6 +18,7 @@
 #include "Model/Gltf.hpp"
 #include "Mesh/MeshGroup.hpp"
 #include "Material/DefaultMaterial.hpp"
+#include "Prefab/Text.hpp"
 
 #include "Utility/Debugger.hpp"
 
@@ -43,13 +44,16 @@ int main(int argc, const char * argv[]) {
     //camera.translate(glm::vec3(2.0f, 2.0f, 2.0f));
     scene.setCamera(camera);
     
+    
+    //Draw cube
     Gltf cubeModel((std::string(ROOT_DIR+"Assets/Models/cube/cube.gltf")).c_str());
     MeshGroup* cubeMesh = cubeModel.getMesh();
     DefaultMaterial cubeMat;
     cubeMesh->setMaterial(cubeMat);
     cubeMesh->setScale(1.0f, 1.0f, 1.0f);
     
-
+    
+    //Draw points
     std::vector<glm::vec3> pts{
         glm::vec3(0.3f, 2.0f, 3.0f),
         glm::vec3(1.0f, 3.4f, 2.0f),
@@ -57,6 +61,10 @@ int main(int argc, const char * argv[]) {
     };
     
     Debugger::drawPoints(pts, scene);
+    
+    //Draw text
+    std::string textString = "Test";
+    Text text(textString, 48);
     
     scene.add(cubeMesh);
     scene.showGrid(true);

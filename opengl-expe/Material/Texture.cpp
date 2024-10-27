@@ -13,33 +13,36 @@
 #include "../Utility/Constant.h"
 
 
-Texture::Texture(std::string& fullpath, unsigned int slot):m_path((const char*)fullpath.c_str()), m_slot(slot){}
-
-
-void Texture::load(){
+void Texture::import(){
     
     //Load Texture array
     SDL_Surface* picture = IMG_Load(m_path);
+    if(!picture) throw std::runtime_error("Texture could not be loaded");
+    
+    generate(picture->pixels, picture->w, picture->h, m_slot);
+    
+}
 
+
+void Texture::generate(void* pixels, unsigned int width, unsigned int height, const unsigned int slot){
+    
     glGenTextures(1, &ID);
     
     if(m_slot > 31){
         m_slot = 0;
         throw std::runtime_error("Texture slot out of bound ("+std::to_string(m_slot)+")");
     }
-    if(!picture){
-        throw std::runtime_error("Texture could not be loaded");
-    }
+
     
-    const GLenum slot = textureSlot[m_slot];
+    const GLenum texSlot = textureSlot[slot];
     //Assign texture to slot
-    glActiveTexture(slot);
+    glActiveTexture(texSlot);
     
     //Make texture active (bind)
     bind();
 
     //fillup texture buffer
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, picture->w, picture->h, 0, GL_RGB, GL_UNSIGNED_BYTE, picture->pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
     
     //Enable multisample
     //glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, MSAA_SAMPLING, GL_RGB, picture->w, picture->h, GL_TRUE);

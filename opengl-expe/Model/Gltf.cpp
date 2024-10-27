@@ -304,8 +304,10 @@ std::vector<Texture> Gltf::loadTextures(){
         if(loadedTextures.find(texPath) == loadedTextures.end()){
             Debugger::print("Loading texture: " + texPath, Verbose::Flag::TEXTURE);
             std::string texturePath = (dir+texPath).c_str();
-            Texture* texture = new Texture(texturePath, slot++);
-            texture->load();
+            Texture* texture = new Texture({
+                .path = texturePath,
+                .slot = slot++
+            });
             
             //Add to Mesh array
             textures.push_back(*texture);

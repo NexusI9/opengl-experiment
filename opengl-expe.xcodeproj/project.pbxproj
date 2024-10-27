@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		560E85EF2CCCAF7C00A5727A /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 560E85EE2CCCAF7C00A5727A /* libfreetype.6.dylib */; };
+		560E85F22CCCB2F700A5727A /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560E85F02CCCB2F700A5727A /* Text.cpp */; };
 		5614DBA42CB02A920098B374 /* MaterialBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5614DBA22CB02A920098B374 /* MaterialBase.cpp */; };
 		5618917F2CB40F1A004BCC55 /* MeshGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */; };
 		561C7AEE2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; };
@@ -63,6 +65,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		560E85EE2CCCAF7C00A5727A /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../../../usr/local/Cellar/freetype/2.13.3/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
+		560E85F02CCCB2F700A5727A /* Text.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Text.cpp; sourceTree = "<group>"; };
+		560E85F12CCCB2F700A5727A /* Text.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Text.hpp; sourceTree = "<group>"; };
 		5614DBA22CB02A920098B374 /* MaterialBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialBase.cpp; sourceTree = "<group>"; };
 		5614DBA32CB02A920098B374 /* MaterialBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MaterialBase.hpp; sourceTree = "<group>"; };
 		5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshGroup.cpp; sourceTree = "<group>"; };
@@ -126,6 +131,7 @@
 		56C4E9C92CC0047100F22DEF /* Points.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Points.hpp; sourceTree = "<group>"; };
 		56F09AB02CB6B84E005BC541 /* MeshBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBase.h; sourceTree = "<group>"; };
 		56F10FC92CB56ED200AD9FC4 /* Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
+		56F5D3962CCE25E000BE406C /* PrefabBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefabBase.h; sourceTree = "<group>"; };
 		56F69D4F2CC15EB40070C722 /* Gizmos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Gizmos.cpp; sourceTree = "<group>"; };
 		56F69D502CC15EB40070C722 /* Gizmos.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gizmos.hpp; sourceTree = "<group>"; };
 		56F69D532CC15F060070C722 /* Grid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Grid.cpp; sourceTree = "<group>"; };
@@ -138,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				560E85EF2CCCAF7C00A5727A /* libfreetype.6.dylib in Frameworks */,
 				56494CAF2C948207001E9CFA /* libglm.dylib in Frameworks */,
 				564988BB2C91D880007E0B33 /* libSDL2_image-2.0.0.dylib in Frameworks */,
 				564A44182C82B4E70065D0C1 /* libSDL2-2.0.0.dylib in Frameworks */,
@@ -149,6 +156,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		560E85F32CCCCCC300A5727A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		563F4C072C95606F00AD7777 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +180,7 @@
 		564988B52C91C7C6007E0B33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				560E85F32CCCCCC300A5727A /* Fonts */,
 				564988B62C91C7CC007E0B33 /* Textures */,
 			);
 			path = Assets;
@@ -215,6 +230,7 @@
 		564A44142C82AE780065D0C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				560E85EE2CCCAF7C00A5727A /* libfreetype.6.dylib */,
 				56494CAE2C948207001E9CFA /* libglm.dylib */,
 				564988BA2C91D880007E0B33 /* libSDL2_image-2.0.0.dylib */,
 				561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */,
@@ -313,8 +329,11 @@
 		56B09B992CC3857000438C91 /* Prefab */ = {
 			isa = PBXGroup;
 			children = (
+				560E85F02CCCB2F700A5727A /* Text.cpp */,
+				560E85F12CCCB2F700A5727A /* Text.hpp */,
 				56F69D532CC15F060070C722 /* Grid.cpp */,
 				56F69D542CC15F060070C722 /* Grid.hpp */,
+				56F5D3962CCE25E000BE406C /* PrefabBase.h */,
 			);
 			path = Prefab;
 			sourceTree = "<group>";
@@ -397,6 +416,7 @@
 				56494CB22C94824B001E9CFA /* Transform.cpp in Sources */,
 				56C4E9CA2CC0047100F22DEF /* Points.cpp in Sources */,
 				5661A9EF2C840910002E52DA /* Mesh.cpp in Sources */,
+				560E85F22CCCB2F700A5727A /* Text.cpp in Sources */,
 				56F69D512CC15EB40070C722 /* Gizmos.cpp in Sources */,
 				567957242CC699AF00727E68 /* Mouse.cpp in Sources */,
 				564B5E9F2CA054B900C3A1E3 /* VAO.cpp in Sources */,
@@ -538,13 +558,17 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 89WV9S79ZF;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/freetype2,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/sdl2/2.30.6/lib,
 					/usr/local/Cellar/glew/2.2.0_1/lib,
 					/usr/local/Cellar/sdl2_image/2.8.2_1/lib,
 					/usr/local/Cellar/glm/1.0.1/lib,
+					/usr/local/Cellar/freetype/2.13.3/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -557,13 +581,17 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 89WV9S79ZF;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/freetype2,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/sdl2/2.30.6/lib,
 					/usr/local/Cellar/glew/2.2.0_1/lib,
 					/usr/local/Cellar/sdl2_image/2.8.2_1/lib,
 					/usr/local/Cellar/glm/1.0.1/lib,
+					/usr/local/Cellar/freetype/2.13.3/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

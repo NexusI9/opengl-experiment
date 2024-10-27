@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include <unordered_map>
+#include <vector>
+
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -64,6 +66,8 @@ private:
     void checkUniformLocation(const std::string& name);
     void checkUniformBlockLocation(const std::string& name);
     void checkUseProgram();
+    
+    static std::unordered_map<std::string, GLuint> m_shaderList;
     
 };
 

@@ -51,11 +51,17 @@ void Window::init(){
     
     glEnable(GL_MULTISAMPLE);
     glEnable(GL_DEPTH_TEST);
+    
+    //Backface culling
     glEnable(GL_CULL_FACE);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
+    
+    //Alpha handling
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    
+    //Point debug
     glEnable(GL_PROGRAM_POINT_SIZE);
     
     glViewport(0, 0, m_width, m_height);

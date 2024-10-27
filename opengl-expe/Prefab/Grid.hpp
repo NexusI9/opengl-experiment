@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 
+#include "./PrefabBase.h"
 #include "../Scene/GameObject.h"
 #include "../Mesh/MeshGroup.hpp"
 #include "../Model/Rectangle.hpp"
@@ -21,7 +22,7 @@ struct Axis{
     glm::vec3 Color;
 };
 
-class Grid{
+class Grid : public PrefabBase{
     
 public:
     
@@ -38,15 +39,12 @@ public:
         delete m_yAxisMaterial;
     }
     
-    MeshGroup* getMesh(){ return m_mesh; };
     
 private:
     
     float m_scale;
     int m_division;
     float m_thickness;
-    
-    MeshGroup* m_mesh = nullptr;
     
     //Grid
     Rectangle* m_rectangle = nullptr;

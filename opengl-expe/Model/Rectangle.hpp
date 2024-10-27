@@ -17,7 +17,6 @@
 #include "../Material/Texture.hpp"
 #include "./Model.h"
 
-
 class Rectangle : public Model{
     
 public:
@@ -29,6 +28,9 @@ public:
     std::vector<GLuint> m_elements;
     std::vector<Texture> m_textures;
     
+    void addTexture(Texture& texture){
+        m_textures.push_back(texture);
+    }
 };
 
 #endif /* Rectangle_hpp */

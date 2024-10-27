@@ -62,5 +62,5 @@ void Grid::genAxis(Axis axis, Points* model, SolidMaterial* material){
     axisMesh->setMaterial(*material);
     
     //Transfer mesh to global mesh
-    axisMesh->transferChildren(m_mesh);
+    m_mesh->addChildren(axisMesh);
 }

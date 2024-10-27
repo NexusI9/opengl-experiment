@@ -29,6 +29,13 @@ public:
         return m_meshGroup;
     };
     
+    MeshGroup* copy(){
+        std::vector<Mesh*> innerMeshCopy;
+        for(auto& mesh : m_meshes) innerMeshCopy.push_back(new Mesh(*mesh));
+        return new MeshGroup(innerMeshCopy);
+    };
+    
+    
 protected:
     
     MeshGroup* m_meshGroup;

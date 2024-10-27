@@ -20,8 +20,11 @@ Shader::Shader(const char* vertexShader, const char* fragmentShader, const char 
 
 Shader::~Shader(){}
 
+std::unordered_map<std::string, GLuint> Shader::m_shaderList = {};
 
 GLuint Shader::load(const char* path, GLenum type){
+    
+    if(m_shaderList.find((std::string) path) != m_shaderList.end()) return m_shaderList[(std::string) path];
     
     //Import shader file
     std::string shaderString = importFile(path);
@@ -42,7 +45,10 @@ GLuint Shader::load(const char* path, GLenum type){
         Debugger::print("Error while compiling shader: " + (std::string) path + ", check Log below for more info.\n" + getShaderLog(&shader), Verbose::Flag::SHADER);
     }
     
+    
+    m_shaderList[(std::string) path] = shader;
     return shader;
+        
     
 }
 

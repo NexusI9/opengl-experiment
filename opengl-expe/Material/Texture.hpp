@@ -13,12 +13,37 @@
 #include <GL/glew.h>
 
 
+struct TexturePathArg{
+    const std::string& path;
+    const unsigned int slot = 0;
+};
+
+struct TextureBufferArg{
+    const unsigned char* buffer;
+    const unsigned int   width;
+    const unsigned int   height;
+    const unsigned int   slot = 0;
+};
+
+
 class Texture{
     
 public:
     
-    Texture(std::string& fullpath, unsigned int slot);
-    void load();
+    Texture(const TexturePathArg& args):
+        m_path((const char*)args.path.c_str()),
+        m_slot(args.slot){
+            import();
+        }
+    
+    Texture(const TextureBufferArg& args):
+        m_buffer(args.buffer),
+        m_slot(args.slot),
+        m_width(args.width),
+        m_height(args.height){
+            generate((void*) m_buffer, m_width, m_height, m_slot);
+        };
+    
     void bind();
     void unbind();
 
@@ -59,9 +84,17 @@ private:
     };
     
     const char* m_path;
+    
+    const unsigned char* m_buffer;
+    unsigned int m_width;
+    unsigned int m_height;
+    
     unsigned int m_slot;
-    GLuint ID;
 
+    GLuint ID;
+    
+    void import();
+    void generate(void* pixels, unsigned int width, unsigned int height, const unsigned int slot);
 };
 
 #endif /* Texture_hpp */
