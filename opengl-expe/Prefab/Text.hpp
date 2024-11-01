@@ -32,11 +32,11 @@
 #include "../Utility/Constant.h"
 
 struct Glyph{
-    Texture*      texture;
-    glm::ivec2    size;
-    glm::ivec2    bearing;
-    FT_Pos        advance;
-    MeshGroup*    mesh;
+    Texture      texture;
+    glm::ivec2   size;
+    glm::ivec2   bearing;
+    FT_Pos       advance;
+    MeshGroup*   mesh;
 };
 
 struct Font{
@@ -68,7 +68,6 @@ private:
     
     std::map<char, Glyph> loadCharacters();
     void generate();
-    void clearFont(std::string font);
     
     
 };

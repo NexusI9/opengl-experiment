@@ -162,9 +162,9 @@ void Shader::setVec3(const std::string &name, glm::vec3 vector){
     glUniform3fv(m_uniformsLocations[name], 1, glm::value_ptr(vector));
 }
 
-void Shader::setVec2(const std::string &name, float x, float y){
+void Shader::setVec2(const std::string &name, glm::vec2 vector){
     checkUniformLocation(name);
-    glUniform2f(m_uniformsLocations[name], x, y);
+    glUniform2f(m_uniformsLocations[name], vector.x, vector.y);
 }
 
 

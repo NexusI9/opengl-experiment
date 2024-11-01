@@ -16,7 +16,7 @@ void MeshGroup::onInput(SDL_Event& event){
     for(auto& mesh : m_meshes) mesh.onInput(event);
 }
 
-void MeshGroup::setMaterial(MaterialBase& material){
+void MeshGroup::setMaterial(const MaterialBase& material){
     for(auto& mesh : m_meshes) mesh.setMaterial(material);
 }
 

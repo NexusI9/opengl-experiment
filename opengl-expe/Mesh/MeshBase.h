@@ -26,7 +26,7 @@ public:
         POINTS
     };
     
-    virtual void setMaterial(MaterialBase& material) = 0;
+    virtual void setMaterial(const MaterialBase& material) = 0;
     virtual void setDrawMode(DrawMode mode) = 0;
     
     virtual void setPosition(float x, float y, float z) = 0;

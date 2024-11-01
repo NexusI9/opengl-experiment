@@ -11,12 +11,15 @@
 #include <stdio.h>
 #include <string>
 #include <glm/glm.hpp>
+#include <unordered_map>
+
 #include "./Texture.hpp"
 #include "./Shader.hpp"
 #include "../Mesh/Vertex.h"
 #include "../Backend/VBO.hpp"
 #include "../Backend/VAO.hpp"
 #include "../Scene/Camera.hpp"
+#include "./Uniform.h"
 
 /*
  A "Material" Object acts as a shader preset. Meaning that the directory may hold a Bunch of premade materials (BasicMaterial, CustomMaterial).
@@ -24,6 +27,7 @@
  The idea is to only pass the vertex and other attributes, and the material will automatically plug those attributes to the vertex and fragment shader. Such approach throttle freedom but will save some time on the long run.
  Of course the "CustomMaterial" above may provide more flexibility.
  */
+
 
 class MaterialBase{
     
@@ -51,6 +55,8 @@ public:
     
     Shader* getShader(){ return m_shader; }
     
+    virtual MaterialBase* clone() const = 0;
+    
 protected:
     
     VAO* m_vao = nullptr;
@@ -59,7 +65,11 @@ protected:
     std::vector<Vertex>* m_vertices = nullptr;
     std::vector<Texture>* m_textures = nullptr;
     
+    void assignUniforms(UniformList uniforms);
+    
     virtual void loadShader() = 0;
+        
+
     
 };
 

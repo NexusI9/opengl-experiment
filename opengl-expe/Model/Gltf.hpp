@@ -38,11 +38,7 @@ class Gltf : public Model{
 public:
     Gltf(const char* path);
     
-    static std::unordered_map<std::string, Texture*> loadedTextures;
-    
-    //std::vector<Vertex>& getVertices();
-    //std::vector<GLuint>& getIndices();
-    //std::vector<Texture>& getTextures();
+    static std::unordered_map<std::string, Texture> loadedTextures;
     
 private:
     const char* m_path;
@@ -69,6 +65,7 @@ private:
     
     Mesh loadMesh(unsigned int meshIndex);
     std::vector<NodeMesh> m_nodeMeshes;
+    std::vector<Mesh> m_meshes;
     
 };
 

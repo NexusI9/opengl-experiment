@@ -21,7 +21,6 @@ Points::Points(std::vector<glm::vec3>& positions){
     }
     
     m_elements.push_back(0); //close point mesh
-    m_meshes.push_back(Mesh(m_vertices, m_elements, m_textures));
-    m_meshGroup = new MeshGroup(m_meshes);
+    m_meshGroup->addChild(Mesh(m_vertices, m_elements, m_textures));
     
 }

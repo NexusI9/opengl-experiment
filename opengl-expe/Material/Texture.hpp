@@ -11,17 +11,18 @@
 #include <stdio.h>
 #include <string>
 #include <GL/glew.h>
+#include "../Utility/Constant.h"
 
 
 struct TexturePathArg{
-    const std::string& path;
+    const std::string& path = std::string(ROOT_DIR+"Assets/Textures/default.png");
     const unsigned int slot = 0;
 };
 
 struct TextureBufferArg{
-    const unsigned char* buffer;
-    const unsigned int   width;
-    const unsigned int   height;
+    const unsigned char* buffer = 0;
+    const unsigned int   width = 0;
+    const unsigned int   height = 0;
     const unsigned int   slot = 0;
 };
 
@@ -30,19 +31,12 @@ class Texture{
     
 public:
     
-    Texture(const TexturePathArg& args):
-        m_path((const char*)args.path.c_str()),
-        m_slot(args.slot){
-            import();
-        }
     
-    Texture(const TextureBufferArg& args):
-        m_buffer(args.buffer),
-        m_slot(args.slot),
-        m_width(args.width),
-        m_height(args.height){
-            generate((void*) m_buffer, m_width, m_height, m_slot);
-        };
+    Texture(const TexturePathArg& args = {
+        .path = std::string(ROOT_DIR+"Assets/Textures/default.png"),
+        .slot = 0
+    });
+    Texture(const TextureBufferArg& args);
     
     void bind();
     void unbind();

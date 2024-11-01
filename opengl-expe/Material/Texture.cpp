@@ -12,6 +12,19 @@
 #include <GL/glew.h>
 #include "../Utility/Constant.h"
 
+Texture::Texture(const TexturePathArg& args):
+    m_path((const char*)args.path.c_str()),
+    m_slot(args.slot){
+        import();
+    }
+
+Texture::Texture(const TextureBufferArg& args):
+    m_buffer(args.buffer),
+    m_slot(args.slot),
+    m_width(args.width),
+    m_height(args.height){
+        generate((void*) m_buffer, m_width, m_height, m_slot);
+    };
 
 void Texture::import(){
     
@@ -27,6 +40,7 @@ void Texture::import(){
 void Texture::generate(void* pixels, unsigned int width, unsigned int height, const unsigned int slot){
     
     glGenTextures(1, &ID);
+
     
     if(m_slot > 31){
         m_slot = 0;

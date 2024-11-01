@@ -39,7 +39,7 @@ void Debugger::printVec2(glm::vec2& vector){
     std::cout << "x: " << vector.x << "\ty: " << vector.y << std::endl;
 }
 
-void Debugger ::printMesh(Mesh& mesh){
+void Debugger::printMesh(Mesh& mesh){
     auto& vertices = mesh.getVertices();
     
     for(int v = 0; v < vertices.size(); v++){
@@ -54,7 +54,7 @@ void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 c
     std::vector<glm::vec3> ray{start, end};
     static Points line(ray);
     
-    MeshGroup* lineMesh = line.getMesh();
+    static MeshGroup* lineMesh = line.getMesh();
     lineMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
     scene.add(lineMesh);
 }
@@ -62,7 +62,7 @@ void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 c
 void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color){
     
     static Points points(pts);
-    MeshGroup* pointMesh = points.getMesh();
+    static MeshGroup* pointMesh = points.getMesh();
     
     pointMesh->setDrawMode(MeshBase::DrawMode::POINTS);
     scene.add(pointMesh);
@@ -73,10 +73,10 @@ Mesh* Debugger::mesh = nullptr;
 void Debugger::drawMesh(std::vector<Vertex> &vertices, std::vector<GLuint> &indices, Scene& scene, glm::vec3 color){
     
     //Not tested yet..
-    std::vector<Texture> tex{};
+    /*std::vector<Texture> tex{};
     delete mesh;
     mesh = new Mesh(vertices, indices, tex);
 
     mesh->setDrawMode(MeshBase::DrawMode::DEBUGGER);
-    scene.add(mesh);
+    scene.add(mesh);*/
 }

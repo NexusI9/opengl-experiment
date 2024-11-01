@@ -20,7 +20,7 @@ class MeshGroup : public MeshBase{
     
 public:
     
-    MeshGroup(std::vector<Mesh>& meshes): m_meshes(meshes){};
+    MeshGroup(std::vector<Mesh> meshes = {}): m_meshes(meshes){};
     ~MeshGroup(){};
     
     std::vector<Mesh>& getMeshes(){ return m_meshes; }
@@ -28,7 +28,7 @@ public:
     void onDraw(Camera& camera) override;
     void onInput(SDL_Event& event) override;
     
-    void setMaterial(MaterialBase& material) override;
+    void setMaterial(const MaterialBase& material) override;
     void setDrawMode(DrawMode mode) override;
     
     void setPosition(float x, float y, float z) override;
@@ -36,12 +36,20 @@ public:
     void setRotation(float degree, float x, float y, float z) override;
     void lookAt(float x, float y, float z) override;
     
-    void addChild(Mesh& mesh){
+    void addChild(Mesh mesh){
         m_meshes.push_back(mesh);
     }
     
-    void addChildren(MeshGroup& source){
-        for(Mesh& child : source.m_meshes) addChild(child);
+    void addChildren(MeshGroup* source){
+        for(Mesh& child : source->m_meshes) addChild(child);
+    }
+    
+    void addChildren(std::vector<Mesh>& source){
+        for(Mesh& child : source) addChild(child);
+    }
+    
+    void addTexture(Texture& texture){
+        for(auto& mesh : m_meshes) mesh.addTexture(texture);
     }
     
     int size(){
@@ -50,7 +58,7 @@ public:
     
 private:
     
-    std::vector<Mesh>& m_meshes;
+    std::vector<Mesh> m_meshes;
     
 };
 

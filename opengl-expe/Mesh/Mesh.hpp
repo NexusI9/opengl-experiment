@@ -31,6 +31,8 @@
 #include "../Utility/Color.h"
 #include "../Utility/Transform.hpp"
 
+
+
 class Mesh : public MeshBase{
     
 public:
@@ -40,13 +42,13 @@ public:
          std::vector<Texture> textures);
     
     ~Mesh(){
-        delete m_wireMaterial;
+        //delete m_wireMaterial;
     };
     
     void onDraw(Camera& camera) override;
     void onInput(SDL_Event& event) override;
     
-    void setMaterial(MaterialBase& material) override;
+    void setMaterial(const MaterialBase& material) override;
     void setDrawMode(DrawMode mode) override;
     
     void setPosition(float x, float y, float z) override;
@@ -57,6 +59,14 @@ public:
     std::vector<Vertex>& getVertices(){ return m_vertices; };
     std::vector<GLuint>& getIndices(){ return m_elements; };
     std::vector<Texture>& getTextures(){ return m_textures; };
+    
+    void addTexture(Texture& texture){
+        m_textures.push_back(texture);
+    }
+    
+    MaterialBase* getMaterial(){
+        return material;
+    }
 
 private:
     
@@ -72,7 +82,6 @@ private:
     VAO m_vao;
     VBO m_vbo;
     EBO m_ebo;
-    
     
     GLenum m_usage;
     

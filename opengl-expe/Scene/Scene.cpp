@@ -84,7 +84,6 @@ void Scene::showGrid(bool show){
         m_grid = new Grid(100.0f, 100.0f);
         MeshGroup* gridMesh = m_grid->getMesh();
         add(gridMesh);
-        
     }
 }
 

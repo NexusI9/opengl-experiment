@@ -28,6 +28,10 @@ public:
     void setHeightMap(Texture* map);
     void setEmissiveColor(glm::vec3 color);
     
+    DefaultMaterial* clone() const override{
+        return new DefaultMaterial(*this);
+    }
+    
  
 protected:
     void loadShader() override {

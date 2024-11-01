@@ -18,8 +18,8 @@
 #include "../Material/SolidMaterial.hpp"
 
 struct Axis{
-    std::vector<glm::vec3> Points;
-    glm::vec3 Color;
+    std::vector<glm::vec3> points;
+    glm::vec3 color;
 };
 
 class Grid : public PrefabBase{
@@ -28,16 +28,7 @@ public:
     
     Grid(float scale = 10.0f, int division = 20, float thickness = 32.0);
     
-    ~Grid(){
-        delete m_rectangle;
-        delete m_gridMaterial;
-        
-        delete m_xAxis;
-        delete m_xAxisMaterial;
-        
-        delete m_yAxis;
-        delete m_yAxisMaterial;
-    }
+    ~Grid(){}
     
     
 private:
@@ -46,20 +37,8 @@ private:
     int m_division;
     float m_thickness;
     
-    //Grid
-    Rectangle* m_rectangle = nullptr;
-    SolidMaterial* m_gridMaterial = nullptr;
-    
-    //X Axis
-    Points* m_xAxis = nullptr;
-    SolidMaterial* m_xAxisMaterial = nullptr;
-    
-    //Y Axis
-    Points* m_yAxis = nullptr;
-    SolidMaterial* m_yAxisMaterial = nullptr;
-    
     void genGrid();
-    void genAxis(Axis axis, Points* model, SolidMaterial* material);
+    void genAxis(Axis& axis);
     
 };
 

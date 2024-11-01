@@ -23,13 +23,13 @@ Gltf::Gltf(const char* path) : m_path(path){
     traverseNode(0);
     
     //Create MeshGroup
-    m_meshGroup = new MeshGroup(m_meshes);
+    m_meshGroup->addChildren(m_meshes);
     
     Debugger::print("Loading: ", Verbose::Flag::MESH);
     
 }
 
-std::unordered_map<std::string, Texture*> Gltf::loadedTextures;
+std::unordered_map<std::string, Texture> Gltf::loadedTextures;
 
 std::vector<unsigned char> Gltf::getData(){
     
@@ -311,17 +311,17 @@ std::vector<Texture> Gltf::loadTextures(){
         if(loadedTextures.find(texPath) == loadedTextures.end()){
             Debugger::print("Loading texture: " + texPath, Verbose::Flag::TEXTURE);
             std::string texturePath = (dir+texPath).c_str();
-            Texture* texture = new Texture({
+            Texture texture({
                 .path = texturePath,
                 .slot = slot++
             });
-            
+        
             //Add to Mesh array
-            textures.push_back(*texture);
+            textures.push_back(texture);
             //Add to static cache array
             loadedTextures[texPath] = texture;
         }else{
-            textures.push_back(*loadedTextures[texPath]);
+            textures.push_back(loadedTextures[texPath]);
         }
     }
     

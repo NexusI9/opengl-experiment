@@ -20,11 +20,11 @@ public:
     
     MeshGroup* getMesh(){ return m_mesh; }
     
+    
 protected:
     
-    MeshGroup* m_mesh = nullptr;
-    
-    
+    MeshGroup* m_mesh = new MeshGroup();
+
 };
 
 #endif /* PrefabBase_h */

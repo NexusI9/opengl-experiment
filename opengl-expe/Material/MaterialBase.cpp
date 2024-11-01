@@ -21,12 +21,67 @@ void MaterialBase::onDraw(Camera& camera, glm::mat4 modelMatrix){
     m_shader->setMatrix4("model", modelMatrix);
     
     //Apply texture to shader
-    if(m_textures != nullptr){
+    if(m_textures){
         for(int t = 0; t < m_textures->size(); t++){
-            (*m_textures)[t].bind();
-            m_shader->setSampler2D("texture"+std::to_string(t), t);
+                (*m_textures)[t].bind();
+                m_shader->setSampler2D("texture"+std::to_string(t), t);
+            
         }
+        
     }
+    
 
     
+}
+
+
+void MaterialBase::assignUniforms(UniformList uniforms){
+    
+    if(!m_shader){
+        std::cout << "ERROR :: MaterialBase :: Cannot assign uniforms, no shader existing" << std::endl;
+        return;
+    }
+    
+    for(auto& uniform : uniforms){
+        
+        switch(uniform.type){
+                
+            case UniformType::FLOAT:
+                if(auto value = std::get_if<float>(&uniform.value) )
+                    m_shader->setFloat(uniform.name, *value);
+                break;
+                
+            case UniformType::INT:
+                if(auto value = std::get_if<int>(&uniform.value) )
+                    m_shader->setInt(uniform.name, *value);
+                break;
+                
+            case UniformType::VECTOR_2:
+                if(auto value = std::get_if<glm::vec2>(&uniform.value) )
+                    m_shader->setVec2(uniform.name, *value);
+                break;
+                
+            case UniformType::VECTOR_3:
+                if(auto value = std::get_if<glm::vec3>(&uniform.value) )
+                m_shader->setVec3(uniform.name, *value);
+                break;
+                
+            case UniformType::SAMPLER_2D:
+                if(auto value = std::get_if<int>(&uniform.value) )
+                    m_shader->setSampler2D(uniform.name, *value);
+                break;
+                
+            case UniformType::MATRIX_4:
+                if(auto value = std::get_if<glm::mat4>(&uniform.value) )
+                    m_shader->setMatrix4(uniform.name, *value);
+                break;
+                
+            case UniformType::UNIFORM_BLOCK:
+                if(auto value = std::get_if<GLuint>(&uniform.value) )
+                    m_shader->setUniformBlock(uniform.name, *value);
+                break;
+                
+        }
+        
+    }
 }

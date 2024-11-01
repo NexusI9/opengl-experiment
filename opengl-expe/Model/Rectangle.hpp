@@ -27,10 +27,7 @@ public:
     std::vector<Vertex> m_vertices;
     std::vector<GLuint> m_elements;
     std::vector<Texture> m_textures;
-    
-    void addTexture(Texture& texture){
-        m_textures.push_back(texture);
-    }
+
 };
 
 #endif /* Rectangle_hpp */

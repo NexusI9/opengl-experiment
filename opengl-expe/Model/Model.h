@@ -27,10 +27,7 @@ public:
     
 protected:
     
-    MeshGroup* m_meshGroup = nullptr;
-    
-    //"root" so no use reference vector to keep original generated Mesh in memory
-    std::vector<Mesh> m_meshes;
+    MeshGroup* m_meshGroup = new MeshGroup();
     
 };
 

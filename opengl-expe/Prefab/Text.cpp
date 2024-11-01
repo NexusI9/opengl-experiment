@@ -74,21 +74,25 @@ std::map<char, Glyph> Text::loadCharacters(){
         unsigned int width = m_currentFont->glyph->bitmap.width;
         
         //Generate Texture
-        Texture* texture = new Texture({
+        /*Texture* texture = new Texture({
             .buffer = m_currentFont->glyph->bitmap.buffer,
             .width = width,
             .height = height,
+            .slot = 0
+        });*/
+        
+        Texture texture({
+            .path = std::string(ROOT_DIR + "Assets/Textures/default.png"),
             .slot = 0
         });
         
         //Generate Plane Mesh and add texture and normalized scale
         Rectangle rectangle;
-        //TODO: add the texture in the material instead of rectangle model
-        rectangle.addTexture(*texture);
         
-        MeshGroup* mesh = new MeshGroup(*rectangle.getMesh());
-
+        MeshGroup* mesh = rectangle.getMesh();
         DefaultMaterial material;
+        
+        mesh->addTexture(texture);
         mesh->setMaterial(material);
         mesh->setScale(1.0f, (float) height / width, 1.0f);
     
@@ -124,19 +128,6 @@ void Text::generate(){
         //m_mesh->addChildren(glf.mesh);
         //push mesh to meshgroup
         
-    }
-    
-}
-
-void Text::clearFont(std::string font){
-    
-    //Check if exists
-    if(m_fontList.find(font) != m_fontList.end()){
-        //Deleting mesh a texture pointer
-        for(const auto& glf : m_fontList[font].glyphs){
-            delete glf.second.mesh;
-            delete glf.second.texture;
-        }
     }
     
 }
