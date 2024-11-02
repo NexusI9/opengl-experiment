@@ -274,6 +274,7 @@ Mesh Gltf::loadMesh(unsigned int meshIndex){
     unsigned int texAccInd = m_json["meshes"][meshIndex]["primitives"][0]["attributes"]["TEXCOORD_0"];
     unsigned int idAccInd = m_json["meshes"][meshIndex]["primitives"][0]["indices"];
     
+    std::string name = m_json["meshes"][meshIndex]["name"].get<std::string>();
     
     //Get vertices components via accessor
     std::vector<float> posVec = getFloats(m_json["accessors"][posAccInd]);
@@ -285,13 +286,13 @@ Mesh Gltf::loadMesh(unsigned int meshIndex){
     std::vector<float> texVec = getFloats(m_json["accessors"][texAccInd]);
     std::vector<glm::vec2> texUvs = getFloatsVector2(texVec);
     
-    //Combines vertex components
-    std::vector<Vertex> vertices = assembleVertices(positions, normals, texUvs);
-    std::vector<GLuint> indices = getIndices(m_json["accessors"][idAccInd]);
-    std::vector<Texture> textures = loadTextures();
-    
     //init mesh
-    return Mesh(vertices, indices, textures);
+    return Mesh({
+        .name = name,
+        .vertices = assembleVertices(positions, normals, texUvs),
+        .elements = getIndices(m_json["accessors"][idAccInd]),
+        .textures = loadTextures()
+    });
 }
 
 

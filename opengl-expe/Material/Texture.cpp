@@ -13,7 +13,7 @@
 #include "../Utility/Constant.h"
 
 Texture::Texture(const TexturePathArg& args):
-    m_path((const char*)args.path.c_str()),
+    m_path(args.path),
     m_slot(args.slot){
         import();
     }
@@ -28,8 +28,12 @@ Texture::Texture(const TextureBufferArg& args):
 
 void Texture::import(){
     
+    if (m_path.empty()) {
+        throw std::runtime_error("Texture path is empty");
+    }
+    
     //Load Texture array
-    SDL_Surface* picture = IMG_Load(m_path);
+    SDL_Surface* picture = IMG_Load(m_path.c_str());
     if(!picture) throw std::runtime_error("Texture could not be loaded");
     
     generate(picture->pixels, picture->w, picture->h, m_slot);
@@ -41,7 +45,6 @@ void Texture::generate(void* pixels, unsigned int width, unsigned int height, co
     
     glGenTextures(1, &ID);
 
-    
     if(m_slot > 31){
         m_slot = 0;
         throw std::runtime_error("Texture slot out of bound ("+std::to_string(m_slot)+")");

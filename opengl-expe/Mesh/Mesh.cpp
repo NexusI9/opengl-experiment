@@ -16,10 +16,11 @@
 #include "../Utility/Color.h"
 
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> elements, std::vector<Texture> textures):
-m_vertices(vertices),
-m_elements(elements),
-m_textures(textures){
+Mesh::Mesh(const MeshArgs& args):
+m_vertices(args.vertices),
+m_elements(args.elements),
+m_textures(args.textures),
+m_name(args.name){
     //Instantiate our buffers and array object and load data in it
     //We then proceed to layout the VAO data only when loading the Shader
 
@@ -127,6 +128,14 @@ void Mesh::setWireMaterial(glm::vec3 color){
     material->init(m_vao, m_vbo, m_vertices, m_textures);
 }
 
+std::string Mesh::info(){
 
-
-
+    std::string name = "Name:\t\t\t" + m_name;
+    std::string vertSize = "Vertex size:\t" + std::to_string(m_vertices.size());
+    std::string eltSize = "Elements size:\t" + std::to_string(m_elements.size());
+    std::string texSize = "Textures size:\t" + std::to_string(m_textures.size());
+    
+    
+    return name + "\n" + vertSize + "\n" + eltSize + "\n" + texSize;
+    
+}

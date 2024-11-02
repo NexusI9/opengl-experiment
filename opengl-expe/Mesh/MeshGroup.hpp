@@ -36,16 +36,16 @@ public:
     void setRotation(float degree, float x, float y, float z) override;
     void lookAt(float x, float y, float z) override;
     
-    void addChild(Mesh mesh){
-        m_meshes.push_back(mesh);
+    void addChild(Mesh&& mesh){
+        m_meshes.push_back(std::move(mesh));
     }
     
     void addChildren(MeshGroup* source){
-        for(Mesh& child : source->m_meshes) addChild(child);
+        for(Mesh& child : source->m_meshes) addChild(std::move(child));
     }
     
     void addChildren(std::vector<Mesh>& source){
-        for(Mesh& child : source) addChild(child);
+        for(Mesh& child : source) addChild(std::move(child));
     }
     
     void addTexture(Texture& texture){

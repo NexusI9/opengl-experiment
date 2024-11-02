@@ -68,7 +68,7 @@ void Window::init(){
 
     SDL_GL_SetSwapInterval(1);
     //Clear color to black
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     
     if(GameManager::mode == GameManager::Mode::DEBUGGER)
     {

@@ -17,7 +17,6 @@
 
 #include "../Mesh/Vertex.h"
 #include "../Model/Rectangle.hpp"
-#include "../Mesh/MeshGroup.hpp"
 #include "../Scene/Scene.hpp"
 
 struct Verbose{
@@ -41,26 +40,27 @@ class Debugger{
 
 public:
     
-    ~Debugger(){
-        delete mesh;
-    }
+    ~Debugger(){}
     
     static bool printVerbose;
+    static void filterVerboseFlag(Verbose::Flag flag);
     static Verbose::Flag verboseFlag;
     
     static void print(const std::string& value, Verbose::Flag flag = Verbose::Flag::NONE);
     static void printVec3(glm::vec3& vector);
     static void printVec2(glm::vec2& vector);
-    static void printMesh(Mesh& mesh);
+    static void printVertices(std::vector<glm::vec3>& vertices);
+    static void printMeshGroupInfo(MeshGroup& meshgroup);
     
     static void drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 color = Color::Green);
     static void drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color = Color::Green);
     static void drawMesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Scene& scene, glm::vec3 color = Color::Green);
     
-    static Mesh* mesh;
+
     
 private:
     
+    static Verbose::Flag m_verboseFilter;
     static const char* m_verboseFlag[5];
     
 };

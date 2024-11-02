@@ -32,14 +32,18 @@
 #include "../Utility/Transform.hpp"
 
 
+struct MeshArgs{
+    std::string name = "DEFAULT";
+    std::vector<Vertex> vertices;
+    std::vector<GLuint> elements;
+    std::vector<Texture> textures;
+};
 
 class Mesh : public MeshBase{
     
 public:
     
-    Mesh(std::vector<Vertex> vertices,
-         std::vector<GLuint> elements,
-         std::vector<Texture> textures);
+    Mesh(const MeshArgs& args);
     
     ~Mesh(){
         //delete m_wireMaterial;
@@ -56,6 +60,7 @@ public:
     void setRotation(float degree, float x, float y, float z) override;
     void lookAt(float x, float y, float z) override;
     
+    std::string getName(){ return m_name; }
     std::vector<Vertex>& getVertices(){ return m_vertices; };
     std::vector<GLuint>& getIndices(){ return m_elements; };
     std::vector<Texture>& getTextures(){ return m_textures; };
@@ -67,6 +72,8 @@ public:
     MaterialBase* getMaterial(){
         return material;
     }
+    
+    std::string info();
 
 private:
     
@@ -75,6 +82,7 @@ private:
     
     MaterialBase* material = nullptr;
     
+    std::string m_name;
     std::vector<Vertex> m_vertices;
     std::vector<GLuint> m_elements;
     std::vector<Texture> m_textures;

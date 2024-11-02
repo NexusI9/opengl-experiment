@@ -49,8 +49,6 @@ void Grid::genGrid(){
 
     
     gridMesh->setMaterial(gridMaterial);
-
-
     m_mesh = gridMesh;
 }
 
@@ -61,7 +59,8 @@ void Grid::genAxis(Axis& axis){
     SolidMaterial material({
         .color = axis.color,
         .vertexShader = std::string(ROOT_DIR + "Material/Shader/solid.vert"),
-        .fragmentShader =std::string(ROOT_DIR + "Material/Shader/solid.frag")
+        .fragmentShader =std::string(ROOT_DIR + "Material/Shader/solid.frag"),
+        .uniforms = {}
     });
     
     MeshGroup* axisMesh = points.getMesh();
@@ -70,4 +69,5 @@ void Grid::genAxis(Axis& axis){
     
     //Transfer mesh to global mesh
     //m_mesh->addChildren(axisMesh);
+    
 }

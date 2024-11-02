@@ -37,9 +37,12 @@ public:
         .slot = 0
     });
     Texture(const TextureBufferArg& args);
+    ~Texture(){}
     
     void bind();
     void unbind();
+    
+    std::string m_path;
 
 private:
     
@@ -76,8 +79,7 @@ private:
         GL_TEXTURE30,
         GL_TEXTURE31
     };
-    
-    const char* m_path;
+
     
     const unsigned char* m_buffer;
     unsigned int m_width;

@@ -58,6 +58,10 @@ void Text::useFont(std::string &path){
 }
 
 std::map<char, Glyph> Text::loadCharacters(){
+    /*
+     Create Glyph object for each font characters and store along their
+     position, recangle mesh, texture and material
+     **/
     
     // disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -65,6 +69,7 @@ std::map<char, Glyph> Text::loadCharacters(){
     
     for(unsigned char c = 0; c < 128; c++){
     
+
         if(FT_Load_Char(m_currentFont, c, FT_LOAD_RENDER)){
             std::cout << "ERROR::FREETYPE: Failed to load Character" << std::endl;
             continue;
@@ -74,7 +79,7 @@ std::map<char, Glyph> Text::loadCharacters(){
         unsigned int width = m_currentFont->glyph->bitmap.width;
         
         //Generate Texture
-        /*Texture* texture = new Texture({
+        /*Texture texture({
             .buffer = m_currentFont->glyph->bitmap.buffer,
             .width = width,
             .height = height,
@@ -105,6 +110,7 @@ std::map<char, Glyph> Text::loadCharacters(){
         };
         
         map.insert(std::pair<char, Glyph>(c, glyph));
+        
     }
     
     FT_Done_Face(m_currentFont);
@@ -115,6 +121,9 @@ std::map<char, Glyph> Text::loadCharacters(){
 
 void Text::generate(){
     
+    /*
+     Generate text string from the laded characters
+     **/
     std::string::const_iterator c;
     for(c = m_text.begin(); c != m_text.end(); c++){
         
@@ -124,10 +133,9 @@ void Text::generate(){
         float xPos = glf.bearing.x * m_size;
         float yPos = (glf.size.y - glf.bearing.y) * m_size;
         
-        //glf.mesh->setPosition(xPos, yPos, 0.0f);
-        //m_mesh->addChildren(glf.mesh);
+        glf.mesh->setPosition(xPos, yPos, 0.0f);
         //push mesh to meshgroup
-        
+        m_mesh->addChildren(glf.mesh);
     }
     
 }

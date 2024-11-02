@@ -19,6 +19,7 @@
 #include "Mesh/MeshGroup.hpp"
 #include "Material/DefaultMaterial.hpp"
 #include "Prefab/Text.hpp"
+#include "Material/Texture.hpp"
 
 #include "Utility/Debugger.hpp"
 
@@ -44,6 +45,7 @@ int main(int argc, const char * argv[]) {
     //camera.translate(glm::vec3(2.0f, 2.0f, 2.0f));
     scene.setCamera(camera);
     
+    Debugger::filterVerboseFlag(Verbose::Flag::MESH);
     
     //Draw cube
     Gltf cubeModel((std::string(ROOT_DIR+"Assets/Models/cube/cube.gltf")).c_str());
@@ -52,6 +54,7 @@ int main(int argc, const char * argv[]) {
     cubeMesh->setMaterial(cubeMat);
     cubeMesh->setScale(1.0f, 1.0f, 1.0f);
     
+    Debugger::printMeshGroupInfo(*cubeMesh);
     
     //Draw points
     std::vector<glm::vec3> pts{
@@ -62,12 +65,15 @@ int main(int argc, const char * argv[]) {
     
     Debugger::drawPoints(pts, scene);
     
-    //Draw text
-    std::string textString = "Test";
-    //Text text(textString, 48);
     
+    //Draw text
+    /*std::string textString = "Test";
+    Text text(textString, 48);
+    MeshGroup* textMesh = text.getMesh();
+    
+    scene.add(textMesh);*/
     scene.add(cubeMesh);
-    scene.showGrid(true);
+    //scene.showGrid(true);
 
     window.draw(scene);
     
