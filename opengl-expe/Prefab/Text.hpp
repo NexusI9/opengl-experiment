@@ -49,7 +49,7 @@ class Text : public PrefabBase{
     
 public:
     
-    Text(std::string& text, int size);
+    Text(std::string& text, int size, glm::vec3 color = Color::Grey);
     ~Text(){};
 
     void useFont(std::string& path);
@@ -62,6 +62,7 @@ private:
     
     std::string& m_text;
     int m_size;
+    glm::vec3 m_color;
     
     std::string m_typeface = std::string(ROOT_DIR + "Assets/Fonts/Arial.ttf");
     FT_Face m_currentFont;

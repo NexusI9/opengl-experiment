@@ -14,7 +14,9 @@
 
 Texture::Texture(const TexturePathArg& args):
     m_path(args.path),
-    m_slot(args.slot){
+    m_slot(args.slot),
+    m_format(args.format),
+    m_wrap(args.wrap){
         import();
     }
 
@@ -22,7 +24,9 @@ Texture::Texture(const TextureBufferArg& args):
     m_buffer(args.buffer),
     m_slot(args.slot),
     m_width(args.width),
-    m_height(args.height){
+    m_height(args.height),
+    m_format(args.format),
+    m_wrap(args.wrap){
         generate((void*) m_buffer, m_width, m_height, m_slot);
     };
 
@@ -59,7 +63,7 @@ void Texture::generate(void* pixels, unsigned int width, unsigned int height, co
     bind();
 
     //fillup texture buffer
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, m_format, width, height, 0, m_format, GL_UNSIGNED_BYTE, pixels);
     
     //Enable multisample
     //glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, MSAA_SAMPLING, GL_RGB, picture->w, picture->h, GL_TRUE);
@@ -67,8 +71,8 @@ void Texture::generate(void* pixels, unsigned int width, unsigned int height, co
 
     
     //Set Wrapping
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrap);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrap);
     
     //Set Filtering
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

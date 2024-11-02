@@ -79,6 +79,7 @@
 		562BD0E92CBABE0C005D7273 /* solid.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solid.frag; sourceTree = "<group>"; };
 		562BD0EA2CBABE40005D7273 /* solid.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solid.vert; sourceTree = "<group>"; };
 		562CB3162C9E5ED50081658C /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
+		5630F21F2CD5F3CD008157F6 /* text.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = text.frag; sourceTree = "<group>"; };
 		5631D4FB2C9B97C800A99F30 /* Gltf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Gltf.cpp; sourceTree = "<group>"; };
 		5631D4FC2C9B97C800A99F30 /* Gltf.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gltf.hpp; sourceTree = "<group>"; };
 		563F4C042C95380400AD7777 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -303,6 +304,7 @@
 				5661A9F62C84235D002E52DA /* default.frag */,
 				562BD0E92CBABE0C005D7273 /* solid.frag */,
 				562BD0EA2CBABE40005D7273 /* solid.vert */,
+				5630F21F2CD5F3CD008157F6 /* text.frag */,
 				564005D12CC28922007FCDDC /* grid.vert */,
 				564005D22CC28933007FCDDC /* grid.frag */,
 			);

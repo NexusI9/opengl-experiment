@@ -90,7 +90,7 @@ void Debugger::printMeshGroupInfo(MeshGroup& meshgroup){
     int i = 0;
     for(auto& mesh : meshgroup.getMeshes()) {
         info += "CHILD " + std::to_string(i) + ":\n";
-        info += mesh.info() + "\n";
+        info += mesh.info() + "\n\n";
         i++;
     }
     

@@ -11,7 +11,7 @@
 FT_Library Text::m_ftLib;
 std::unordered_map<std::string, Font> Text::m_fontList;
 
-Text::Text(std::string& text, int size) : m_text(text), m_size(size){
+Text::Text(std::string& text, int size, glm::vec3 color) : m_text(text), m_size(size), m_color(color){
     
     if(FT_Init_FreeType(&m_ftLib)){
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
@@ -79,31 +79,32 @@ std::map<char, Glyph> Text::loadCharacters(){
         unsigned int width = m_currentFont->glyph->bitmap.width;
         
         //Generate Texture
-        /*Texture texture({
+        Texture texture({
             .buffer = m_currentFont->glyph->bitmap.buffer,
             .width = width,
             .height = height,
-            .slot = 0
-        });*/
-        
-        Texture texture({
-            .path = std::string(ROOT_DIR + "Assets/Textures/default.png"),
-            .slot = 0
+            .slot = 0,
+            .format = GL_RED,
+            .wrap = GL_CLAMP_TO_EDGE
         });
         
         //Generate Plane Mesh and add texture and normalized scale
         Rectangle rectangle;
         
         MeshGroup* mesh = rectangle.getMesh();
-        DefaultMaterial material;
+        SolidMaterial material({
+            .color = m_color,
+            .fragmentShader = std::string(ROOT_DIR + "Material/Shader/text.frag")
+        });
         
+        mesh->setRotation(180.0f, 1.0f, 0.0f, 0.0f);
         mesh->addTexture(texture);
         mesh->setMaterial(material);
-        mesh->setScale(1.0f, (float) height / width, 1.0f);
+        mesh->setScale(width, height, 1.0f);
     
         Glyph glyph{
             texture,
-            glm::ivec2(m_currentFont->glyph->bitmap.width, m_currentFont->glyph->bitmap.rows),
+            glm::ivec2(width, height),
             glm::ivec2(m_currentFont->glyph->bitmap_left, m_currentFont->glyph->bitmap_top),
             m_currentFont->glyph->advance.x,
             mesh
@@ -124,18 +125,23 @@ void Text::generate(){
     /*
      Generate text string from the laded characters
      **/
+    
+    float cursor = 0.0f;
     std::string::const_iterator c;
     for(c = m_text.begin(); c != m_text.end(); c++){
         
         Glyph glf = m_fontList[m_typeface].glyphs[*c];
-        
         //set plane mesh position based on character (glyph) property
-        float xPos = glf.bearing.x * m_size;
+        float xPos =  cursor + glf.bearing.x * m_size;
         float yPos = (glf.size.y - glf.bearing.y) * m_size;
         
         glf.mesh->setPosition(xPos, yPos, 0.0f);
         //push mesh to meshgroup
         m_mesh->addChildren(glf.mesh);
+        
+        //increment cursor
+        // x >> 6  = x / 2^6 = x / 64, convert advance to full pixel (originaly 1/64th of a pixel)
+        cursor += glf.advance >> 6 * m_size;
     }
     
 }

@@ -17,6 +17,8 @@
 struct TexturePathArg{
     const std::string& path = std::string(ROOT_DIR+"Assets/Textures/default.png");
     const unsigned int slot = 0;
+    const GLint        format = GL_RGB;
+    const GLint        wrap = GL_REPEAT;
 };
 
 struct TextureBufferArg{
@@ -24,6 +26,8 @@ struct TextureBufferArg{
     const unsigned int   width = 0;
     const unsigned int   height = 0;
     const unsigned int   slot = 0;
+    const GLint          format = GL_RGB;
+    const GLint          wrap = GL_REPEAT;
 };
 
 
@@ -86,6 +90,8 @@ private:
     unsigned int m_height;
     
     unsigned int m_slot;
+    GLint m_format;
+    GLint m_wrap;
 
     GLuint ID;
     
