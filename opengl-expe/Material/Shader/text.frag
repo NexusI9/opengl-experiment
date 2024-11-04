@@ -10,6 +10,6 @@ in vec2 Uv;
 void main(){
     
     vec4 tex = texture(texture0, Uv);
-    outColor = tex.r * vec4(color, 1.0f);
-    //outColor = vtex;
+    //outColor = tex.r * vec4(color, 1.0f);
+    outColor = tex;
 }

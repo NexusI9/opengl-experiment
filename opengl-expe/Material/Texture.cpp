@@ -16,7 +16,8 @@ Texture::Texture(const TexturePathArg& args):
     m_path(args.path),
     m_slot(args.slot),
     m_format(args.format),
-    m_wrap(args.wrap){
+    m_wrap(args.wrap),
+    m_filter(args.filter){
         import();
     }
 
@@ -26,7 +27,8 @@ Texture::Texture(const TextureBufferArg& args):
     m_width(args.width),
     m_height(args.height),
     m_format(args.format),
-    m_wrap(args.wrap){
+    m_wrap(args.wrap),
+    m_filter(args.filter){
         generate(m_buffer, m_width, m_height, m_slot);
     };
 
@@ -75,8 +77,8 @@ void Texture::generate(const void* pixels, unsigned int width, unsigned int heig
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrap);
     
     //Set Filtering
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_filter);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_filter);
     
     glGenerateMipmap(GL_TEXTURE_2D);
 

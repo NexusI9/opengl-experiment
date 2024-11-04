@@ -66,7 +66,7 @@ int main(int argc, const char * argv[]) {
     
     
     //Draw text
-    std::string textString = "0123456789ABcxDE";
+    std::string textString = "Salut ça va pas ?";
     Text text(textString);
     MeshGroup* textMesh = text.getMesh();
     

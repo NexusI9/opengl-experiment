@@ -20,6 +20,7 @@ struct TexturePathArg{
     const unsigned int slot = 0;
     const GLint        format = GL_RGB;
     const GLint        wrap = GL_REPEAT;
+    const GLint        filter = GL_LINEAR;
 };
 
 struct TextureBufferArg{
@@ -29,6 +30,7 @@ struct TextureBufferArg{
     const unsigned int   slot = 0;
     const GLint          format = GL_RGB;
     const GLint          wrap = GL_REPEAT;
+    const GLint          filter = GL_LINEAR;
 };
 
 struct TextureRegion{
@@ -103,6 +105,7 @@ private:
     unsigned int m_slot;
     GLint m_format;
     GLint m_wrap;
+    GLint m_filter;
 
     GLuint ID;
     

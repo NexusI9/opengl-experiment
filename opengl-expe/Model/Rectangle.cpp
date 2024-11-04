@@ -53,7 +53,10 @@ Rectangle::Rectangle(){
         m_vertices.push_back(tempVertex);
     }
 
-    m_elements = {0, 1, 2, 2, 3, 0};
+    //m_elements = {0, 1, 2, 2, 3, 0};
+    
+    m_elements = {0, 3, 2, 2, 1, 0};
+
     
     m_meshGroup->addChild(Mesh({
         .name = "rectangle",

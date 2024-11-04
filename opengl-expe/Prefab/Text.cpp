@@ -88,13 +88,17 @@ GlyphMap Text::loadGlyphs(){
         m_atlasWidth += width;
         m_atlasHeight = std::max(m_atlasHeight, static_cast<int>(height));
         
+        std::cout << (int) m_currentFont->glyph->advance.x << std::endl;
+        
         //load glyph coordinates
         Glyph glyph{
             .size = glm::ivec2(width, height),
             .bearing = glm::ivec2(m_currentFont->glyph->bitmap_left, m_currentFont->glyph->bitmap_top),
             .advance = m_currentFont->glyph->advance.x,
-            .buffer = m_currentFont->glyph->bitmap.buffer
+            .buffer = new unsigned char[width * height]
         };
+        
+        std::memcpy(glyph.buffer, m_currentFont->glyph->bitmap.buffer, width * height);
         
         map.insert(std::pair<char, Glyph>(c, glyph));
         
@@ -117,7 +121,7 @@ Texture Text::genAtlas(GlyphMap &glyphs){
         .width = m_atlasWidth,
         .height = m_atlasHeight,
         .format = GL_RED,
-        .wrap = GL_CLAMP_TO_EDGE,
+        .wrap = GL_CLAMP_TO_BORDER,
         .slot = 0
     });
     
@@ -147,13 +151,15 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
     std::string::const_iterator c;
     GLsizei width = 0;
     GLsizei height = 0;
+    GLsizei bearing = 0;
     
     //Precalculate label texture width and height
     for(c = label.begin(); c != label.end(); c++){
         Glyph glf = m_fontList[m_typeface].glyphs[*c];
-        width += glf.size.x;
-        height = std::max(height, glf.size.y);
-        //set plane mesh position based on character (glyph) property
+        width += glf.size.x + glf.bearing.x;
+        int margin = glf.size.y - glf.bearing.y;
+        height = std::max(height, glf.size.y + margin); //global height
+        bearing = std::max(bearing, glf.size.y); //bearing height
     }
     
     Texture labelTexture = Texture({
@@ -161,7 +167,8 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
         .width = width,
         .height = height,
         .format = GL_RED,
-        .wrap = GL_CLAMP_TO_EDGE,
+        .wrap = GL_CLAMP_TO_BORDER,
+        .filter = GL_LINEAR,
         .slot = 0
     });
     
@@ -171,17 +178,19 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
         Glyph glyph = m_fontList[m_typeface].glyphs[*c];
         
         const int glyphWidth = glyph.size.x;
-        
+        const int margin = std::max(1, std::abs(glyph.bearing.y - glyph.size.y));
+    
         labelTexture.drawRegion({
                     .x = offset,
-                    .y = 0,
+                    .y = (bearing - glyph.size.y) * margin,
                     .width = glyphWidth,
                     .height = glyph.size.y,
                     .format = GL_RED,
                     .buffer = glyph.buffer
                 });
         
-        offset += glyphWidth;
+        
+        offset += glyphWidth + glyph.bearing.x;
         
     }
     
@@ -204,7 +213,6 @@ void Text::generate(){
         .fragmentShader = std::string(ROOT_DIR+"Material/Shader/text.frag")
     });
     
-    labelMesh->setRotation(180.0f, 1.0f, 0.0f, 0.0f);
     labelMesh->addTexture(labelTex);
     labelMesh->setMaterial(labelMaterial);
     labelMesh->setScale(texSize.x / texSize.y, 1.0f, 1.0f); //scale to ratio
