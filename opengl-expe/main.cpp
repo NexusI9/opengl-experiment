@@ -53,6 +53,7 @@ int main(int argc, const char * argv[]) {
     DefaultMaterial cubeMat;
     cubeMesh->setMaterial(cubeMat);
     cubeMesh->setScale(1.0f, 1.0f, 1.0f);
+    cubeMesh->setPosition(2.0f, 3.0f, -1.0f);
     
     //Draw points
     std::vector<glm::vec3> pts{
@@ -65,13 +66,13 @@ int main(int argc, const char * argv[]) {
     
     
     //Draw text
-    std::string textString = "Test";
-    Text text(textString, 12);
+    std::string textString = "0123456789ABcxDE";
+    Text text(textString);
     MeshGroup* textMesh = text.getMesh();
     
     
     scene.add(textMesh);
-    //scene.add(cubeMesh);
+    scene.add(cubeMesh);
     //scene.showGrid(true);
 
     window.draw(scene);

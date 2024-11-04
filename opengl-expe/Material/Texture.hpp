@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 #include "../Utility/Constant.h"
 
 
@@ -22,14 +23,22 @@ struct TexturePathArg{
 };
 
 struct TextureBufferArg{
-    const unsigned char* buffer = 0;
-    const unsigned int   width = 0;
-    const unsigned int   height = 0;
+    const void*          buffer = 0;
+    const GLsizei        width = 1;
+    const GLsizei        height = 1;
     const unsigned int   slot = 0;
     const GLint          format = GL_RGB;
     const GLint          wrap = GL_REPEAT;
 };
 
+struct TextureRegion{
+    GLint x = 0;
+    GLint y = 0;
+    GLsizei width = 1;
+    GLsizei height = 1;
+    GLint format = GL_RGB;
+    const void* buffer = nullptr;
+};
 
 class Texture{
     
@@ -45,6 +54,8 @@ public:
     
     void bind();
     void unbind();
+    void drawRegion(const TextureRegion& args);
+    glm::vec2 size(){ return glm::vec2(m_width, m_height); };
     
     std::string m_path;
 
@@ -85,7 +96,7 @@ private:
     };
 
     
-    const unsigned char* m_buffer;
+    const void* m_buffer;
     unsigned int m_width;
     unsigned int m_height;
     
@@ -96,7 +107,8 @@ private:
     GLuint ID;
     
     void import();
-    void generate(void* pixels, unsigned int width, unsigned int height, const unsigned int slot);
+    void generate(const void* pixels, unsigned int width, unsigned int height, const unsigned int slot);
+
 };
 
 #endif /* Texture_hpp */

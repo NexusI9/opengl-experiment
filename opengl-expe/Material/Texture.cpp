@@ -27,7 +27,7 @@ Texture::Texture(const TextureBufferArg& args):
     m_height(args.height),
     m_format(args.format),
     m_wrap(args.wrap){
-        generate((void*) m_buffer, m_width, m_height, m_slot);
+        generate(m_buffer, m_width, m_height, m_slot);
     };
 
 void Texture::import(){
@@ -45,7 +45,7 @@ void Texture::import(){
 }
 
 
-void Texture::generate(void* pixels, unsigned int width, unsigned int height, const unsigned int slot){
+void Texture::generate(const void* pixels, unsigned int width, unsigned int height, const unsigned int slot){
     
     glGenTextures(1, &ID);
 
@@ -61,7 +61,7 @@ void Texture::generate(void* pixels, unsigned int width, unsigned int height, co
     
     //Make texture active (bind)
     bind();
-
+        
     //fillup texture buffer
     glTexImage2D(GL_TEXTURE_2D, 0, m_format, width, height, 0, m_format, GL_UNSIGNED_BYTE, pixels);
     
@@ -79,6 +79,7 @@ void Texture::generate(void* pixels, unsigned int width, unsigned int height, co
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
     glGenerateMipmap(GL_TEXTURE_2D);
+
     
     //unbind
     unbind();
@@ -91,4 +92,13 @@ void Texture::bind(){
 
 void Texture::unbind(){
     glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+
+void Texture::drawRegion(const TextureRegion &args){
+
+    bind();
+    glTexSubImage2D(GL_TEXTURE_2D, 0, args.x, args.y, args.width, args.height, args.format, GL_UNSIGNED_BYTE, args.buffer);
+    unbind();
+
 }

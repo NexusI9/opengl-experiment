@@ -11,5 +11,5 @@ void main(){
     
     vec4 tex = texture(texture0, Uv);
     outColor = tex.r * vec4(color, 1.0f);
-    
+    //outColor = vtex;
 }

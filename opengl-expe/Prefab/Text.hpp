@@ -31,25 +31,28 @@
 
 #include "../Utility/Constant.h"
 
+
 struct Glyph{
-    Texture      texture;
-    glm::ivec2   size;
-    glm::ivec2   bearing;
-    FT_Pos       advance;
-    MeshGroup*   mesh;
+    glm::ivec2      size;
+    glm::ivec2      bearing;
+    FT_Pos          advance;
+    unsigned char*  buffer;
 };
+
+
+using GlyphMap = std::map<char, Glyph>;
 
 struct Font{
     FT_Face face;
-    std::map<char, Glyph> glyphs;
+    GlyphMap glyphs;
+    Texture atlas;
 };
-
 
 class Text : public PrefabBase{
     
 public:
     
-    Text(std::string& text, int size, glm::vec3 color = Color::Grey);
+    Text(std::string& text, glm::vec3 color = Color::Grey);
     ~Text(){};
 
     void useFont(std::string& path);
@@ -61,13 +64,20 @@ private:
     static std::unordered_map<std::string, Font> m_fontList;
     
     std::string& m_text;
-    int m_size;
+    int m_size = 128;
     glm::vec3 m_color;
     
     std::string m_typeface = std::string(ROOT_DIR + "Assets/Fonts/Arial.ttf");
     FT_Face m_currentFont;
     
-    std::map<char, Glyph> loadCharacters();
+    GlyphMap loadGlyphs();
+    
+    Texture genAtlas(GlyphMap& glyphs);
+    Texture genLabel(std::string label, GlyphMap& glyphs);
+    GLsizei m_atlasWidth = 0;
+    GLsizei m_atlasHeight = 0;
+    
+    
     void generate();
     
     
