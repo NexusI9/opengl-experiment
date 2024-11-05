@@ -88,13 +88,11 @@ GlyphMap Text::loadGlyphs(){
         m_atlasWidth += width;
         m_atlasHeight = std::max(m_atlasHeight, static_cast<int>(height));
         
-        std::cout << (int) m_currentFont->glyph->advance.x << std::endl;
-        
         //load glyph coordinates
         Glyph glyph{
             .size = glm::ivec2(width, height),
             .bearing = glm::ivec2(m_currentFont->glyph->bitmap_left, m_currentFont->glyph->bitmap_top),
-            .advance = m_currentFont->glyph->advance.x,
+            .advance = m_currentFont->glyph->advance.x >> 6,
             .buffer = new unsigned char[width * height]
         };
         
@@ -121,7 +119,7 @@ Texture Text::genAtlas(GlyphMap &glyphs){
         .width = m_atlasWidth,
         .height = m_atlasHeight,
         .format = GL_RED,
-        .wrap = GL_CLAMP_TO_BORDER,
+        .wrap = GL_CLAMP_TO_EDGE,
         .slot = 0
     });
     
@@ -129,7 +127,7 @@ Texture Text::genAtlas(GlyphMap &glyphs){
     int offset = 0;
     for(auto& [c, glyph] : glyphs ){
             
-        const int glyphWidth = glyph.size.x;
+        const int glyphWidth = static_cast<GLsizei>(glyph.advance);
         
         atlas.drawRegion({
                     .x = offset,
@@ -156,8 +154,11 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
     //Precalculate label texture width and height
     for(c = label.begin(); c != label.end(); c++){
         Glyph glf = m_fontList[m_typeface].glyphs[*c];
-        width += glf.size.x + glf.bearing.x;
+        
         int margin = glf.size.y - glf.bearing.y;
+        
+        //Define global texture dimension
+        width += static_cast<GLsizei>(glf.advance);
         height = std::max(height, glf.size.y + margin); //global height
         bearing = std::max(bearing, glf.size.y); //bearing height
     }
@@ -190,7 +191,7 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
                 });
         
         
-        offset += glyphWidth + glyph.bearing.x;
+        offset += glyph.advance;
         
     }
     
