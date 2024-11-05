@@ -167,7 +167,7 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
         .buffer = nullptr,
         .width = width,
         .height = height,
-        .format = GL_RED,
+        .format = GL_RGB,
         .wrap = GL_CLAMP_TO_BORDER,
         .filter = GL_LINEAR,
         .slot = 0
@@ -176,11 +176,12 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
     //Place regions
     int offset = 0;
     for(c = label.begin(); c != label.end(); c++){
+
         Glyph glyph = m_fontList[m_typeface].glyphs[*c];
         
         const int glyphWidth = glyph.size.x;
         const int margin = std::max(1, std::abs(glyph.bearing.y - glyph.size.y));
-    
+        
         labelTexture.drawRegion({
                     .x = offset,
                     .y = (bearing - glyph.size.y) * margin,
