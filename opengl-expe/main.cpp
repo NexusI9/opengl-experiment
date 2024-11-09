@@ -18,7 +18,6 @@
 #include "Model/Gltf.hpp"
 #include "Mesh/MeshGroup.hpp"
 #include "Material/DefaultMaterial.hpp"
-#include "Prefab/Text.hpp"
 #include "Material/Texture.hpp"
 
 #include "Utility/Debugger.hpp"
@@ -63,14 +62,7 @@ int main(int argc, const char * argv[]) {
     };
     
     Debugger::drawPoints(pts, scene);
-    
-    
-    //Draw text
-    std::string textString = "Wassup ?";
-    Text text(textString, Color::Green);
-    MeshGroup* textMesh = text.getMesh();
-     
-    scene.add(textMesh);
+
     scene.add(cubeMesh);
     
     scene.showGrid(true);

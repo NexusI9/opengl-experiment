@@ -180,7 +180,7 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
         Glyph glyph = m_fontList[m_typeface].glyphs[*c];
         
         const int glyphWidth = glyph.size.x;
-        const int margin = std::max(1, std::abs(glyph.bearing.y - glyph.size.y));
+        const int margin = std::abs(glyph.bearing.y - glyph.size.y);
         
         labelTexture.drawRegion({
                     .x = offset,
@@ -191,7 +191,6 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
                     .buffer = glyph.buffer
                 });
 
-        
         offset += glyph.advance;
     }
     

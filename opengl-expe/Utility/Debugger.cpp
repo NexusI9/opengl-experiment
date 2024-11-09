@@ -7,6 +7,7 @@
 
 #include "Debugger.hpp"
 #include "../Model/Points.hpp"
+#include "../Prefab/Text.hpp"
 
 bool Debugger::printVerbose = true;
 Verbose::Flag Debugger::verboseFlag;
@@ -60,10 +61,22 @@ void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 c
 
 void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color){
     
-    static Points points(pts);
-    static MeshGroup* pointMesh = points.getMesh();
-    
+    //generate point mesh
+    Points points(pts);
+    MeshGroup* pointMesh = points.getMesh();
     pointMesh->setDrawMode(MeshBase::DrawMode::POINTS);
+    
+    //generate point index label
+    for( int i = 0; i < pts.size(); i++){
+        glm::vec3 point = pts[i];
+        std::string index = std::to_string(i);
+        Text text(index, Color::Green);
+        MeshGroup* textMesh = text.getMesh();
+        textMesh->setPosition(i * 2.0f, 0.0f, 0.0f );
+        pointMesh->addChildren(textMesh);
+    }
+
+
     scene.add(pointMesh);
 }
 
