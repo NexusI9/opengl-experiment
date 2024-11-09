@@ -210,7 +210,10 @@ void Text::generate(){
     
     SolidMaterial labelMaterial({
         .color = m_color,
-        .fragmentShader = std::string(ROOT_DIR+"Material/Shader/text.frag")
+        .fragmentShader = std::string(ROOT_DIR+"Material/Shader/text.frag"),
+        .uniforms = {
+            { .type = UniformType::BOOLEAN, .name = "faceCamera", .value = true }
+        }
     });
     
     labelMesh->addTexture(labelTex);

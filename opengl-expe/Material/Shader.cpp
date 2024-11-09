@@ -178,6 +178,11 @@ void Shader::setMatrix4(const std::string &name, glm::mat4 matrix){
     glUniformMatrix4fv(m_uniformsLocations[name], 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
+void Shader::setBoolean(const std::string &name, bool value){
+    checkUniformLocation(name);
+    glUniform1i(m_uniformsLocations[name], value);
+}
+
 void Shader::setUniformBlock(const std::string &name, GLuint bindingIndex){
     checkUniformBlockLocation(name);
     glUniformBlockBinding(ID, m_uniformBlocksLocations[name], bindingIndex);

@@ -70,6 +70,11 @@ void MaterialBase::assignUniforms(UniformList uniforms){
                     m_shader->setMatrix4(uniform.name, *value);
                 break;
                 
+            case UniformType::BOOLEAN:
+                if(auto value = std::get_if<bool>(&uniform.value) )
+                    m_shader->setBoolean(uniform.name, *value);
+                break;
+                
             case UniformType::UNIFORM_BLOCK:
                 if(auto value = std::get_if<GLuint>(&uniform.value) )
                     m_shader->setUniformBlock(uniform.name, *value);

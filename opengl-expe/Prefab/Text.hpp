@@ -28,6 +28,7 @@
 #include "../Mesh/MeshGroup.hpp"
 #include "../Material/DefaultMaterial.hpp"
 #include "../Material/Texture.hpp"
+#include "../Material/Uniform.h"
 
 #include "../Utility/Constant.h"
 

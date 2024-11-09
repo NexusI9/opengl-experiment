@@ -46,6 +46,8 @@ public:
     
     void setMatrix4(const std::string& name, glm::mat4 matrix);
     
+    void setBoolean(const std::string& name, bool value);
+    
     //Uniforms Block
     void setUniformBlock(const std::string& name, GLuint bindingIndex);
     

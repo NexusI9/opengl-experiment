@@ -21,10 +21,11 @@ enum class UniformType{
     VECTOR_2,
     MATRIX_4,
     SAMPLER_2D,
-    UNIFORM_BLOCK
+    UNIFORM_BLOCK,
+    BOOLEAN
 };
 
-using UniformValue = std::variant<int, float, glm::vec2, glm::vec3, glm::mat4, GLuint>;
+using UniformValue = std::variant<bool, int, float, glm::vec2, glm::vec3, glm::mat4, GLuint>;
 
 struct Uniform{
     UniformType type;

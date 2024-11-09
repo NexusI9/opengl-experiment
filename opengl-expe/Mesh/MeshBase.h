@@ -31,6 +31,7 @@ public:
     
     virtual void setPosition(float x, float y, float z) = 0;
     virtual void setScale(float x, float y, float z) = 0;
+    virtual void setScale(float value) = 0;
     virtual void setRotation(float degree, float x, float y, float z) = 0;
     virtual void lookAt(float x, float y, float z) = 0;
     

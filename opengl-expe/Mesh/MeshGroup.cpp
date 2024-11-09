@@ -47,6 +47,13 @@ void MeshGroup::setScale(float x, float y, float z){
     };
 }
 
+void MeshGroup::setScale(float value){
+    for(auto& mesh : m_meshes){
+        glm::mat4 meshMatrix = mesh.getModelMatrix();
+        mesh.setModelMatrix(meshMatrix * Transform::scale(value, value, value));
+    };
+}
+
 
 void MeshGroup::lookAt(float x, float y, float z){
     for(auto& mesh : m_meshes){

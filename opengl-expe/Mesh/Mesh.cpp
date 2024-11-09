@@ -118,6 +118,11 @@ void Mesh::setScale(float x, float y, float z){
     setModelMatrix(Transform::scale(x, y, z));
 }
 
+void Mesh::setScale(float value){
+    m_scale = glm::vec3(value,value,value);
+    setModelMatrix(Transform::scale(value,value,value));
+}
+
 void Mesh::lookAt(float x, float y, float z){
     setModelMatrix(Transform::lookAt(m_position, glm::vec3(x,y,z)));
 }

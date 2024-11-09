@@ -57,6 +57,7 @@ public:
     
     void setPosition(float x, float y, float z) override;
     void setScale(float x, float y, float z) override;
+    void setScale(float value) override;
     void setRotation(float degree, float x, float y, float z) override;
     void lookAt(float x, float y, float z) override;
     
