@@ -26,19 +26,19 @@ void main(){
     float face_tone = 0.0; // 0.9 for the face of the tile
     float edge_tone = 1.0; // 0.5 for the edge
     
-    vec2 gridUv = sign(vec2(edge) - mod(Uv, patternSize));
+    vec2 compensUv = vec2(Uv.x + camPosition.x * patternSize, Uv.y - camPosition.y * patternSize);
+    
+    vec2 gridUv = sign(vec2(edge) - mod(compensUv, patternSize));
     vec4 pattern = vec4(face_tone - sign(gridUv.x + gridUv.y + 1.0) * (face_tone - edge_tone));
 
     //Setup gradient
     vec3 white = vec3(1.f);
     vec3 black = vec3(0.f);
     
-    //vec3 cam = camPosition / gridScale;
-    
     vec2 center = vec2(0.5f, 0.5f);
-    float ray = min(distance(uv, center) * (gridScale / 10.0f), 1.0f);
+    float fadeFactor = max(100.0f / length(camPosition.z), 50.0f);
+    float ray = min(distance(uv, center) * gridScale / fadeFactor, 1.0f);
     vec3 grad = mix(white, black, ray);
     
-    //outColor = color * pattern * vec4(grad, 0.0f);
-    outColor = camPosition;
+    outColor = color * pattern * vec4(grad, 0.0f);
 }
