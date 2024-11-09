@@ -36,14 +36,14 @@ void Grid::genGrid(){
     gridMesh->setScale(m_scale, m_scale, m_scale);
     
     SolidMaterial gridMaterial({
-                   .color = Color::Grey,
-                   .vertexShader = std::string(ROOT_DIR + "Material/Shader/grid.vert"),
-                   .fragmentShader = std::string(ROOT_DIR + "Material/Shader/grid.frag"),
-                   .uniforms = {
+                    .color = glm::vec3(0.2f),
+                    .vertexShader = std::string(ROOT_DIR + "Material/Shader/grid.vert"),
+                    .fragmentShader = std::string(ROOT_DIR + "Material/Shader/grid.frag"),
+                    .uniforms = {
                        {.name = "division",  .type = UniformType::INT,    .value = m_division  },
                        {.name = "gridScale", .type = UniformType::FLOAT,  .value = m_scale     },
                        {.name = "thickness", .type = UniformType::FLOAT,  .value = m_thickness }
-                   }
+                    }
     });
 
     
