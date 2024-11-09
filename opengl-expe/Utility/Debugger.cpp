@@ -81,6 +81,13 @@ void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 c
     scene.add(pointMesh);
 }
 
+void Debugger::drawVertex(std::vector<Vertex>& vert, Scene& scene, glm::vec3 color){
+    std::vector<glm::vec3> tempPoints;
+    for(auto& vertex : vert) tempPoints.push_back(vertex.position);
+    drawPoints(tempPoints, scene, color);
+}
+
+
 void Debugger::drawMesh(std::vector<Vertex> &vertices, std::vector<GLuint> &indices, Scene& scene, glm::vec3 color){
     
     //Not tested yet..
@@ -104,7 +111,11 @@ void Debugger::printMeshGroupInfo(MeshGroup& meshgroup){
     int i = 0;
     for(auto& mesh : meshgroup.getMeshes()) {
         info += "CHILD " + std::to_string(i) + ":\n";
-        info += mesh.info() + "\n\n";
+        info += "Name:\t\t\t" + mesh.getName();
+        info += "Vertex size:\t" + std::to_string(mesh.getVertices().size());
+        info += "Elements size:\t" + std::to_string(mesh.getIndices().size());
+        info += "Textures size:\t" + std::to_string(mesh.getTextures().size());
+        info += "\n";
         i++;
     }
     

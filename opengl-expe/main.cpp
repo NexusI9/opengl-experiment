@@ -9,21 +9,17 @@
 #include <string>
 #include <filesystem>
 
-#include "Context/Window.hpp"
+#include "Utility/Constant.h"
+#include "Utility/Debugger.hpp"
 
-#include "./Utility/Constant.h"
+#include "Context/Window.hpp"
 
 #include "Scene/Camera.hpp"
 #include "Scene/Scene.hpp"
-#include "Model/Gltf.hpp"
-#include "Mesh/MeshGroup.hpp"
-#include "Material/DefaultMaterial.hpp"
-#include "Material/Texture.hpp"
 
-#include "Utility/Debugger.hpp"
+#include "Prefab/Chunk.hpp"
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
-
 
 int main(int argc, const char * argv[]) {
     
@@ -46,24 +42,14 @@ int main(int argc, const char * argv[]) {
     
     Debugger::filterVerboseFlag(Verbose::Flag::MESH);
     
-    //Draw cube
-    Gltf cubeModel((std::string(ROOT_DIR+"Assets/Models/cube/cube.gltf")).c_str());
-    MeshGroup* cubeMesh = cubeModel.getMesh();
-    DefaultMaterial cubeMat;
-    cubeMesh->setMaterial(cubeMat);
-    cubeMesh->setScale(1.0f, 1.0f, 1.0f);
-    cubeMesh->setPosition(2.0f, 3.0f, -1.0f);
+    Chunk chunk({
+        .radius = 2.0f,
+        .points = 24,
+        .shoreDistance = 3.0f
+    });
     
-    //Draw points
-    std::vector<glm::vec3> pts{
-        glm::vec3(0.3f, 2.0f, 3.0f),
-        glm::vec3(1.0f, 3.4f, 2.0f),
-        glm::vec3(-1.0f, 1.4f, -3.0f)
-    };
+    Debugger::drawVertex(chunk.m_vertices, scene);
     
-    Debugger::drawPoints(pts, scene);
-
-    scene.add(cubeMesh);
     
     scene.showGrid(true);
 

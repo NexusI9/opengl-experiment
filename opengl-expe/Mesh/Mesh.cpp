@@ -133,15 +133,3 @@ void Mesh::setWireMaterial(glm::vec3 color){
     material = m_wireMaterial;
     material->init(m_vao, m_vbo, m_vertices, m_textures);
 }
-
-std::string Mesh::info(){
-
-    std::string name = "Name:\t\t\t" + m_name;
-    std::string vertSize = "Vertex size:\t" + std::to_string(m_vertices.size());
-    std::string eltSize = "Elements size:\t" + std::to_string(m_elements.size());
-    std::string texSize = "Textures size:\t" + std::to_string(m_textures.size());
-    
-    
-    return name + "\n" + vertSize + "\n" + eltSize + "\n" + texSize;
-    
-}

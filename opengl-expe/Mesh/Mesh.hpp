@@ -73,8 +73,6 @@ public:
     MaterialBase* getMaterial(){
         return material;
     }
-    
-    std::string info();
 
 private:
     

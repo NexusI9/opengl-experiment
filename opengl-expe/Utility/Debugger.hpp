@@ -54,6 +54,7 @@ public:
     
     static void drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 color = Color::Green);
     static void drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color = Color::Green);
+    static void drawVertex(std::vector<Vertex>& vert, Scene& scene, glm::vec3 color = Color::Green);
     static void drawMesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Scene& scene, glm::vec3 color = Color::Green);
     
 

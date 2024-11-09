@@ -34,7 +34,7 @@ void Text::useFont(std::string &path){
     
     //Load font if not loaded yet and not error loading it
     if(m_fontList.find(m_typeface) != m_fontList.end()){
-        std::cout << "INFO::FREETYPE: Font already loaded" << std::endl;
+        //std::cout << "INFO::FREETYPE: Font already loaded" << std::endl;
         return;
     }
     else if(FT_New_Face(m_ftLib, m_typeface.c_str(), 0, &m_currentFont) ){
