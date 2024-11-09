@@ -26,6 +26,7 @@ void main(){
     float face_tone = 0.0; // 0.9 for the face of the tile
     float edge_tone = 1.0; // 0.5 for the edge
     
+    //Move Uv to the opposite camera direction to compensate the grid translation
     vec2 compensUv = vec2(Uv.x + camPosition.x * patternSize, Uv.y - camPosition.y * patternSize);
     
     vec2 gridUv = sign(vec2(edge) - mod(compensUv, patternSize));
