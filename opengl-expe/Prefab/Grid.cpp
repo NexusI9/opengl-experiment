@@ -24,8 +24,8 @@ Grid::Grid(float scale, int division, float thickness) : m_scale(scale), m_divis
         .color = Color::Green
     };
     
-    genAxis(xAxis);
-    genAxis(yAxis);
+    //genAxis(xAxis);
+    //genAxis(yAxis);
 }
 
 void Grid::genGrid(){

@@ -32,14 +32,26 @@ void main(){
     vec2 gridUv = sign(vec2(edge) - mod(compensUv, patternSize));
     vec4 pattern = vec4(face_tone - sign(gridUv.x + gridUv.y + 1.0) * (face_tone - edge_tone));
 
-    //Setup gradient
+    vec2 center = vec2(0.5f, 0.5f);
     vec3 white = vec3(1.f);
     vec3 black = vec3(0.f);
+    vec3 red = vec3(1.f,0.f,0.f);
+    vec3 green = vec3(0.f,1.f,0.f);
     
-    vec2 center = vec2(0.5f, 0.5f);
+    //Add X & Y Axis
+    float axisThickness = 0.04f / gridScale;
+    float xAxis = step(abs(compensUv.x - center.x), axisThickness);
+    float yAxis = step(abs(compensUv.y - center.y), axisThickness);
+    vec3 xAxisColor = mix(black, red, vec3(xAxis));
+    vec3 yAxisColor = mix(black, green, vec3(yAxis));
+    vec3 axis = max(xAxisColor, yAxisColor); //combine axis
+
+    vec4 axisMask = vec4(min(1.0f - xAxis, 1.0f - yAxis));
+    
+    //Setup gradient
     float fadeFactor = max(100.0f / length(camPosition.z), 50.0f);
     float ray = min(distance(uv, center) * gridScale / fadeFactor, 1.0f);
     vec3 grad = mix(white, black, ray);
     
-    outColor = color * pattern * vec4(grad, 0.0f);
+    outColor = (color * pattern * axisMask + vec4(vec3(axis), axis)) * vec4(grad, 0.0f);
 }
