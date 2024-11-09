@@ -20,27 +20,16 @@ m_fov(args.fov),
 m_ratio(args.ratio),
 m_nearPlane(args.nearPlane),
 m_farPlane(args.farPlane),
-m_matrixBindingIndex(args.bindingIndex){
+m_matrixBindingIndex(args.bindingIndex),
+m_matrixUBO( 2 * sizeof(glm::mat4) + sizeof(glm::vec4) )
+{
     
     //init projection matrix
     updateProjectionMatrix(m_fov, m_ratio, m_nearPlane, m_farPlane);
     
     //init position
-    //lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-    
-    //Create Uniform Buffer Object
-    glGenBuffers(1, &m_matrixUBO);
-    
-    //BindBuffer = bind GLuint to Target (EBO,VBO,UBO...)
-    glBindBuffer(GL_UNIFORM_BUFFER, m_matrixUBO);
-    glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
-    glBindBuffer(GL_UNIFORM_BUFFER, 0);
-    
-    //Bind to Uniform Binding Point
-    glBindBufferRange(GL_UNIFORM_BUFFER, 0, m_matrixUBO, 0, 2 * sizeof(glm::mat4));
-    
     updateMatrixUBO();
-    
+
 }
 
 void Camera::updateProjectionMatrix(float fov, float ratio, float nearPlane, float farPlane){
@@ -105,7 +94,7 @@ glm::mat4 Camera::getCombinedMatrix(){
 }
 
 void Camera::lookAt(glm::vec3 position, glm::vec3 target, glm::vec3 up){
-    //m_position = position;
+    m_position = position;
     m_view = Transform::lookAt(position, target, up);
     updateMatrixUBO();
 }
@@ -118,7 +107,7 @@ void Camera::translate(glm::vec3 position){
 
 
 GLuint Camera::getMatrixUBO(){
-    return m_matrixUBO;
+    return m_matrixUBO.ID;
 }
 
 GLuint Camera::getMatrixBindingIndex(){
@@ -127,7 +116,7 @@ GLuint Camera::getMatrixBindingIndex(){
 
 void Camera::updateMatrixUBO(){
     
-    glBindBuffer(GL_UNIFORM_BUFFER, m_matrixUBO);
+    m_matrixUBO.bind();
     
     //Store view matrix
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(m_view));
@@ -137,9 +126,10 @@ void Camera::updateMatrixUBO(){
 
     //Store position vector
     //glBufferSubData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), sizeof(glm::vec3), glm::value_ptr(m_position));
-
+    glm::vec4 newPos = glm::vec4(m_position, 1.0f);
+    glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4) * 2, sizeof(glm::vec4), glm::value_ptr(newPos));
     
-    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    m_matrixUBO.unbind();
     
 }
 

@@ -10,6 +10,7 @@ uniform mat4 model;
 layout(std140) uniform Camera{ //uniform block
     mat4 view;
     mat4 projection;
+    //vec4 camPosition;
 };
 
 out vec3 Position;

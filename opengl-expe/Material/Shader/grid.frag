@@ -5,6 +5,7 @@ in vec2 Uv;
 layout(std140) uniform Camera{ //uniform block
     mat4 view;
     mat4 projection;
+    vec4 camPosition;
 };
 
 out vec4 outColor;
@@ -32,11 +33,12 @@ void main(){
     vec3 white = vec3(1.f);
     vec3 black = vec3(0.f);
     
-    vec3 cam = view[3].xyz / gridScale;
+    //vec3 cam = camPosition / gridScale;
     
-    vec2 center = vec2(0.5f + (-1.0 * cam.x), 0.5f + (-1.0 * cam.x));
+    vec2 center = vec2(0.5f, 0.5f);
     float ray = min(distance(uv, center) * (gridScale / 10.0f), 1.0f);
     vec3 grad = mix(white, black, ray);
     
-    outColor = color * pattern * vec4(grad, 0.0f);
+    //outColor = color * pattern * vec4(grad, 0.0f);
+    outColor = camPosition;
 }

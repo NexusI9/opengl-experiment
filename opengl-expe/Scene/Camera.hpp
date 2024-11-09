@@ -14,6 +14,7 @@
 #include <SDL2/SDL.h>
 #include "../Utility/Clock.hpp"
 #include "../Context/GameManager.hpp"
+#include "../Backend/UBO.hpp"
 
 struct CameraArgs{
     float fov = 45.0f;
@@ -76,7 +77,7 @@ private:
     float m_ratio;
     float m_nearPlane;
     float m_farPlane;
-    GLuint m_matrixUBO;
+    UBO m_matrixUBO;
     GLuint m_matrixBindingIndex;
     
     void updateMatrixUBO();
