@@ -33,7 +33,6 @@ void Grid::genGrid(){
     //Generate Grid
     Rectangle rectangle;
     MeshGroup* gridMesh = rectangle.getMesh();
-    gridMesh->setRotation(180.0f, 1.0f, 0.0f, 0.0f);
     gridMesh->setScale(m_scale, m_scale, m_scale);
     
     SolidMaterial gridMaterial({
@@ -68,6 +67,6 @@ void Grid::genAxis(Axis& axis){
     axisMesh->setMaterial(material);
     
     //Transfer mesh to global mesh
-    //m_mesh->addChildren(axisMesh);
+    m_mesh->addChildren(axisMesh);
     
 }

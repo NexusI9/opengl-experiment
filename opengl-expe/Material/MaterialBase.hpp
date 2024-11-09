@@ -45,8 +45,8 @@ public:
     void init(VAO& vao, VBO& vbo, std::vector<Vertex>& vertices, std::vector<Texture>& textures){
         m_vao = &vao;
         m_vbo = &vbo;
-        m_vertices = &vertices;
-        m_textures = &textures;
+        m_vertices = vertices;
+        m_textures = textures;
         
         loadShader();
     }
@@ -62,8 +62,8 @@ protected:
     VAO* m_vao = nullptr;
     VBO* m_vbo = nullptr;
     Shader* m_shader = nullptr;
-    std::vector<Vertex>* m_vertices = nullptr;
-    std::vector<Texture>* m_textures = nullptr;
+    std::vector<Vertex> m_vertices;
+    std::vector<Texture> m_textures;
     
     void assignUniforms(UniformList uniforms);
     

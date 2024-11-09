@@ -66,14 +66,15 @@ int main(int argc, const char * argv[]) {
     
     
     //Draw text
-    std::string textString = "Salut ca va pas ?";
-    Text text(textString);
+    std::string textString = "Wassup ?";
+    Text text(textString, Color::Green);
     MeshGroup* textMesh = text.getMesh();
     
     
     scene.add(textMesh);
     scene.add(cubeMesh);
-    //scene.showGrid(true);
+    
+    scene.showGrid(true);
 
     window.draw(scene);
     

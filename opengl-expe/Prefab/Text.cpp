@@ -167,7 +167,7 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
         .buffer = nullptr,
         .width = width,
         .height = height,
-        .format = GL_RGB,
+        .format = GL_RGBA,
         .wrap = GL_CLAMP_TO_BORDER,
         .filter = GL_LINEAR,
         .slot = 0
@@ -193,7 +193,6 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
         
         
         offset += glyph.advance;
-        
     }
     
     return labelTexture;

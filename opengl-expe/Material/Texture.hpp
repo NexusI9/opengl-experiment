@@ -107,7 +107,7 @@ private:
     GLint m_wrap;
     GLint m_filter;
 
-    GLuint ID;
+    GLuint ID = 0;
     
     void import();
     void generate(const void* pixels, unsigned int width, unsigned int height, const unsigned int slot);

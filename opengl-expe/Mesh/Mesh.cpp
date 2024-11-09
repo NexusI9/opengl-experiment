@@ -80,6 +80,7 @@ void Mesh::onInput(SDL_Event& event){
 
 void Mesh::setMaterial(const MaterialBase& mat){
     material = mat.clone();
+    //std::vector<Texture> textures = {};
     material->init(m_vao, m_vbo, m_vertices, m_textures);
 }
 

@@ -11,6 +11,7 @@
 #include "Texture.hpp"
 #include <GL/glew.h>
 #include "../Utility/Constant.h"
+#include "../Utility/Debugger.hpp"
 
 Texture::Texture(const TexturePathArg& args):
     m_path(args.path),
