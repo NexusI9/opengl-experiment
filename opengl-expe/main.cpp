@@ -69,8 +69,7 @@ int main(int argc, const char * argv[]) {
     std::string textString = "Wassup ?";
     Text text(textString, Color::Green);
     MeshGroup* textMesh = text.getMesh();
-    
-    
+     
     scene.add(textMesh);
     scene.add(cubeMesh);
     

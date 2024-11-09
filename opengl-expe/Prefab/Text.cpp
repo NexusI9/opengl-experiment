@@ -184,13 +184,13 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
         
         labelTexture.drawRegion({
                     .x = offset,
-                    .y = (bearing - glyph.size.y) * margin,
+                    .y = (bearing - glyph.size.y) + margin,
                     .width = glyphWidth,
                     .height = glyph.size.y,
                     .format = GL_RED,
                     .buffer = glyph.buffer
                 });
-        
+
         
         offset += glyph.advance;
     }
