@@ -58,8 +58,7 @@ void Grid::genAxis(Axis& axis){
     SolidMaterial material({
         .color = axis.color,
         .vertexShader = std::string(ROOT_DIR + "Material/Shader/solid.vert"),
-        .fragmentShader =std::string(ROOT_DIR + "Material/Shader/solid.frag"),
-        .uniforms = {}
+        .fragmentShader = std::string(ROOT_DIR + "Material/Shader/solid.frag"),
     });
     
     MeshGroup* axisMesh = points.getMesh();

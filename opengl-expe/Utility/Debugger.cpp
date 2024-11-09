@@ -72,8 +72,8 @@ void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 c
         std::string index = std::to_string(i);
         Text text(index, Color::Green);
         MeshGroup* textMesh = text.getMesh();
-        textMesh->setPosition(point.x, point.y, point.z);
-        textMesh->setScale(0.4f);
+        textMesh->setPosition(point.x + 0.25f, point.y, point.z + 0.5f);
+        textMesh->setScale(0.15f);
         pointMesh->addChildren(textMesh);
     }
 

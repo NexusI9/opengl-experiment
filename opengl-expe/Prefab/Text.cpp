@@ -163,6 +163,7 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
         bearing = std::max(bearing, glf.size.y); //bearing height
     }
     
+    //TODO: Check why this method throws an OpenGL Error 1281
     Texture labelTexture = Texture({
         .buffer = nullptr,
         .width = width,
@@ -181,7 +182,7 @@ Texture Text::genLabel(std::string label, GlyphMap &glyphs){
         
         const int glyphWidth = glyph.size.x;
         const int margin = std::abs(glyph.bearing.y - glyph.size.y);
-        
+
         labelTexture.drawRegion({
                     .x = offset,
                     .y = (bearing - glyph.size.y) + margin,
@@ -212,7 +213,8 @@ void Text::generate(){
         .color = m_color,
         .fragmentShader = std::string(ROOT_DIR+"Material/Shader/text.frag"),
         .uniforms = {
-            { .type = UniformType::BOOLEAN, .name = "faceCamera", .value = true }
+            { .type = UniformType::BOOLEAN, .name = "faceCamera", .value = true },
+            { .type = UniformType::BOOLEAN, .name = "fixedSize", .value = true }
         }
     });
     

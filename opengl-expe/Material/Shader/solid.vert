@@ -4,6 +4,7 @@ layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 uv;
 
 uniform bool faceCamera;
+uniform bool fixedSize;
 uniform mat4 model;
 
 layout(std140) uniform Camera{ //uniform block
@@ -16,6 +17,14 @@ layout(std140) uniform Camera{ //uniform block
 out vec2 Uv;
 
 void main(){
+    
+    mat4 scaleMat = mat4(1.0f);
+    if(fixedSize == true){
+        float scale = length(view[3].xyz);
+        scaleMat[0][0] = scale * model[0][0];
+        scaleMat[1][1] = scale * model[1][1];
+        scaleMat[2][2] = scale * model[2][2];
+    }
     
     mat4 modelView =  view * model;
     
@@ -39,8 +48,9 @@ void main(){
         
     }
     
+    
     Uv = uv;
     
     gl_PointSize = 6.0;
-    gl_Position = projection * modelView * vec4(position, 1.0);
+    gl_Position = projection * modelView * scaleMat * vec4(position, 1.0);
 }

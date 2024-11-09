@@ -2,14 +2,17 @@
 
 in vec2 Uv;
 
+layout(std140) uniform Camera{ //uniform block
+    mat4 view;
+    mat4 projection;
+};
+
 out vec4 outColor;
 
 uniform vec3 color;
 uniform int division;
 uniform float gridScale;
 uniform float thickness;
-uniform vec3 camera;
-
 
 void main(){
     
@@ -26,14 +29,14 @@ void main(){
     vec4 pattern = vec4(face_tone - sign(gridUv.x + gridUv.y + 1.0) * (face_tone - edge_tone));
 
     //Setup gradient
-    vec2 pos = vec2(camera.x,camera.y);
-    
     vec3 white = vec3(1.f);
     vec3 black = vec3(0.f);
     
-    vec2 center = vec2(0.5, 0.5) + pos;
+    vec3 cam = view[3].xyz / gridScale;
+    
+    vec2 center = vec2(0.5f + (-1.0 * cam.x), 0.5f + (-1.0 * cam.x));
     float ray = min(distance(uv, center) * (gridScale / 10.0f), 1.0f);
     vec3 grad = mix(white, black, ray);
     
-    outColor = color * pattern * vec4(grad,1.0f);
+    outColor = color * pattern * vec4(grad, 0.0f);
 }
