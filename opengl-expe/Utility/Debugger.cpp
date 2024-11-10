@@ -48,6 +48,20 @@ void Debugger::printVertices(std::vector<glm::vec3>& vertices){
     }
 }
 
+void Debugger::printVertex(std::vector<Vertex>& vertex){
+    for(int v = 0; v < vertex.size(); v++){
+        glm::vec3 vert = vertex[v].position;
+        std::cout << v << "\t\t" << vert.x << "\t" << vert.y << "\t" << vert.z << std::endl;
+    }
+}
+
+void Debugger::printVertex(Vertex& vertex){
+    std::cout << "Position:" << "\t\t" << vertex.position.x << "\t" << vertex.position.y << "\t" << vertex.position.z << std::endl;
+    std::cout << "Normal:" << "\t\t\t" << vertex.normal.x << "\t" << vertex.normal.y << "\t" << vertex.normal.z << std::endl;
+    std::cout << "Color:" << "\t\t\t" << vertex.color.x << "\t" << vertex.color.y << "\t" << vertex.color.z << std::endl;
+    std::cout << "UV:" << "\t\t\t\t" << vertex.texUV.x << "\t" << vertex.texUV.y << "\n" << std::endl;
+}
+
 
 void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 color){
     
@@ -59,7 +73,7 @@ void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 c
     scene.add(lineMesh);
 }
 
-void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color){
+void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color, bool label){
     
     //generate point mesh
     Points points(pts);
@@ -67,24 +81,28 @@ void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 c
     pointMesh->setDrawMode(MeshBase::DrawMode::POINTS);
     
     //generate point index label
-    for( int i = 0; i < pts.size(); i++){
-        glm::vec3 point = pts[i];
-        std::string index = std::to_string(i);
-        Text text(index, Color::Green);
-        MeshGroup* textMesh = text.getMesh();
-        textMesh->setPosition(point.x + 0.25f, point.y, point.z + 0.5f);
-        textMesh->setScale(0.15f);
-        pointMesh->addChildren(textMesh);
+    if(label){
+        
+        for( int i = 0; i < pts.size(); i++){
+            glm::vec3 point = pts[i];
+            std::string index = std::to_string(i);
+            Text text(index, Color::Green);
+            MeshGroup* textMesh = text.getMesh();
+            textMesh->setPosition(point.x + 0.25f, point.y, point.z + 0.5f);
+            textMesh->setScale(0.15f);
+            pointMesh->addChildren(textMesh);
+        }
+        
     }
 
 
     scene.add(pointMesh);
 }
 
-void Debugger::drawVertex(std::vector<Vertex>& vert, Scene& scene, glm::vec3 color){
+void Debugger::drawVertex(std::vector<Vertex>& vert, Scene& scene, glm::vec3 color, bool label){
     std::vector<glm::vec3> tempPoints;
     for(auto& vertex : vert) tempPoints.push_back(vertex.position);
-    drawPoints(tempPoints, scene, color);
+    drawPoints(tempPoints, scene, color, label);
 }
 
 

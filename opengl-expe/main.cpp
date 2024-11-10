@@ -17,7 +17,7 @@
 #include "Scene/Camera.hpp"
 #include "Scene/Scene.hpp"
 
-#include "Prefab/Chunk.hpp"
+#include "Prefab/Island/Chunk.hpp"
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 
@@ -37,7 +37,6 @@ int main(int argc, const char * argv[]) {
         .bindingIndex = 0
     });
     
-    //camera.translate(glm::vec3(2.0f, 2.0f, 2.0f));
     scene.setCamera(camera);
     
     Debugger::filterVerboseFlag(Verbose::Flag::MESH);
@@ -48,7 +47,7 @@ int main(int argc, const char * argv[]) {
         .shoreDistance = 3.0f
     });
     
-    Debugger::drawVertex(chunk.m_vertices, scene);
+    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, true);
     
     
     scene.showGrid(true);

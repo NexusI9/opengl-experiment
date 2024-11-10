@@ -41,7 +41,11 @@ m_name(args.name){
 };
 
 void Mesh::onDraw(Camera& camera){
-
+    
+    //cancel if empty elements or vertices
+    if(m_elements.size() == 0 || m_vertices.size() == 0){ return; }
+    
+    //draw material if existing
     if(material!=nullptr) material->onDraw(camera, m_modelMatrix);
     else Debugger::print("No material set, some mesh will be missing");
         
