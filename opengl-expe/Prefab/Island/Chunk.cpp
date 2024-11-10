@@ -6,14 +6,21 @@
 //
 
 #include "Chunk.hpp"
+#include "Circle.hpp"
 #include "../../Utility/Debugger.hpp"
-#include "../../Utility/MeshUtils.hpp"
+#include "../../Utility/VertexUtils.hpp"
 
 #define _USE_MATH_DEFINES
 #include <cmath>
 
 
-Chunk::Chunk(const ChunkArgs& args):m_radius(args.radius), m_points(args.points), m_shoreDistance(args.shoreDistance), m_depth(args.depth){
+Chunk::Chunk(const ChunkArgs& args):
+m_radius(args.radius),
+m_points(args.points),
+m_shoreDistance(args.shoreDistance),
+m_beltDepth(args.beltDepth),
+m_cliffDepth(args.cliffDepth),
+m_cliffDistance(args.cliffDistance){
     
     generate();
 }
@@ -23,30 +30,60 @@ void Chunk::generate(){
     //Generate Land
     m_layers.shore.name = "shore";
     for(int p = 0; p < m_points; p++){
+
+        Circle shore({
+            .radius = m_radius,
+            .points = m_points
+        });
         
-        float index = p * 2.0f * M_PI / m_points;
+        Circle land({
+            .radius = m_radius - m_shoreDistance,
+            .points = m_points
+        });
         
-        Vertex vert{
-            .position = glm::vec3(std::sin(index) * m_radius, std::cos(index) * m_radius ,1.0f),
-            .normal = glm::vec3(1.0f),
-            .color = glm::vec3(0.0f),
-            .texUV = glm::vec2(0.0f)
-        };
+        Circle cliff({
+            .radius = m_radius + m_cliffDistance,
+            .points = m_points
+        });
+        VertexList cliffVertex = cliff.getVertex();
+        VertexUtils::translate(cliffVertex, glm::vec3(0.0f, 0.0f, -1.0f * m_cliffDepth));
+        
+        
+        Circle belt({
+            .radius = m_radius / 1.2f,
+            .points = m_points / 2
+        });
+        VertexList beltVertex = belt.getVertex();
+        VertexUtils::translate(beltVertex, glm::vec3(0.0f, 0.0f, -1.0f * m_beltDepth));
+        
+        Circle root({
+            .radius = m_radius * 1 / 3,
+            .points = m_points / 4
+        });
+        VertexList rootVertex = root.getVertex();
+        VertexUtils::translate(rootVertex, glm::vec3(0.0f, 0.0f, -2.0f * m_beltDepth));
+        
         
         //populate layer group
-        m_layers.shore.vertex.push_back(vert);
-        
-        //push to global vertice list
-        m_vertices.push_back(vert);
+        m_layers.shore.vertex = shore.getVertex();
+        m_layers.land.vertex = land.getVertex();
+        m_layers.cliff.vertex = cliffVertex;
+        m_layers.belt.vertex = beltVertex;
+        m_layers.root.vertex = rootVertex;
         
     }
-    
-    MeshUtils::scale(m_layers.shore.vertex, 4.0f);
-    MeshUtils::noise(m_layers.shore.vertex, 2.0f);
-    MeshUtils::decimate(m_layers.shore.vertex, 18, DecimateType::UNIFORM);
-
-    
+        
     m_vertices = m_layers.shore.vertex;
+    
+    std::vector<VertexList> layers = {
+        m_layers.land.vertex,
+        m_layers.cliff.vertex,
+        m_layers.belt.vertex,
+        m_layers.root.vertex
+    };
+    
+    VertexUtils::concat(m_vertices, layers);
+    
     //Generate Land
     
 }

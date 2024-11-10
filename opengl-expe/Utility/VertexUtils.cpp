@@ -1,17 +1,18 @@
 //
-//  MeshUtils.cpp
+//  VertexUtils.cpp
 //  opengl-expe
 //
 //  Created by EL KHANTOUR Nassim on 10/11/2024.
 //
 
-#include "MeshUtils.hpp"
+#include "VertexUtils.hpp"
 #include "./Debugger.hpp"
 #include <algorithm>
 #include <cstdlib>
+#include <iterator>
 
 
-void MeshUtils::scale(std::vector<Vertex>& vertex, float scale){
+void VertexUtils::scale(VertexList& vertex, float scale){
     
     //get center
     glm::vec3 center;
@@ -23,14 +24,18 @@ void MeshUtils::scale(std::vector<Vertex>& vertex, float scale){
 
 }
 
-void MeshUtils::subdivide(std::vector<Vertex>& vertex, int amount){
+void VertexUtils::translate(VertexList& vertex, glm::vec3 translation){
+    for(auto& vert : vertex) vert.position += translation;
+}
+
+void VertexUtils::subdivide(VertexList& vertex, int amount){
     
     
 }
 
-void MeshUtils::decimate(std::vector<Vertex>& vertex, int amount, DecimateType type){
+void VertexUtils::decimate(VertexList& vertex, int amount){
    
-    std::vector<Vertex> tempVert;
+    VertexList tempVert;
     
     //make sure its not reductible polygon
     if(vertex.size() < 4){ return; }
@@ -95,12 +100,12 @@ void MeshUtils::decimate(std::vector<Vertex>& vertex, int amount, DecimateType t
     vertex = tempVert;
 }
 
-void MeshUtils::smooth(std::vector<Vertex>& vertex, float amount){
+void VertexUtils::smooth(VertexList& vertex, float amount){
  
     
 }
 
-void MeshUtils::noise(std::vector<Vertex>& vertex, float amplitude){
+void VertexUtils::noise(VertexList& vertex, float amplitude){
     
     for(auto& vert : vertex){
         float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
@@ -112,6 +117,18 @@ void MeshUtils::noise(std::vector<Vertex>& vertex, float amplitude){
 }
 
 
-void MeshUtils::simplify(std::vector<Vertex>& vertex){
+void VertexUtils::simplify(VertexList& vertex){
     
+}
+
+void VertexUtils::concat(VertexList& destination, std::vector<VertexList>& sources){
+    for(auto& list : sources) VertexUtils::concat(destination, list);
+}
+
+void VertexUtils::concat(VertexList& destination, VertexList& source){
+    destination.insert(
+                       destination.end(),
+                       std::make_move_iterator(source.begin()),
+                       std::make_move_iterator(source.end())
+                       );
 }

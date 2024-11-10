@@ -44,10 +44,10 @@ int main(int argc, const char * argv[]) {
     Chunk chunk({
         .radius = 2.0f,
         .points = 24,
-        .shoreDistance = 3.0f
+        .shoreDistance = 1.0f
     });
     
-    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, true);
+    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, false);
     
     
     scene.showGrid(true);

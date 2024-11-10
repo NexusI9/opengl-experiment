@@ -122,10 +122,12 @@ struct Vertex{
 };
 
 using VertexElement = int;
+using VertexCluster = std::vector<Vertex>;
+using VertexList = std::vector<Vertex>;
 
 struct VertexGroup{
     std::string                 name;
-    std::vector<Vertex>         vertex;
+    VertexList                  vertex;
     std::vector<VertexElement>  index;
 };
 

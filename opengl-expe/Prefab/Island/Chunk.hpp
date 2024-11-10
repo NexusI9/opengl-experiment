@@ -17,12 +17,15 @@
 struct ChunkArgs{
     float radius = 2.0f;
     int points = 24;
-    float shoreDistance = 3.0f;
-    float depth = 4.0f;
+    float shoreDistance = 1.0f;
+    float cliffDistance = 0.2f;
+    float cliffDepth = 0.1f;
+    float beltDepth = 1.0f;
 };
 
 struct ChunkLayers{
     VertexGroup shore;
+    VertexGroup cliff;
     VertexGroup land;
     VertexGroup belt;
     VertexGroup root;
@@ -40,10 +43,13 @@ public:
 private:
     
     void generate();
+    
     float m_radius;
-    int m_points;
+    int   m_points;
     float m_shoreDistance;
-    float m_depth;
+    float m_cliffDistance;
+    float m_cliffDepth;
+    float m_beltDepth;
     
     ChunkLayers m_layers;
     std::vector<Vertex> m_vertices;
