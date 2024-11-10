@@ -14,6 +14,8 @@
 #include "../Mesh/Vertex.h"
 
 
+using VertexCluster = std::vector<Vertex>;
+
 enum class DecimateType{
     UNIFORM,
     PROXIMITY

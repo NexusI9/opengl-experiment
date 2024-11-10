@@ -42,7 +42,9 @@ void Chunk::generate(){
     }
     
     MeshUtils::scale(m_layers.shore.vertex, 4.0f);
+    MeshUtils::noise(m_layers.shore.vertex, 2.0f);
     MeshUtils::decimate(m_layers.shore.vertex, 18, DecimateType::UNIFORM);
+
     
     m_vertices = m_layers.shore.vertex;
     //Generate Land
