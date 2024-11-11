@@ -38,6 +38,8 @@ public:
     void concat(std::vector<VertexList>& sources);
     void concat(VertexList& source);
     
+    glm::vec3 center();
+    
     Vertex& operator[](size_t index) { return m_data[index]; }
     const Vertex& operator[](size_t index) const { return m_data[index]; }
 

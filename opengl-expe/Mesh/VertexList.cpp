@@ -7,6 +7,8 @@
 
 #include "VertexList.hpp"
 #include "../Utility/Debugger.hpp"
+#include "../Utility/Math/Perlin.h"
+
 #include <algorithm>
 #include <cstdlib>
 #include <iterator>
@@ -16,12 +18,9 @@
 void VertexList::scale(float scale){
     
     //get center
-    glm::vec3 center;
-    for(auto& vert : m_data) center += vert.position;
-    center /= static_cast<float>(m_data.size());
-    
+    glm::vec3 ctr = center();
     //scale towards or outwards this center
-    for(auto& vert : m_data) vert.position = center + (vert.position - center) * scale;
+    for(auto& vert : m_data) vert.position = ctr + (vert.position - ctr) * scale;
 
 }
 
@@ -108,12 +107,18 @@ void VertexList::smooth(float amount){
 
 void VertexList::noise(glm::vec3 amplitude){
     
+    glm::vec3 ctr = center();
+    
     for(auto& vert : m_data){
-        float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-        r = (r > 0.5) ? r : -1.0f * r;
-        vert.position.x += sin(r * amplitude.x);
-        vert.position.y += cos(r * amplitude.y);
-        vert.position.z += cos(r * amplitude.z);
+        
+        glm::vec3 offset = vert.position - ctr;
+    
+        float n = perlin::noise(offset.x, offset.y);
+        offset.x += n * amplitude.x;
+        offset.y += n * amplitude.y;
+        offset.z += n * amplitude.z;
+        
+        vert.position = ctr + offset;
     }
     
 }
@@ -133,4 +138,12 @@ void VertexList::concat(VertexList& source){
                        std::make_move_iterator(source.begin()),
                        std::make_move_iterator(source.end())
                        );
+}
+
+
+glm::vec3 VertexList::center(){
+    glm::vec3 center;
+    for(auto& vert : m_data) center += vert.position;
+    center /= static_cast<float>(m_data.size());
+    return center;
 }

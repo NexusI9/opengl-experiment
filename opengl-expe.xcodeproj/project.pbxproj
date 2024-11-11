@@ -131,6 +131,7 @@
 		567612D82CDFA64A003A64EA /* Island.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Island.hpp; sourceTree = "<group>"; };
 		567612DD2CDFA7CD003A64EA /* Chunk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Chunk.cpp; sourceTree = "<group>"; };
 		567612DE2CDFA7CD003A64EA /* Chunk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Chunk.hpp; sourceTree = "<group>"; };
+		567777822CE23CFE00EE1217 /* Perlin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Perlin.h; sourceTree = "<group>"; };
 		567957202CC6997A00727E68 /* Keyboard.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
 		567957222CC699AF00727E68 /* Mouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mouse.cpp; sourceTree = "<group>"; };
 		567957232CC699AF00727E68 /* Mouse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mouse.hpp; sourceTree = "<group>"; };
@@ -333,6 +334,7 @@
 		5661A9F72C84246D002E52DA /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				567777812CE23CE700EE1217 /* Math */,
 				56494CB02C94824B001E9CFA /* Transform.cpp */,
 				56494CB12C94824B001E9CFA /* Transform.hpp */,
 				564CEB512C88822500A0869F /* Utility.hpp */,
@@ -366,6 +368,14 @@
 			children = (
 			);
 			path = Vegetation;
+			sourceTree = "<group>";
+		};
+		567777812CE23CE700EE1217 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				567777822CE23CFE00EE1217 /* Perlin.h */,
+			);
+			path = Math;
 			sourceTree = "<group>";
 		};
 		56B09B992CC3857000438C91 /* Prefab */ = {

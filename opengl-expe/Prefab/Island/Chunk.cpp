@@ -35,6 +35,7 @@ void Chunk::generate(){
             .points = m_points
         });
         VertexList shoreVertex = shore.getVertex();
+        shoreVertex.noise( glm::vec3(1.0f, 1.0f, 0.0f) );
         
         Circle land({
             .radius = m_radius - m_shoreDistance,
@@ -65,7 +66,7 @@ void Chunk::generate(){
         
         
         //populate layer group
-        m_layers.shore.vertex = shore.getVertex();
+        m_layers.shore.vertex = shoreVertex;
         m_layers.land.vertex = land.getVertex();
         m_layers.cliff.vertex = cliffVertex;
         m_layers.belt.vertex = beltVertex;
@@ -82,7 +83,6 @@ void Chunk::generate(){
         m_layers.root.vertex
     };
     
-    m_vertices.concat(layers);
-    
+    //m_vertices.concat(layers);
     
 }
