@@ -1,48 +1,48 @@
 //
-//  VertexUtils.cpp
+//  VertexList.cpp
 //  opengl-expe
 //
 //  Created by EL KHANTOUR Nassim on 10/11/2024.
 //
 
-#include "VertexUtils.hpp"
-#include "./Debugger.hpp"
+#include "VertexList.hpp"
+#include "../Utility/Debugger.hpp"
 #include <algorithm>
 #include <cstdlib>
 #include <iterator>
 
 
 //TODO: implement a VertexList object instead of using static utilities
-void VertexUtils::scale(VertexList& vertex, float scale){
+void VertexList::scale(float scale){
     
     //get center
     glm::vec3 center;
-    for(auto& vert : vertex) center += vert.position;
-    center /= static_cast<float>(vertex.size());
+    for(auto& vert : m_data) center += vert.position;
+    center /= static_cast<float>(m_data.size());
     
     //scale towards or outwards this center
-    for(auto& vert : vertex) vert.position = center + (vert.position - center) * scale;
+    for(auto& vert : m_data) vert.position = center + (vert.position - center) * scale;
 
 }
 
-void VertexUtils::translate(VertexList& vertex, glm::vec3 translation){
-    for(auto& vert : vertex) vert.position += translation;
+void VertexList::translate(glm::vec3 translation){
+    for(auto& vert : m_data) vert.position += translation;
 }
 
-void VertexUtils::subdivide(VertexList& vertex, int amount){
+void VertexList::subdivide(int amount){
     
     
 }
 
-void VertexUtils::decimate(VertexList& vertex, int amount){
+void VertexList::decimate(int amount){
    
-    VertexList tempVert;
+    std::vector<Vertex> tempVert;
     
     //make sure its not reductible polygon
-    if(vertex.size() < 4){ return; }
+    if(m_data.size() < 4){ return; }
     
     //make sure amount isn't superior to current size
-    int minAmount = static_cast<int>(vertex.size());
+    int minAmount = static_cast<int>(m_data.size());
     amount = std::min(amount, minAmount - 1);
     
     /**
@@ -54,13 +54,13 @@ void VertexUtils::decimate(VertexList& vertex, int amount){
     //Get average Distance
     float avgDistance = 0.0f;
     int v = 0;
-    for(v = 0; v < vertex.size(); v++){
-        Vertex current = vertex[v];
-        Vertex next = vertex[ (v+1) % vertex.size() ];
+    for(v = 0; v < m_data.size(); v++){
+        Vertex current = m_data[v];
+        Vertex next = m_data[ (v+1) % m_data.size() ];
         avgDistance += glm::distance(current.position, next.position);
     }
     
-    avgDistance /= vertex.size();
+    avgDistance /= m_data.size();
     
     //Generate Cluster
     std::vector<VertexCluster> cluster;
@@ -70,9 +70,9 @@ void VertexUtils::decimate(VertexList& vertex, int amount){
         
         cluster.clear();
         
-        for(v = 0; v < vertex.size(); ++v){
+        for(v = 0; v < m_data.size(); ++v){
             
-            Vertex current = vertex[v];
+            Vertex current = m_data[v];
             bool added = false;
             
             for(auto& cl : cluster){
@@ -98,17 +98,17 @@ void VertexUtils::decimate(VertexList& vertex, int amount){
         tempVert.push_back(avgVert);
     }
     
-    vertex = tempVert;
+    m_data = tempVert;
 }
 
-void VertexUtils::smooth(VertexList& vertex, float amount){
+void VertexList::smooth(float amount){
  
     
 }
 
-void VertexUtils::noise(VertexList& vertex, glm::vec3 amplitude){
+void VertexList::noise(glm::vec3 amplitude){
     
-    for(auto& vert : vertex){
+    for(auto& vert : m_data){
         float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
         r = (r > 0.5) ? r : -1.0f * r;
         vert.position.x += sin(r * amplitude.x);
@@ -119,17 +119,17 @@ void VertexUtils::noise(VertexList& vertex, glm::vec3 amplitude){
 }
 
 
-void VertexUtils::simplify(VertexList& vertex){
+void VertexList::simplify(){
     
 }
 
-void VertexUtils::concat(VertexList& destination, std::vector<VertexList>& sources){
-    for(auto& list : sources) VertexUtils::concat(destination, list);
+void VertexList::concat(std::vector<VertexList>& sources){
+    for(auto& list : sources) concat(list);
 }
 
-void VertexUtils::concat(VertexList& destination, VertexList& source){
-    destination.insert(
-                       destination.end(),
+void VertexList::concat(VertexList& source){
+    m_data.insert(
+                       m_data.end(),
                        std::make_move_iterator(source.begin()),
                        std::make_move_iterator(source.end())
                        );

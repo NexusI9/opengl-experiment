@@ -16,6 +16,7 @@
 #include <GL/glew.h>
 
 #include "../Mesh/Vertex.h"
+#include "../Mesh/VertexList.hpp"
 #include "../Model/Rectangle.hpp"
 #include "../Scene/Scene.hpp"
 
@@ -50,13 +51,19 @@ public:
     static void printVec3(glm::vec3& vector);
     static void printVec2(glm::vec2& vector);
     static void printVertices(std::vector<glm::vec3>& vertices);
+
+    static void printVertex(VertexList& vertex);
     static void printVertex(std::vector<Vertex>& vertex);
     static void printVertex(Vertex& vertex);
+    
     static void printMeshGroupInfo(MeshGroup& meshgroup);
     
     static void drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 color = Color::Green);
     static void drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color = Color::Green, bool label = true);
+    
     static void drawVertex(std::vector<Vertex>& vert, Scene& scene, glm::vec3 color = Color::Green, bool label = true);
+
+    static void drawVertex(VertexList& vert, Scene& scene, glm::vec3 color = Color::Green, bool label = true);
     static void drawMesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Scene& scene, glm::vec3 color = Color::Green);
     
 

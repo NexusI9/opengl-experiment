@@ -9,6 +9,7 @@
 #define Chunk_hpp
 #include "../PrefabBase.h"
 #include "../../Mesh/Vertex.h"
+#include "../../Mesh/VertexList.hpp"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -38,7 +39,7 @@ public:
     Chunk(const ChunkArgs& args);
     ~Chunk(){};
     
-    std::vector<Vertex>& getVertices(){  return m_vertices; }
+    VertexList& getVertices(){  return m_vertices; }
     
 private:
     
@@ -52,7 +53,7 @@ private:
     float m_beltDepth;
     
     ChunkLayers m_layers;
-    std::vector<Vertex> m_vertices;
+    VertexList m_vertices;
     
 
     

@@ -12,6 +12,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "../../Mesh/Vertex.h"
+#include "../../Mesh/VertexList.hpp"
 #include "../../Utility/Color.h"
 
 struct CircleArgs{

@@ -8,7 +8,6 @@
 #include "Chunk.hpp"
 #include "Circle.hpp"
 #include "../../Utility/Debugger.hpp"
-#include "../../Utility/VertexUtils.hpp"
 
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -47,7 +46,7 @@ void Chunk::generate(){
             .points = m_points
         });
         VertexList cliffVertex = cliff.getVertex();
-        VertexUtils::translate(cliffVertex, glm::vec3(0.0f, 0.0f, -1.0f * m_cliffDepth));
+        cliffVertex.translate(glm::vec3(0.0f, 0.0f, -1.0f * m_cliffDepth));
         
         
         Circle belt({
@@ -55,14 +54,14 @@ void Chunk::generate(){
             .points = m_points / 2
         });
         VertexList beltVertex = belt.getVertex();
-        VertexUtils::translate(beltVertex, glm::vec3(0.0f, 0.0f, -1.0f * m_beltDepth));
+        beltVertex.translate(glm::vec3(0.0f, 0.0f, -1.0f * m_beltDepth));
         
         Circle root({
             .radius = m_radius * 1 / 3,
             .points = m_points / 4
         });
         VertexList rootVertex = root.getVertex();
-        VertexUtils::translate(rootVertex, glm::vec3(0.0f, 0.0f, -2.0f * m_beltDepth));
+        rootVertex.translate(glm::vec3(0.0f, 0.0f, -2.0f * m_beltDepth));
         
         
         //populate layer group
@@ -83,7 +82,7 @@ void Chunk::generate(){
         m_layers.root.vertex
     };
     
-    VertexUtils::concat(m_vertices, layers);
+    m_vertices.concat(layers);
     
     
 }

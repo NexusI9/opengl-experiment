@@ -11,7 +11,6 @@
 #include <string>
 #include <vector>
 
-
 struct Vertex{
     glm::vec3 position;
     glm::vec3 normal;
@@ -123,13 +122,5 @@ struct Vertex{
 
 using VertexElement = int;
 using VertexCluster = std::vector<Vertex>;
-using VertexList = std::vector<Vertex>;
-
-struct VertexGroup{
-    std::string                 name;
-    VertexList                  vertex;
-    std::vector<VertexElement>  index;
-};
-
 
 #endif /* Vertex_h */

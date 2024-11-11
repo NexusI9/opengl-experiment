@@ -55,6 +55,13 @@ void Debugger::printVertex(std::vector<Vertex>& vertex){
     }
 }
 
+void Debugger::printVertex(VertexList& vertex){
+    for(int v = 0; v < vertex.size(); v++){
+        glm::vec3 vert = vertex[v].position;
+        std::cout << v << "\t\t" << vert.x << "\t" << vert.y << "\t" << vert.z << std::endl;
+    }
+}
+
 void Debugger::printVertex(Vertex& vertex){
     std::cout << "Position:" << "\t\t" << vertex.position.x << "\t" << vertex.position.y << "\t" << vertex.position.z << std::endl;
     std::cout << "Normal:" << "\t\t\t" << vertex.normal.x << "\t" << vertex.normal.y << "\t" << vertex.normal.z << std::endl;
@@ -100,6 +107,12 @@ void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 c
 }
 
 void Debugger::drawVertex(std::vector<Vertex>& vert, Scene& scene, glm::vec3 color, bool label){
+    std::vector<glm::vec3> tempPoints;
+    for(auto& vertex : vert) tempPoints.push_back(vertex.position);
+    drawPoints(tempPoints, scene, color, label);
+}
+
+void Debugger::drawVertex(VertexList& vert, Scene& scene, glm::vec3 color, bool label){
     std::vector<glm::vec3> tempPoints;
     for(auto& vertex : vert) tempPoints.push_back(vertex.position);
     drawPoints(tempPoints, scene, color, label);
