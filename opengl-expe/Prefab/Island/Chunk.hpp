@@ -17,7 +17,7 @@
 struct ChunkArgs{
     float radius = 2.0f;
     int points = 24;
-    float shoreDistance = 1.0f;
+    float shoreDistance = 0.2f;
     float cliffDistance = 0.2f;
     float cliffDepth = 0.1f;
     float beltDepth = 1.0f;

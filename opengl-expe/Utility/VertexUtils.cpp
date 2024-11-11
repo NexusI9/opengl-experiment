@@ -12,6 +12,7 @@
 #include <iterator>
 
 
+//TODO: implement a VertexList object instead of using static utilities
 void VertexUtils::scale(VertexList& vertex, float scale){
     
     //get center
@@ -105,13 +106,14 @@ void VertexUtils::smooth(VertexList& vertex, float amount){
     
 }
 
-void VertexUtils::noise(VertexList& vertex, float amplitude){
+void VertexUtils::noise(VertexList& vertex, glm::vec3 amplitude){
     
     for(auto& vert : vertex){
         float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
         r = (r > 0.5) ? r : -1.0f * r;
-        vert.position.x += sin(r * amplitude);
-        vert.position.y += cos(r * amplitude);
+        vert.position.x += sin(r * amplitude.x);
+        vert.position.y += cos(r * amplitude.y);
+        vert.position.z += cos(r * amplitude.z);
     }
     
 }

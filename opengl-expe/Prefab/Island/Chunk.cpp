@@ -27,7 +27,7 @@ m_cliffDistance(args.cliffDistance){
 
 void Chunk::generate(){
     
-    //Generate Land
+    //Generate armature
     m_layers.shore.name = "shore";
     for(int p = 0; p < m_points; p++){
 
@@ -35,6 +35,7 @@ void Chunk::generate(){
             .radius = m_radius,
             .points = m_points
         });
+        VertexList shoreVertex = shore.getVertex();
         
         Circle land({
             .radius = m_radius - m_shoreDistance,
@@ -84,6 +85,5 @@ void Chunk::generate(){
     
     VertexUtils::concat(m_vertices, layers);
     
-    //Generate Land
     
 }

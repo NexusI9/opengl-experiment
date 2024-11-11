@@ -27,7 +27,7 @@ public:
     
     //Deformation modifiers
     static void smooth(VertexList& vertex, float amount);
-    static void noise(VertexList& vertex, float amplitude);
+    static void noise(VertexList& vertex, glm::vec3 amplitude = glm::vec3(1.0f, 1.0f, 1.0f));
     
     //Organization modifiers
     static void concat(VertexList& destination, std::vector<VertexList>& sources);
