@@ -13,6 +13,9 @@
 #include <glm/glm.hpp>
 #include "./Vertex.h"
 
+/**
+ Vertex List are simple vector of Vertex with a few modifiers utilities, useful to generate basic polygons and tweak it procedurally
+ */
 class VertexList{
   
 public:
@@ -42,7 +45,7 @@ public:
     
     Vertex& operator[](size_t index) { return m_data[index]; }
     const Vertex& operator[](size_t index) const { return m_data[index]; }
-
+    
     void push_back(const Vertex& vec) { m_data.push_back(vec); }
     size_t size() const { return m_data.size(); }
     bool empty() const { return m_data.empty(); }
@@ -59,11 +62,7 @@ private:
     
 };
 
-struct VertexGroup{
-    std::string                 name;
-    VertexList                  vertex;
-    std::vector<VertexElement>  index;
-};
+
 
 
 #endif /* MeshUtils_hpp */

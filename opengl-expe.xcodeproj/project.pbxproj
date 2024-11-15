@@ -36,6 +36,7 @@
 		567612D62CDF55B0003A64EA /* UBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567612D42CDF55AF003A64EA /* UBO.cpp */; };
 		567612D92CDFA64A003A64EA /* Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567612D72CDFA64A003A64EA /* Island.cpp */; };
 		567612DF2CDFA7CD003A64EA /* Chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567612DD2CDFA7CD003A64EA /* Chunk.cpp */; };
+		567777852CE2496700EE1217 /* VertexGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567777832CE2496700EE1217 /* VertexGroup.cpp */; };
 		567957242CC699AF00727E68 /* Mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567957222CC699AF00727E68 /* Mouse.cpp */; };
 		567957262CC69FBC00727E68 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567957252CC69FBC00727E68 /* Keyboard.cpp */; };
 		5688AA2D2CCA81E4006406E6 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5688AA2B2CCA81E4006406E6 /* GameManager.cpp */; };
@@ -132,6 +133,8 @@
 		567612DD2CDFA7CD003A64EA /* Chunk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Chunk.cpp; sourceTree = "<group>"; };
 		567612DE2CDFA7CD003A64EA /* Chunk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Chunk.hpp; sourceTree = "<group>"; };
 		567777822CE23CFE00EE1217 /* Perlin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Perlin.h; sourceTree = "<group>"; };
+		567777832CE2496700EE1217 /* VertexGroup.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexGroup.cpp; sourceTree = "<group>"; };
+		567777842CE2496700EE1217 /* VertexGroup.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexGroup.hpp; sourceTree = "<group>"; };
 		567957202CC6997A00727E68 /* Keyboard.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
 		567957222CC699AF00727E68 /* Mouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mouse.cpp; sourceTree = "<group>"; };
 		567957232CC699AF00727E68 /* Mouse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mouse.hpp; sourceTree = "<group>"; };
@@ -313,6 +316,8 @@
 				5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */,
 				5618917E2CB40F1A004BCC55 /* MeshGroup.hpp */,
 				56F09AB02CB6B84E005BC541 /* MeshBase.h */,
+				567777832CE2496700EE1217 /* VertexGroup.cpp */,
+				567777842CE2496700EE1217 /* VertexGroup.hpp */,
 			);
 			path = Mesh;
 			sourceTree = "<group>";
@@ -471,6 +476,7 @@
 				56634ED62CE0E30800F91B19 /* Circle.cpp in Sources */,
 				56494CB22C94824B001E9CFA /* Transform.cpp in Sources */,
 				56C4E9CA2CC0047100F22DEF /* Points.cpp in Sources */,
+				567777852CE2496700EE1217 /* VertexGroup.cpp in Sources */,
 				56634ED12CE0539600F91B19 /* VertexList.cpp in Sources */,
 				5661A9EF2C840910002E52DA /* Mesh.cpp in Sources */,
 				560E85F22CCCB2F700A5727A /* Text.cpp in Sources */,

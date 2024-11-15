@@ -10,6 +10,7 @@
 #include "../PrefabBase.h"
 #include "../../Mesh/Vertex.h"
 #include "../../Mesh/VertexList.hpp"
+#include "../../Mesh/VertexGroup.hpp"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -52,7 +53,7 @@ private:
     float m_cliffDepth;
     float m_beltDepth;
     
-    ChunkLayers m_layers;
+    VertexGroup m_layers;
     VertexList m_vertices;
     
 

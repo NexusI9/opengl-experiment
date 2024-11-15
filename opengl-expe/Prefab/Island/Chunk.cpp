@@ -27,7 +27,6 @@ m_cliffDistance(args.cliffDistance){
 void Chunk::generate(){
     
     //Generate armature
-    m_layers.shore.name = "shore";
     for(int p = 0; p < m_points; p++){
 
         Circle shore({
@@ -41,6 +40,8 @@ void Chunk::generate(){
             .radius = m_radius - m_shoreDistance,
             .points = m_points
         });
+        VertexList landVertex = shore.getVertex();
+        landVertex.noise( glm::vec3(0.5f, 0.5f, 0.0f) );
         
         Circle cliff({
             .radius = m_radius + m_cliffDistance,
@@ -48,7 +49,7 @@ void Chunk::generate(){
         });
         VertexList cliffVertex = cliff.getVertex();
         cliffVertex.translate(glm::vec3(0.0f, 0.0f, -1.0f * m_cliffDepth));
-        
+        cliffVertex.noise( glm::vec3(1.0f, 1.0f, 0.0f) );
         
         Circle belt({
             .radius = m_radius / 1.2f,
@@ -56,6 +57,7 @@ void Chunk::generate(){
         });
         VertexList beltVertex = belt.getVertex();
         beltVertex.translate(glm::vec3(0.0f, 0.0f, -1.0f * m_beltDepth));
+        beltVertex.noise( glm::vec3(1.0f, 1.0f, 0.0f) );
         
         Circle root({
             .radius = m_radius * 1 / 3,
@@ -63,26 +65,18 @@ void Chunk::generate(){
         });
         VertexList rootVertex = root.getVertex();
         rootVertex.translate(glm::vec3(0.0f, 0.0f, -2.0f * m_beltDepth));
+        rootVertex.noise( glm::vec3(0.5f, 0.5f, 0.0f) );
         
         
-        //populate layer group
-        m_layers.shore.vertex = shoreVertex;
-        m_layers.land.vertex = land.getVertex();
-        m_layers.cliff.vertex = cliffVertex;
-        m_layers.belt.vertex = beltVertex;
-        m_layers.root.vertex = rootVertex;
+        //populate layer grou
+        m_layers.addGroup("land",  landVertex);
+        m_layers.addGroup("shore", shoreVertex);
+        m_layers.addGroup("cliff", cliffVertex);
+        m_layers.addGroup("belt",  beltVertex);
+        m_layers.addGroup("root",  rootVertex);
         
     }
-        
-    m_vertices = m_layers.shore.vertex;
     
-    std::vector<VertexList> layers = {
-        m_layers.land.vertex,
-        m_layers.cliff.vertex,
-        m_layers.belt.vertex,
-        m_layers.root.vertex
-    };
-    
-    //m_vertices.concat(layers);
+    m_vertices = m_layers.getVertex();
     
 }
