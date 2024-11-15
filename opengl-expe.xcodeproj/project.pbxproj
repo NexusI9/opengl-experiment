@@ -310,12 +310,12 @@
 			children = (
 				5661A9ED2C840910002E52DA /* Mesh.cpp */,
 				5661A9EE2C840910002E52DA /* Mesh.hpp */,
-				562CB3162C9E5ED50081658C /* Vertex.h */,
-				56634ECF2CE0539600F91B19 /* VertexList.cpp */,
-				56634ED02CE0539600F91B19 /* VertexList.hpp */,
 				5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */,
 				5618917E2CB40F1A004BCC55 /* MeshGroup.hpp */,
 				56F09AB02CB6B84E005BC541 /* MeshBase.h */,
+				562CB3162C9E5ED50081658C /* Vertex.h */,
+				56634ECF2CE0539600F91B19 /* VertexList.cpp */,
+				56634ED02CE0539600F91B19 /* VertexList.hpp */,
 				567777832CE2496700EE1217 /* VertexGroup.cpp */,
 				567777842CE2496700EE1217 /* VertexGroup.hpp */,
 			);

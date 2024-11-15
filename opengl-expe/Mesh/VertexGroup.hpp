@@ -15,10 +15,13 @@
 
 struct VertexGroupPoint{
     Vertex                      vertex;
-    VertexElement               index;
+    std::vector<VertexElement>  index;
 };
 
-using VertexLayer = std::vector<VertexGroupPoint>;
+struct VertexLayer{
+    std::string                   name;
+    std::vector<VertexGroupPoint> points;
+};
 
 /**
  Vertex Group are combination of Vertex List along with index, the object is mostly use to combine Vertex List together and rearange elements accordingly
@@ -42,7 +45,9 @@ public:
 
 private:
     
-    std::unordered_map<std::string, VertexLayer> m_groups;
+    std::vector<VertexLayer> m_groups;
+    std::vector<Vertex> m_vertices;
+    std::vector<VertexElement> m_elements;
 
     
     

@@ -55,6 +55,7 @@ private:
     
     VertexGroup m_layers;
     VertexList m_vertices;
+    std::vector<VertexElement> m_elements;
     
 
     
