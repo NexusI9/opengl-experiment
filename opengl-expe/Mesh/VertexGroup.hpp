@@ -8,6 +8,7 @@
 #ifndef VertexGroup_hpp
 #define VertexGroup_hpp
 #include <string>
+#include <glm/glm.hpp>
 #include "./VertexList.hpp"
 #include "./Vertex.h"
 #include <unordered_map>
@@ -21,6 +22,16 @@ struct VertexGroupPoint{
 struct VertexLayer{
     std::string                   name;
     std::vector<VertexGroupPoint> points;
+};
+
+struct Triangle{
+    const VertexElement a;
+    const VertexElement b;
+    const VertexElement c;
+    
+    Triangle(const VertexElement& a, const VertexElement& b, const VertexElement& c):a(a), b(b), c(c){}
+    
+    VertexElement list[3]{a, b, c};
 };
 
 /**
@@ -48,6 +59,8 @@ private:
     std::vector<Vertex> m_vertices;
     std::vector<VertexElement> m_elements;
     
+    VertexGroupPoint getClosestPoint(std::vector<VertexGroupPoint>& haystack, glm::vec3 needle);
+    void insertTriangle(std::vector<VertexElement>& reference, Triangle triangle);
 };
 
 

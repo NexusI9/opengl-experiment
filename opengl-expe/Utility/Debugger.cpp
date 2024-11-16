@@ -156,3 +156,10 @@ void Debugger::printMeshGroupInfo(MeshGroup& meshgroup){
 void Debugger::filterVerboseFlag(Verbose::Flag flag){
     m_verboseFilter = flag;
 }
+
+void Debugger::printVector(std::vector<int>& vector){
+    for(auto& item : vector) {
+        std::cout << item << ", ";
+    }
+    std::cout << std::endl;
+}

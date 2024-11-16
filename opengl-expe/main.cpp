@@ -45,6 +45,7 @@ int main(int argc, const char * argv[]) {
     Chunk chunk({
         .radius = 2.0f,
         .points = 24,
+        .cliffDistance = 1.0f
     });
     MeshGroup* chunkMesh = chunk.getMesh();
     SolidMaterial mat({

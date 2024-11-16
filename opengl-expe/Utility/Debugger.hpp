@@ -14,6 +14,7 @@
 #include <string>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
+#include <variant>
 
 #include "../Mesh/Vertex.h"
 #include "../Mesh/VertexList.hpp"
@@ -52,6 +53,7 @@ public:
     static void printVec2(glm::vec2& vector);
     static void printVertices(std::vector<glm::vec3>& vertices);
 
+    static void printVector(std::vector<int>& vector);
     static void printVertex(VertexList& vertex);
     static void printVertex(std::vector<Vertex>& vertex);
     static void printVertex(Vertex& vertex);
