@@ -7,7 +7,8 @@
 
 #ifndef Chunk_hpp
 #define Chunk_hpp
-#include "../PrefabBase.h"
+
+#include "../../Model/Model.h"
 #include "../../Mesh/Vertex.h"
 #include "../../Mesh/VertexList.hpp"
 #include "../../Mesh/VertexGroup.hpp"
@@ -33,14 +34,14 @@ struct ChunkLayers{
     VertexGroup root;
 };
 
-class Chunk : public PrefabBase {
+class Chunk : public Model {
     
 public:
     
     Chunk(const ChunkArgs& args);
     ~Chunk(){};
     
-    VertexList& getVertices(){  return m_vertices; }
+    std::vector<Vertex>& getVertices(){  return m_vertices; }
     
 private:
     
@@ -54,10 +55,10 @@ private:
     float m_beltDepth;
     
     VertexGroup m_layers;
-    VertexList m_vertices;
+    std::vector<Vertex> m_vertices;
     std::vector<VertexElement> m_elements;
     
-
+    
     
 };
 

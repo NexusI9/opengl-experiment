@@ -33,9 +33,7 @@ public:
     
 private:
     std::vector<Vertex> m_vertices;
-    std::vector<GLuint> m_elements;
-    std::vector<Texture> m_textures;
-    
+    std::vector<VertexElement> m_elements;
 };
 
 

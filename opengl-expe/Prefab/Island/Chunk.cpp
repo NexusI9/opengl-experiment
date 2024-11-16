@@ -63,18 +63,22 @@ void Chunk::generate(){
     });
     VertexList rootVertex = root.getVertex();
     rootVertex.translate(glm::vec3(0.0f, 0.0f, -2.0f * m_beltDepth));
-    rootVertex.noise( glm::vec3(0.5f, 0.5f, 0.0f) );
+    rootVertex.noise(glm::vec3(0.5f, 0.5f, 0.8f));
     
     //populate layer group
-    m_layers.addGroup("land",  landVertex);
+    //m_layers.addGroup("land",  landVertex);
     m_layers.addGroup("shore", shoreVertex);
-    m_layers.addGroup("cliff", cliffVertex);
+    //m_layers.addGroup("cliff", cliffVertex);
     m_layers.addGroup("belt",  beltVertex);
-    m_layers.addGroup("root",  rootVertex);
+    //m_layers.addGroup("root",  rootVertex);
     
     m_layers.bridge();
     
     m_vertices = m_layers.getVertex();
     m_elements = m_layers.getElement();
-    
+    m_meshGroup->addChild(Mesh({
+        .name = "chunk",
+        .vertices = m_vertices,
+        .elements = m_elements
+    }));
 }

@@ -16,6 +16,7 @@
 
 #include "Scene/Camera.hpp"
 #include "Scene/Scene.hpp"
+#include "Material/SolidMaterial.hpp"
 
 #include "Prefab/Island/Chunk.hpp"
 
@@ -45,10 +46,15 @@ int main(int argc, const char * argv[]) {
         .radius = 2.0f,
         .points = 24,
     });
+    MeshGroup* chunkMesh = chunk.getMesh();
+    SolidMaterial mat({
+        .color = Color::Grey
+    });
     
-    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, false);
+    chunkMesh->setMaterial(mat);
+    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, true);
     
-    
+    scene.add(chunkMesh);
     scene.showGrid(true);
 
     window.draw(scene);

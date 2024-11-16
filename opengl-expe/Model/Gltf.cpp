@@ -80,7 +80,7 @@ std::vector<float> Gltf::getFloats(nlohmann::json accessor){
 }
 
 
-std::vector<GLuint> Gltf::getIndices(nlohmann::json accessor){
+std::vector<VertexElement> Gltf::getIndices(nlohmann::json accessor){
     
     std::vector<GLuint> indices;
     

@@ -62,7 +62,7 @@ void VertexList::decimate(int amount){
     avgDistance /= m_data.size();
     
     //Generate Cluster
-    std::vector<VertexCluster> cluster;
+    std::vector<VertexArray> cluster;
     float threshold = 0.1f;
     
     while(cluster.size() != amount){

@@ -48,7 +48,7 @@ void Grid::genGrid(){
 
     
     gridMesh->setMaterial(gridMaterial);
-    m_mesh = gridMesh;
+    m_meshGroup = gridMesh;
 }
 
 void Grid::genAxis(Axis& axis){
@@ -66,6 +66,6 @@ void Grid::genAxis(Axis& axis){
     axisMesh->setMaterial(material);
     
     //Transfer mesh to global mesh
-    m_mesh->addChildren(axisMesh);
+    m_meshGroup->addChildren(axisMesh);
     
 }

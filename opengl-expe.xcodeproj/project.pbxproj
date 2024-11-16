@@ -152,7 +152,6 @@
 		56C4E9C92CC0047100F22DEF /* Points.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Points.hpp; sourceTree = "<group>"; };
 		56F09AB02CB6B84E005BC541 /* MeshBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBase.h; sourceTree = "<group>"; };
 		56F10FC92CB56ED200AD9FC4 /* Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
-		56F5D3962CCE25E000BE406C /* PrefabBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefabBase.h; sourceTree = "<group>"; };
 		56F69D4F2CC15EB40070C722 /* Gizmos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Gizmos.cpp; sourceTree = "<group>"; };
 		56F69D502CC15EB40070C722 /* Gizmos.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gizmos.hpp; sourceTree = "<group>"; };
 		56F69D532CC15F060070C722 /* Grid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Grid.cpp; sourceTree = "<group>"; };
@@ -392,7 +391,6 @@
 				560E85F12CCCB2F700A5727A /* Text.hpp */,
 				56F69D532CC15F060070C722 /* Grid.cpp */,
 				56F69D542CC15F060070C722 /* Grid.hpp */,
-				56F5D3962CCE25E000BE406C /* PrefabBase.h */,
 			);
 			path = Prefab;
 			sourceTree = "<group>";

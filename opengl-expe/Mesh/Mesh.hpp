@@ -35,7 +35,7 @@
 struct MeshArgs{
     std::string name = "DEFAULT";
     std::vector<Vertex> vertices;
-    std::vector<GLuint> elements;
+    std::vector<VertexElement> elements;
     std::vector<Texture> textures;
 };
 

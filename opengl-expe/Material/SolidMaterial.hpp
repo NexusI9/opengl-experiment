@@ -28,7 +28,7 @@ struct SolidMaterialArg{
 class SolidMaterial : public MaterialBase{
     
 public:
-    
+
     SolidMaterial(const SolidMaterialArg& args) : color(args.color), m_vertexPath(args.vertexShader), m_fragmentPath(args.fragmentShader), m_uniforms(args.uniforms){}
 
     void setColor(glm::vec3 cl){

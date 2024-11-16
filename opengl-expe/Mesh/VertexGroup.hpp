@@ -14,8 +14,8 @@
 
 
 struct VertexGroupPoint{
-    Vertex                      vertex;
-    std::vector<VertexElement>  index;
+    Vertex         vertex;
+    VertexElement  index;
 };
 
 struct VertexLayer{
@@ -39,17 +39,14 @@ public:
     
     void bridge();
     
-    VertexList getVertex();
+    std::vector<Vertex> getVertex();
     std::vector<VertexElement> getElement();
-    
 
 private:
     
     std::vector<VertexLayer> m_groups;
     std::vector<Vertex> m_vertices;
     std::vector<VertexElement> m_elements;
-
-    
     
 };
 

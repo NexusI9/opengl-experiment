@@ -222,6 +222,6 @@ void Text::generate(){
     labelMesh->setMaterial(labelMaterial);
     labelMesh->setScale(texSize.x / texSize.y, 1.0f, 1.0f); //scale to ratio
     
-    m_mesh = labelMesh;
+    m_meshGroup = labelMesh;
 }
 

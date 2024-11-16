@@ -8,6 +8,7 @@
 #ifndef Vertex_h
 #define Vertex_h
 #include <glm/glm.hpp>
+#include <GL/glew.h>
 #include <string>
 #include <vector>
 
@@ -120,7 +121,7 @@ struct Vertex{
     }
 };
 
-using VertexElement = int;
-using VertexCluster = std::vector<Vertex>;
+using VertexElement = GLuint;
+using VertexArray = std::vector<Vertex>;
 
 #endif /* Vertex_h */

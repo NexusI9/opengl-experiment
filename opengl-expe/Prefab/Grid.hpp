@@ -10,7 +10,8 @@
 
 #include <stdio.h>
 
-#include "./PrefabBase.h"
+#include "../Model/Model.h"
+
 #include "../Scene/GameObject.h"
 #include "../Mesh/MeshGroup.hpp"
 #include "../Model/Rectangle.hpp"
@@ -22,7 +23,7 @@ struct Axis{
     glm::vec3 color;
 };
 
-class Grid : public PrefabBase{
+class Grid : public Model{
     
 public:
     
