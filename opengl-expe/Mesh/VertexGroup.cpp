@@ -13,12 +13,17 @@ void VertexGroup::addGroup(std::string name, VertexList vertices){
     
     //get offset count
     VertexElement indexOffset = 0;
-    for(auto& group : m_groups) indexOffset += group.points.size();
+    for(auto& group : m_groups) indexOffset += group.list.size();
     
     //create new group
-    VertexLayer temp = { .name = name };
+    VertexLayer temp = {
+        .name = name,
+        .list = vertices
+    };
+    
+    //update list vertex index
     for(VertexElement i = 0; i < vertices.size(); i++){
-        temp.points.push_back({ .vertex = vertices[i], .index = indexOffset + i });
+        temp.list[i].index = indexOffset + i;
     }
     
     m_groups.push_back(temp);
@@ -37,17 +42,17 @@ void VertexGroup::bridge(){
         std::vector<int> pairedIndex;
         
         //If size is different, assign bigger group to outer and smaller to inner
-        if(inner.points.size() != outer.points.size()){
+        if(inner.list.size() != outer.list.size()){
             //smaller loop
-             inner = m_groups[g].points.size() < m_groups[g + 1].points.size() ? m_groups[g] : m_groups[g + 1];
+             inner = m_groups[g].list.size() < m_groups[g + 1].list.size() ? m_groups[g] : m_groups[g + 1];
             //bigger loop
-            outer = m_groups[g].points.size() > m_groups[g + 1].points.size() ? m_groups[g] : m_groups[g + 1];
+            outer = m_groups[g].list.size() > m_groups[g + 1].list.size() ? m_groups[g] : m_groups[g + 1];
         }
 
         
-        for(int o = 0; o < outer.points.size(); o++){
+        for(int o = 0; o < outer.list.size(); o++){
             
-            VertexGroupPoint outerPoint = outer.points[o];
+            VertexList::Point outerPoint = outer.list[o];
 
             /*
              Opposite completion:
@@ -69,25 +74,25 @@ void VertexGroup::bridge(){
         
         
             //edge case for end of vertex loop
-            if(o == outer.points.size() - 1){
+            if(o == outer.list.size() - 1){
                 
                 //end loop triangle
                 m_elements.push_back(outerPoint.index);
-                m_elements.push_back(inner.points.front().index);
-                m_elements.push_back(outer.points.front().index);
+                m_elements.push_back(inner.list.front().index);
+                m_elements.push_back(outer.list.front().index);
                 
             }else{
             
-                VertexGroupPoint innerPoint = inner.points.front();
+                VertexList::Point innerPoint = inner.list.front();
                 //get closest inner point
                 if(o > 0){
-                    innerPoint = getClosestPoint(inner.points, outerPoint.vertex.position);
+                    innerPoint = getClosestPoint(inner.list, outerPoint.vertex.position);
                     pairedIndex.push_back(static_cast<int>(innerPoint.index));
                 }
                 
                 //get next vertex
-                VertexGroupPoint outerNext = outer.points[ (o+1) % outer.points.size() ];
-                VertexGroupPoint innerNext = inner.points[ (innerPoint.index+1) % inner.points.size() ];
+                VertexList::Point outerNext = outer.list[ (o+1) % outer.list.size() ];
+                VertexList::Point innerNext = inner.list[ (innerPoint.index+1) % inner.list.size() ];
 
                 //get A <-> D distance
                 float outerDistance = glm::distance(outerPoint.vertex.position, outerNext.vertex.position);
@@ -95,7 +100,7 @@ void VertexGroup::bridge(){
                 //get B <-> C distance
                 float innerDistance = glm::distance(innerPoint.vertex.position, innerNext.vertex.position);
                 
-                VertexGroupPoint lastPoint = outerDistance < innerDistance ? outerNext : innerNext;
+                VertexList::Point lastPoint = outerDistance < innerDistance ? outerNext : innerNext;
                 
 
                 m_elements.push_back(outerPoint.index); //Add first triangle point
@@ -121,9 +126,9 @@ void VertexGroup::bridge(){
         }
         
         //Detect orphan vertex that didn't got assigned during bridge
-        for(int p = 0; p < inner.points.size(); p++){
+        for(int p = 0; p < inner.list.size(); p++){
             
-            VertexGroupPoint& point = inner.points[p];
+            VertexList::Point& point = inner.list[p];
             
             bool orphan = true;
             for(auto& index : pairedIndex){
@@ -136,8 +141,8 @@ void VertexGroup::bridge(){
             if(orphan){
                 
                 //Get closest point of orphan next neighbour instead of orphan
-                VertexGroupPoint endPoint =  inner.points[(p + 1) % inner.points.size()];
-                VertexGroupPoint closestPoint = getClosestPoint(outer.points, endPoint.vertex.position);
+                VertexList::Point endPoint =  inner.list[(p + 1) % inner.list.size()];
+                VertexList::Point closestPoint = getClosestPoint(outer.list, endPoint.vertex.position);
                 
                 std::cout << point.index << "\t" << endPoint.index << std::endl;
                 
@@ -146,7 +151,7 @@ void VertexGroup::bridge(){
                 VertexElement c = point.index + 1;
                 
                 //edge case for orphan at end of loop join back to the end of outer loop instead of i + 1
-                if(point.index == inner.points.back().index){
+                if(point.index == inner.list.back().index){
                     c = closestPoint.index;
                     b = closestPoint.index + 1;
                     a = point.index;
@@ -181,7 +186,7 @@ void VertexGroup::bridge(){
 std::vector<Vertex> VertexGroup::getVertex(){
     std::vector<Vertex> temp;
     for(auto& group : m_groups){
-        for(auto& point : group.points) temp.push_back(point.vertex);
+        for(auto& point : group.list) temp.push_back(point.vertex);
     };
     return temp;
 }
@@ -196,13 +201,13 @@ VertexLayer* VertexGroup::getGroup(std::string name){
 }
 
 
-VertexGroupPoint VertexGroup::getClosestPoint(std::vector<VertexGroupPoint>& haystack, glm::vec3 needle){
+VertexList::Point VertexGroup::getClosestPoint(VertexList& haystack, glm::vec3 needle){
     
-    VertexGroupPoint closestPoint = haystack.front();
+    VertexList::Point closestPoint = haystack.front();
     //get closest inner point
     for(int i = 0; i < haystack.size(); i++){
         
-        VertexGroupPoint currentPoint = haystack[i];
+        VertexList::Point currentPoint = haystack[i];
         
         float newDistance = glm::distance(currentPoint.vertex.position, needle);
         float closestDistance = glm::distance(closestPoint.vertex.position, needle);

@@ -14,14 +14,10 @@
 #include <unordered_map>
 
 
-struct VertexGroupPoint{
-    Vertex         vertex;
-    VertexElement  index;
-};
-
+//Separate Vertext and Elements into separate objects cause easier to manipulate vertex through VertexList
 struct VertexLayer{
-    std::string                   name;
-    std::vector<VertexGroupPoint> points;
+    std::string                name;
+    VertexList                 list;
 };
 
 struct Triangle{
@@ -59,7 +55,7 @@ private:
     std::vector<Vertex> m_vertices;
     std::vector<VertexElement> m_elements;
     
-    VertexGroupPoint getClosestPoint(std::vector<VertexGroupPoint>& haystack, glm::vec3 needle);
+    VertexList::Point getClosestPoint(VertexList& haystack, glm::vec3 needle);
     void insertTriangle(std::vector<VertexElement>& reference, Triangle triangle);
 };
 

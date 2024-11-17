@@ -20,12 +20,12 @@ void VertexList::scale(float scale){
     //get center
     glm::vec3 ctr = center();
     //scale towards or outwards this center
-    for(auto& vert : m_data) vert.position = ctr + (vert.position - ctr) * scale;
+    for(auto& vert : m_data) vert.vertex.position = ctr + (vert.vertex.position - ctr) * scale;
 
 }
 
 void VertexList::translate(glm::vec3 translation){
-    for(auto& vert : m_data) vert.position += translation;
+    for(auto& vert : m_data) vert.vertex.position += translation;
 }
 
 void VertexList::subdivide(int amount){
@@ -35,7 +35,7 @@ void VertexList::subdivide(int amount){
 
 void VertexList::decimate(int amount){
    
-    std::vector<Vertex> tempVert;
+    std::vector<VertexList::Point> tempVert;
     
     //make sure its not reductible polygon
     if(m_data.size() < 4){ return; }
@@ -54,8 +54,8 @@ void VertexList::decimate(int amount){
     float avgDistance = 0.0f;
     int v = 0;
     for(v = 0; v < m_data.size(); v++){
-        Vertex current = m_data[v];
-        Vertex next = m_data[ (v+1) % m_data.size() ];
+        Vertex current = m_data[v].vertex;
+        Vertex next = m_data[ (v+1) % m_data.size() ].vertex;
         avgDistance += glm::distance(current.position, next.position);
     }
     
@@ -71,7 +71,7 @@ void VertexList::decimate(int amount){
         
         for(v = 0; v < m_data.size(); ++v){
             
-            Vertex current = m_data[v];
+            Vertex current = m_data[v].vertex;
             bool added = false;
             
             for(auto& cl : cluster){
@@ -94,7 +94,7 @@ void VertexList::decimate(int amount){
         Vertex avgVert = cl[0];
         for(auto& vert : cl) avgVert += vert;
         avgVert /= static_cast<float>(cl.size()) + 1.0f;
-        tempVert.push_back(avgVert);
+        tempVert.push_back({.vertex = avgVert, .index = static_cast<VertexElement>(tempVert.size())});
     }
     
     m_data = tempVert;
@@ -111,14 +111,14 @@ void VertexList::noise(glm::vec3 amplitude){
     
     for(auto& vert : m_data){
         
-        glm::vec3 offset = vert.position - ctr;
+        glm::vec3 offset = vert.vertex.position - ctr;
     
         float n = perlin::noise(offset.x, offset.y);
         offset.x += n * amplitude.x;
         offset.y += n * amplitude.y;
         offset.z += n * amplitude.z;
         
-        vert.position = ctr + offset;
+        vert.vertex.position = ctr + offset;
     }
     
 }
@@ -143,7 +143,7 @@ void VertexList::concat(VertexList& source){
 
 glm::vec3 VertexList::center(){
     glm::vec3 center;
-    for(auto& vert : m_data) center += vert.position;
+    for(auto& vert : m_data) center += vert.vertex.position;
     center /= static_cast<float>(m_data.size());
     return center;
 }

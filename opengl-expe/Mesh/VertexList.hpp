@@ -13,6 +13,8 @@
 #include <glm/glm.hpp>
 #include "./Vertex.h"
 
+
+
 /**
  Vertex List are simple vector of Vertex with a few modifiers utilities, useful to generate basic polygons and tweak it procedurally
  */
@@ -20,9 +22,16 @@ class VertexList{
   
 public:
     
+    struct Point{
+        Vertex         vertex;
+        VertexElement  index;
+    };
+    
     VertexList() = default;
     
-    VertexList(std::initializer_list<Vertex> init):m_data(init){};
+    VertexList(std::vector<Vertex> init){
+        for(VertexElement i = 0; i < init.size(); i++) m_data.push_back({ .vertex = init[i], .index = i });
+    };
     
     //Transformation modifiers
     void scale(float scale);
@@ -43,22 +52,27 @@ public:
     
     glm::vec3 center();
     
-    Vertex& operator[](size_t index) { return m_data[index]; }
-    const Vertex& operator[](size_t index) const { return m_data[index]; }
+    VertexList::Point& operator[](size_t index) { return m_data[index]; }
+    const VertexList::Point& operator[](size_t index) const { return m_data[index]; }
     
-    void push_back(const Vertex& vec) { m_data.push_back(vec); }
+    void push_back(const Vertex& vec) {
+        m_data.push_back({
+            .vertex = vec,
+            .index = static_cast<VertexElement>(m_data.size())
+        });
+    }
     size_t size() const { return m_data.size(); }
     bool empty() const { return m_data.empty(); }
     void clear() { return m_data.clear(); }
 
     auto begin() { return m_data.begin(); }
     auto end() { return m_data.end(); }
-    auto begin() const { return m_data.begin(); }
-    auto end() const { return m_data.end(); }
+    auto front() const { return m_data.front(); }
+    auto back() const { return m_data.back(); }
     
 private:
     
-    std::vector<Vertex> m_data;
+    std::vector<VertexList::Point> m_data;
     
 };
 
