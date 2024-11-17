@@ -120,9 +120,11 @@ void VertexGroup::bridge(){
             
         }
         
-        for(auto& point : inner.points){
+        //Detect orphan vertex that didn't got assigned during bridge
+        for(int p = 0; p < inner.points.size(); p++){
             
-            //Detect orphan vertex that didn't got assigned during bridge
+            VertexGroupPoint& point = inner.points[p];
+            
             bool orphan = true;
             for(auto& index : pairedIndex){
                 if(point.index == index){
@@ -132,11 +134,29 @@ void VertexGroup::bridge(){
             }
             
             if(orphan){
-                auto closestPoint = getClosestPoint(outer.points, point.vertex.position);
-                Triangle triangle(closestPoint.index, point.index - 1, point.index);
+                
+                //Get closest point of orphan next neighbour instead of orphan
+                VertexGroupPoint endPoint =  inner.points[(p + 1) % inner.points.size()];
+                VertexGroupPoint closestPoint = getClosestPoint(outer.points, endPoint.vertex.position);
+                
+                std::cout << point.index << "\t" << endPoint.index << std::endl;
+                
+                VertexElement a = closestPoint.index;
+                VertexElement b = point.index;
+                VertexElement c = point.index + 1;
+                
+                //edge case for orphan at end of loop join back to the end of outer loop instead of i + 1
+                if(point.index == inner.points.back().index){
+                    c = closestPoint.index;
+                    b = closestPoint.index + 1;
+                    a = point.index;
+                    std::cout << point.index << ": " << a << "\t" << b << "\t" << c << std::endl;
+                }
+                
+                Triangle triangle(a,b,c);
                 insertTriangle(m_elements, triangle);
-                //put them at the right index
-                std::cout << triangle.a << "\t" << triangle.b << "\t" << triangle.c << std::endl;
+ 
+               
             }
 
             
@@ -145,14 +165,15 @@ void VertexGroup::bridge(){
         
     }
     
-    std::cout << "-------" << std::endl;
+    /*std::cout << "-------" << std::endl;
     int a = 1;
     for(auto& i : m_elements){
         std::cout << i << "\t";
         if(a%3 == 0) std::cout << std::endl;
         a++;
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
+    
     std::reverse(m_elements.begin(), m_elements.end());
     
 }
@@ -214,7 +235,7 @@ void VertexGroup::insertTriangle(std::vector<VertexElement>& reference, Triangle
         VertexElement b = reference[r+1];
         VertexElement c = reference[r+2];
         
-        if(triangle.a <= a && triangle.b <= b && triangle.c <= c){
+        if(triangle.a <= a && triangle.b <= b && triangle.c < c){
             reference.insert(reference.begin() + r, triangle.list, triangle.list + 3);
             return;
         }

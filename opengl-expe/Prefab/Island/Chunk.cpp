@@ -40,7 +40,7 @@ void Chunk::generate(){
         .points = m_points
     });
     VertexList shoreVertex = shore.getVertex();
-    shoreVertex.noise( glm::vec3(0.5f, 0.5f, 0.5f) );
+    shoreVertex.noise( glm::vec3(0.3f, 0.3f, 0.0f) );
 
     
     Circle cliff({
@@ -49,7 +49,7 @@ void Chunk::generate(){
     });
     VertexList cliffVertex = cliff.getVertex();
     cliffVertex.translate(glm::vec3(0.0f, 0.0f, -1.0f * m_cliffDepth));
-    //cliffVertex.noise( glm::vec3(1.0f, 1.0f, 0.0f) );
+    cliffVertex.noise( glm::vec3(0.3f, 0.3f, 0.0f) );
     
     Circle belt({
         .radius = m_radius / 1.2f,
@@ -71,8 +71,8 @@ void Chunk::generate(){
     //m_layers.addGroup("land",  landVertex);
     m_layers.addGroup("shore", shoreVertex);
     m_layers.addGroup("cliff", cliffVertex);
-    //m_layers.addGroup("belt",  beltVertex);
-    //m_layers.addGroup("root",  rootVertex);
+    m_layers.addGroup("belt",  beltVertex);
+    m_layers.addGroup("root",  rootVertex);
     
     m_layers.bridge();
     
