@@ -45,15 +45,17 @@ int main(int argc, const char * argv[]) {
     Chunk chunk({
         .radius = 2.0f,
         .points = 24,
-        .cliffDistance = 0.4f
+        .cliffDistance = 0.4f,
+        .shoreDistance = 0.4f
     });
+    
     MeshGroup* chunkMesh = chunk.getMesh();
     SolidMaterial mat({
         .color = Color::Grey
     });
     
     chunkMesh->setMaterial(mat);
-    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, true);
+    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, false);
     
     scene.add(chunkMesh);
     scene.showGrid(true);

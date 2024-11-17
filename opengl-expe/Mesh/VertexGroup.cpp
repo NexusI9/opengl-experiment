@@ -144,7 +144,7 @@ void VertexGroup::bridge(){
                 VertexList::Point endPoint =  inner.list[(p + 1) % inner.list.size()];
                 VertexList::Point closestPoint = getClosestPoint(outer.list, endPoint.vertex.position);
                 
-                std::cout << point.index << "\t" << endPoint.index << std::endl;
+                //std::cout << point.index << "\t" << endPoint.index << std::endl;
                 
                 VertexElement a = closestPoint.index;
                 VertexElement b = point.index;
@@ -155,7 +155,7 @@ void VertexGroup::bridge(){
                     c = closestPoint.index;
                     b = closestPoint.index + 1;
                     a = point.index;
-                    std::cout << point.index << ": " << a << "\t" << b << "\t" << c << std::endl;
+                    //std::cout << point.index << ": " << a << "\t" << b << "\t" << c << std::endl;
                 }
                 
                 Triangle triangle(a,b,c);
@@ -197,6 +197,10 @@ std::vector<VertexElement> VertexGroup::getElement(){
 }
 
 VertexLayer* VertexGroup::getGroup(std::string name){
+    for(auto& group : m_groups){
+        if(group.name == name) return &group;
+    }
+    
     return nullptr;
 }
 

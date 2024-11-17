@@ -32,15 +32,12 @@ void Chunk::generate(){
         .points = m_points
     });
     VertexList landVertex = land.getVertex();
-    landVertex.noise( glm::vec3(0.5f, 0.5f, 0.0f) );
-    
     
     Circle shore({
         .radius = m_radius,
         .points = m_points
     });
     VertexList shoreVertex = shore.getVertex();
-    shoreVertex.noise( glm::vec3(0.3f, 0.3f, 0.0f) );
 
     
     Circle cliff({
@@ -49,7 +46,6 @@ void Chunk::generate(){
     });
     VertexList cliffVertex = cliff.getVertex();
     cliffVertex.translate(glm::vec3(0.0f, 0.0f, -1.0f * m_cliffDepth));
-    cliffVertex.noise( glm::vec3(0.3f, 0.3f, 0.0f) );
     
     Circle belt({
         .radius = m_radius / 1.2f,
@@ -57,7 +53,7 @@ void Chunk::generate(){
     });
     VertexList beltVertex = belt.getVertex();
     beltVertex.translate(glm::vec3(0.0f, 0.0f, -1.0f * m_beltDepth));
-    beltVertex.noise( glm::vec3(1.0f, 1.0f, 0.0f) );
+
     
     Circle root({
         .radius = m_radius * 1 / 3,
@@ -65,16 +61,24 @@ void Chunk::generate(){
     });
     VertexList rootVertex = root.getVertex();
     rootVertex.translate(glm::vec3(0.0f, 0.0f, -2.0f * m_beltDepth));
-    rootVertex.noise(glm::vec3(0.5f, 0.5f, 0.8f));
+
     
     //populate layer group
-    //m_layers.addGroup("land",  landVertex);
+    m_layers.addGroup("land",  landVertex);
     m_layers.addGroup("shore", shoreVertex);
     m_layers.addGroup("cliff", cliffVertex);
     m_layers.addGroup("belt",  beltVertex);
     m_layers.addGroup("root",  rootVertex);
     
     m_layers.bridge();
+    
+    //add noise once bridged together
+    if(auto* landVertex = m_layers.getGroup("land"))   landVertex->list.noise(  glm::vec3(0.3f, 0.3f, 0.0f) );
+    if(auto* shoreVertex = m_layers.getGroup("short")) shoreVertex->list.noise( glm::vec3(0.3f, 0.3f, 0.0f) );
+    if(auto* cliffVertex = m_layers.getGroup("cliff")) cliffVertex->list.noise( glm::vec3(0.3f, 0.3f, 0.0f) );
+    if(auto* beltVertex = m_layers.getGroup("belt"))   beltVertex->list.noise(  glm::vec3(1.0f, 1.0f, 0.0f) );
+    if(auto* rootVertex = m_layers.getGroup("root"))   rootVertex->list.noise(  glm::vec3(1.0f, 1.0f, 1.0f) );
+
     
     m_vertices = m_layers.getVertex();
     m_elements = m_layers.getElement();
