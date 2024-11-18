@@ -152,9 +152,9 @@ void VertexGroup::bridge(){
                 
                 //edge case for orphan at end of loop join back to the end of outer loop instead of i + 1
                 if(point.index == inner.list.back().index){
-                    c = closestPoint.index;
-                    b = closestPoint.index + 1;
-                    a = point.index;
+                    a = inner.list.front().index;
+                    b = outer.list.back().index;
+                    c = point.index;
                     //std::cout << point.index << ": " << a << "\t" << b << "\t" << c << std::endl;
                 }
                 

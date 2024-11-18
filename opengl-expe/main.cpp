@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
     });
     
     chunkMesh->setMaterial(mat);
-    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, false);
+    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, true);
     
     scene.add(chunkMesh);
     scene.showGrid(true);
