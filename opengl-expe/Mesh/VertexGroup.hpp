@@ -30,6 +30,11 @@ struct Triangle{
     VertexElement list[3]{a, b, c};
 };
 
+enum class FillMethod{
+    Triangle,
+    Hexagone
+};
+
 /**
  Vertex Group are combination of Vertex List along with index, the object is mostly use to combine Vertex List together and rearange elements accordingly
  The relationship between VertexGroup and VertexList, is similar to the one between Mesh and MeshGroup
@@ -45,6 +50,7 @@ public:
     VertexLayer* getGroup(std::string name);
     
     void bridge();
+    void fill(std::string groupName, FillMethod method);
     
     std::vector<Vertex> getVertex();
     std::vector<VertexElement> getElement();
@@ -55,8 +61,12 @@ private:
     std::vector<Vertex> m_vertices;
     std::vector<VertexElement> m_elements;
     
-    VertexList::Point getClosestPoint(VertexList& haystack, glm::vec3 needle);
+    VertexList::Point getClosestPoint(VertexList const& haystack, glm::vec3 needle);
     void insertTriangle(std::vector<VertexElement>& reference, Triangle triangle);
+
+    VertexElement indexOffset(std::string name);
+    VertexElement indexOffset();
+    
 };
 
 

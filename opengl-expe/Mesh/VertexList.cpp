@@ -142,8 +142,37 @@ void VertexList::concat(VertexList& source){
 
 
 glm::vec3 VertexList::center(){
-    glm::vec3 center;
+    glm::vec3 center = glm::vec3(0.0f);
     for(auto& vert : m_data) center += vert.vertex.position;
     center /= static_cast<float>(m_data.size());
     return center;
+}
+
+
+std::vector<glm::vec2> VertexList::toVec2(){
+    std::vector<glm::vec2> temp;
+    for(auto& [vertex, index] : m_data) temp.push_back(glm::vec2(vertex.position.x, vertex.position.y));
+    return temp;
+}
+
+
+std::vector<double> VertexList::toDouble(bool x, bool y, bool z){
+
+    std::vector<double> temp;
+    for(auto& [vertex, index] : m_data){
+        glm::vec3 pos = vertex.position;
+        if( x ) temp.push_back( static_cast<double>(pos.x) );
+        if( y ) temp.push_back( static_cast<double>(pos.y) );
+        if( z ) temp.push_back( static_cast<double>(pos.z) );
+    }
+    return temp;
+}
+
+
+Vertex VertexList::average(){
+    Vertex avg;
+    avg.zero();
+    for(auto& point : m_data) avg += point.vertex;
+    avg /= static_cast<int>(m_data.size());
+    return avg;
 }

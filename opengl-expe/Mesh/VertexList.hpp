@@ -50,7 +50,11 @@ public:
     void concat(std::vector<VertexList>& sources);
     void concat(VertexList& source);
     
+    std::vector<glm::vec2> toVec2();
+    std::vector<double> toDouble(bool x = true, bool y = true, bool z = true);
     glm::vec3 center();
+    
+    Vertex average();
     
     VertexList::Point& operator[](size_t index) { return m_data[index]; }
     const VertexList::Point& operator[](size_t index) const { return m_data[index]; }
@@ -73,6 +77,7 @@ public:
 private:
     
     std::vector<VertexList::Point> m_data;
+
     
 };
 

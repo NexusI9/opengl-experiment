@@ -119,6 +119,16 @@ struct Vertex{
         texUV /= n;
         return *this;
     }
+    
+    Vertex& zero(){
+        
+        position = glm::vec3(0.0f);
+        normal = glm::vec3(0.0f);
+        color = glm::vec3(0.0f);
+        texUV = glm::vec2(0.0f);
+    
+        return *this;
+    }
 };
 
 using VertexElement = GLuint;
