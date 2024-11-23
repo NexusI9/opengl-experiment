@@ -73,13 +73,16 @@ void Chunk::generate(){
     m_layers.bridge();
     
     //add noise once bridged together
-    if(auto* landVertex  = m_layers.getGroup("land"))  landVertex->list.noise(  glm::vec3(0.3f, 0.3f, 0.0f) );
+    if(auto* landVertex  = m_layers.getGroup("land")){
+        m_layers.fill("land", true);
+        landVertex->list.noise(  glm::vec3(0.3f, 0.3f, 0.0f) );
+    }
     if(auto* shoreVertex = m_layers.getGroup("short")) shoreVertex->list.noise( glm::vec3(0.3f, 0.3f, 0.0f) );
     if(auto* cliffVertex = m_layers.getGroup("cliff")) cliffVertex->list.noise( glm::vec3(0.3f, 0.3f, 0.0f) );
     if(auto* beltVertex  = m_layers.getGroup("belt"))  beltVertex->list.noise(  glm::vec3(1.0f, 1.0f, 0.0f) );
     
     if(auto* rootVertex = m_layers.getGroup("root")){
-        m_layers.fill("root", FillMethod::Triangle);
+        m_layers.fill("root");
        rootVertex->list.noise( glm::vec3(0.3f, 0.3f, 0.7f));
     }
     

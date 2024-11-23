@@ -273,61 +273,36 @@ void VertexGroup::insertTriangle(std::vector<VertexElement>& reference, Triangle
 
 }
 
-void VertexGroup::fill(std::string groupName, FillMethod method){
+void VertexGroup::fill(std::string groupName, bool invertOrder){
     
     if(VertexLayer* layer = getGroup(groupName)){
         
-        switch(method){
-                
-            case FillMethod::Triangle: {
-                //Delaunator works on 2 dimension, need to flatten the vertex first
-                std::vector<double> vertex = layer->list.toDouble(true, true, false);
-                delaunator::Delaunator d(vertex);
-                Vertex average = layer->list.average();
-                VertexList fillList;
-                int offset = indexOffset(groupName);
-                
-                for(std::size_t i = 0; i < d.triangles.size(); i+=3) {
-                    
-                    size_t indexA = d.triangles[i];
-                    size_t indexB = d.triangles[i + 1];
-                    size_t indexC = d.triangles[i + 2];
-                    
-                    /*Vertex vertexA = average;
-                    Vertex vertexB = average;
-                    Vertex vertexC = average;
-                                        
-                    vertexA.position = glm::vec3( d.coords[2 * indexA], d.coords[2 * indexA + 1], vertexA.position.z );
-                    vertexB.position = glm::vec3( d.coords[2 * indexB], d.coords[2 * indexB + 1], vertexB.position.z );
-                    vertexC.position = glm::vec3( d.coords[2 * indexC], d.coords[2 * indexC + 1], vertexC.position.z );
-                    
-                    //add new vertices to (future) group added after the loop
-                    fillList.push_back(vertexA);
-                    fillList.push_back(vertexB);
-                    fillList.push_back(vertexC);*/
-                    
-                    //prepare elements to be added
-                    Triangle triangle(static_cast<VertexElement>(offset + indexA),
-                                      static_cast<VertexElement>(offset + indexB),
-                                      static_cast<VertexElement>(offset + indexC));
-                    
-                    insertTriangle(m_elements, triangle);
-                    std::cout << triangle.a << "\t" << triangle.b << "\t" << triangle.c << std::endl;
-                };
-                
-                //Add new vertices
-                //addGroup(std::string("fill ("+groupName+")"), fillList);
-
-                
-                break;
-            }
-                
-            case FillMethod::Hexagone:
-                
-                break;
-                
-        }
+        //Delaunator works on 2 dimension, need to flatten the vertex first
+        std::vector<double> vertex = layer->list.toDouble(true, true, false);
+        delaunator::Delaunator d(vertex);
+        VertexList fillList;
+        int offset = indexOffset(groupName);
         
+        for(std::size_t i = 0; i < d.triangles.size(); i+=3) {
+            
+            size_t indexA = d.triangles[i];
+            size_t indexB = d.triangles[i + 1];
+            size_t indexC = d.triangles[i + 2];
+            
+            if(invertOrder){
+                indexA = d.triangles[i + 2];
+                indexC = d.triangles[i];
+            }
+            
+            //prepare elements to be added
+            Triangle triangle(static_cast<VertexElement>(offset + indexA),
+                              static_cast<VertexElement>(offset + indexB),
+                              static_cast<VertexElement>(offset + indexC));
+            
+            insertTriangle(m_elements, triangle);
+            std::cout << triangle.a << "\t" << triangle.b << "\t" << triangle.c << std::endl;
+        };
+
     }else{
         std::cout << "Couldn't find any group named: " << groupName << ", fill aborted." << std::endl;
     }
