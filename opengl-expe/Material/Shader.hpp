@@ -23,11 +23,11 @@
 class Shader{
    
 public:
-    Shader(const char* vertexShader, const char* fragmentShader, const char *fragName);
+    Shader(const std::string vertexShader, std::string fragmentShader, const  std::string fragName = "outColor");
     ~Shader();
     
-    void loadVertexShader(const char* path);
-    void loadFragmentShader(const char* path, const char* fragName);
+    void loadVertexShader(const std::string path);
+    void loadFragmentShader(const std::string path, const std::string fragName);
     void loadProgram();
     
     GLuint ID;
@@ -57,9 +57,9 @@ private:
     GLuint m_fragShader;
     GLuint m_vertShader;
     
-    GLuint load(const char* path, GLenum type);
+    GLuint load(const std::string path, GLenum type);
     
-    const char * m_fragName;
+    std::string m_fragName;
     
     std::string getShaderLog(GLuint* shader);
     std::unordered_map<std::string, int> m_uniformsLocations;

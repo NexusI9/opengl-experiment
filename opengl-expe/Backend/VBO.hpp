@@ -22,6 +22,7 @@ public:
     GLuint ID;
     
     void setData(std::vector<Vertex>& vertices);
+    void setData(GLsizeiptr size, const void* data, GLenum usage = GL_STATIC_DRAW);
     void bind();
     void unbind();
     void remove();

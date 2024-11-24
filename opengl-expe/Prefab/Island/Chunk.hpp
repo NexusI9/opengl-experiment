@@ -8,7 +8,7 @@
 #ifndef Chunk_hpp
 #define Chunk_hpp
 
-#include "../../Model/Model.h"
+#include "../Prefab.h"
 #include "../../Mesh/Vertex.h"
 #include "../../Mesh/VertexList.hpp"
 #include "../../Mesh/VertexGroup.hpp"
@@ -34,7 +34,7 @@ struct ChunkLayers{
     VertexGroup root;
 };
 
-class Chunk : public Model {
+class Chunk : public Prefab {
     
 public:
     

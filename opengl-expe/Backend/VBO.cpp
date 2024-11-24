@@ -17,6 +17,13 @@ void VBO::setData(std::vector<Vertex> &vertices){
     unbind();
 }
 
+void VBO::setData(GLsizeiptr size, const void* data, GLenum usage){
+    bind();
+    glBufferData(GL_ARRAY_BUFFER, size, data, usage);
+    unbind();
+}
+
+
 void VBO::bind(){
     glBindBuffer(GL_ARRAY_BUFFER, ID);
 }

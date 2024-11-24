@@ -6,8 +6,8 @@
 //
 
 #include "Grid.hpp"
-#include "../Utility/Color.h"
-#include "../Utility/Constant.h"
+#include "../../Utility/Color.h"
+#include "../../Utility/Constant.h"
 
 
 Grid::Grid(float scale, int division, float thickness) : m_scale(scale), m_division(division), m_thickness(thickness){

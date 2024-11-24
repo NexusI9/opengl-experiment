@@ -15,7 +15,7 @@
 #include "./Camera.hpp"
 #include "./GameObject.h"
 #include "../Mesh/MeshGroup.hpp"
-#include "../Prefab/Grid.hpp"
+#include "../Prefab/UI/Grid.hpp"
 
 
 class Scene{

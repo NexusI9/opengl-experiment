@@ -300,7 +300,7 @@ void VertexGroup::fill(std::string groupName, bool invertOrder){
                               static_cast<VertexElement>(offset + indexC));
             
             insertTriangle(m_elements, triangle);
-            std::cout << triangle.a << "\t" << triangle.b << "\t" << triangle.c << std::endl;
+            //std::cout << triangle.a << "\t" << triangle.b << "\t" << triangle.c << std::endl;
         };
 
     }else{

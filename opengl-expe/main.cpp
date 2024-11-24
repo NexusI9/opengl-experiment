@@ -19,6 +19,7 @@
 #include "Material/SolidMaterial.hpp"
 
 #include "Prefab/Island/Chunk.hpp"
+#include "Prefab/HexaGrid/HexaGrid.hpp"
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 
@@ -42,6 +43,8 @@ int main(int argc, const char * argv[]) {
     
     Debugger::filterVerboseFlag(Verbose::Flag::MESH);
     
+    
+    //Draw chunk
     Chunk chunk({
         .radius = 2.0f,
         .points = 24,
@@ -53,9 +56,14 @@ int main(int argc, const char * argv[]) {
     SolidMaterial mat({
         .color = Color::Grey
     });
+
     
     chunkMesh->setMaterial(mat);
-    Debugger::drawVertex(chunk.getVertices(), scene, Color::Green, false);
+    chunkMesh->setScale(5.0f);
+    
+    //Draw hexa grid
+    
+    HexaGrid grid(glm::vec2(20.0f, 20.0f), 1.0f);
     
     scene.add(chunkMesh);
     scene.showGrid(true);

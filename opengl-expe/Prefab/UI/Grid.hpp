@@ -10,13 +10,13 @@
 
 #include <stdio.h>
 
-#include "../Model/Model.h"
+#include "../../Model/Model.h"
 
-#include "../Scene/GameObject.h"
-#include "../Mesh/MeshGroup.hpp"
-#include "../Model/Rectangle.hpp"
-#include "../Model/Points.hpp"
-#include "../Material/SolidMaterial.hpp"
+#include "../../Scene/GameObject.h"
+#include "../../Mesh/MeshGroup.hpp"
+#include "../../Model/Rectangle.hpp"
+#include "../../Model/Points.hpp"
+#include "../../Material/SolidMaterial.hpp"
 
 struct Axis{
     std::vector<glm::vec3> points;

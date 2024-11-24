@@ -5,8 +5,8 @@
 //  Created by EL KHANTOUR Nassim on 28/09/2024.
 //
 
-#ifndef Rectangle_hpp
-#define Rectangle_hpp
+#ifndef Hexagon_hpp
+#define Hexagon_hpp
 
 #include <stdio.h>
 #include <GL/glew.h>
@@ -17,12 +17,12 @@
 #include "../Material/Texture.hpp"
 #include "./Model.h"
 
-class Rectangle : public Model{
+class Hexagon : public Model{
     
 public:
     
-    Rectangle();
-    ~Rectangle(){};
+    Hexagon();
+    ~Hexagon(){};
     
     std::vector<Vertex> vertices;
     std::vector<VertexElement> elements;

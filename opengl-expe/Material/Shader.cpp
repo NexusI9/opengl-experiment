@@ -12,7 +12,7 @@
 #include "../Utility/Debugger.hpp"
 
 
-Shader::Shader(const char* vertexShader, const char* fragmentShader, const char *fragName){
+Shader::Shader(const std::string vertexShader, const std::string fragmentShader, const std::string fragName){
     loadVertexShader(vertexShader);
     loadFragmentShader(fragmentShader, fragName);
     loadProgram();
@@ -22,12 +22,12 @@ Shader::~Shader(){}
 
 std::unordered_map<std::string, GLuint> Shader::m_shaderList = {};
 
-GLuint Shader::load(const char* path, GLenum type){
+GLuint Shader::load(const std::string path, GLenum type){
     
     if(m_shaderList.find((std::string) path) != m_shaderList.end()) return m_shaderList[(std::string) path];
     
     //Import shader file
-    std::string shaderString = importFile(path);
+    std::string shaderString = importFile(path.c_str());
     const char* shaderFile = shaderString.c_str();
     
     //Compile Shader
@@ -40,9 +40,9 @@ GLuint Shader::load(const char* path, GLenum type){
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
     
     if(status == GL_TRUE){
-        Debugger::print(("Successfully compiled shader: " + (std::string) path), Verbose::Flag::SHADER);
+        Debugger::print("Successfully compiled shader: " + path, Verbose::Flag::SHADER);
     }else{
-        Debugger::print("Error while compiling shader: " + (std::string) path + ", check Log below for more info.\n" + getShaderLog(&shader), Verbose::Flag::SHADER);
+        Debugger::print("Error while compiling shader: " + path + ", check Log below for more info.\n" + getShaderLog(&shader), Verbose::Flag::SHADER);
     }
     
     
@@ -61,7 +61,7 @@ void Shader::loadProgram(){
         if(m_fragShader) glAttachShader(ID, m_fragShader);
         
         //Attaching vertex shader out channel (outColor1, outColor2..) to shader program
-        glBindFragDataLocation(ID, 0, m_fragName);
+        glBindFragDataLocation(ID, 0, m_fragName.c_str());
         
         //Linking Program so can change shader during runtime
         glLinkProgram(ID);
@@ -82,12 +82,12 @@ std::string Shader::getShaderLog(GLuint* shader){
 }
 
 
-void Shader::loadVertexShader(const char* path){
+void Shader::loadVertexShader(const std::string path){
     //Compile and assign vertex shader member
     m_vertShader = load(path, GL_VERTEX_SHADER);
 }
 
-void Shader::loadFragmentShader(const char* path, const char* fragName){
+void Shader::loadFragmentShader(const std::string path, const std::string fragName){
     //Compile and assign fragment shader member
     m_fragShader = load(path, GL_FRAGMENT_SHADER);
     //Store vertex shader corressponding output channel

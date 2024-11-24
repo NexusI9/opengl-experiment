@@ -50,15 +50,15 @@ Rectangle::Rectangle(){
         tempVertex.normal = normals[i];
         tempVertex.color = colors[i];
         tempVertex.texUV = uv[i];
-        m_vertices.push_back(tempVertex);
+        vertices.push_back(tempVertex);
     }
 
-    m_elements = {0, 3, 2, 2, 1, 0};
+    elements = {0, 3, 2, 2, 1, 0};
 
     m_meshGroup->addChild(Mesh({
         .name = "rectangle",
-        .vertices = m_vertices,
-        .elements = m_elements
+        .vertices = vertices,
+        .elements = elements
     }));
     
 }

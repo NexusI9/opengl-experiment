@@ -14,6 +14,7 @@
 		561C7AEE2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; };
 		561C7AEF2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		561F08282CA82E2F007570EA /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561F08262CA82E2F007570EA /* Rectangle.cpp */; };
+		56210FF42CF1A49C0052FABE /* HexaGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56210FF22CF1A49C0052FABE /* HexaGrid.cpp */; };
 		5631D4FD2C9B97C800A99F30 /* Gltf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5631D4FB2C9B97C800A99F30 /* Gltf.cpp */; };
 		563F4C062C95380400AD7777 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563F4C042C95380400AD7777 /* Camera.cpp */; };
 		563F4C0A2C95655400AD7777 /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563F4C082C95655400AD7777 /* Clock.cpp */; };
@@ -33,6 +34,7 @@
 		5661A9F12C841247002E52DA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5661A9F02C841247002E52DA /* main.cpp */; };
 		56634ED12CE0539600F91B19 /* VertexList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56634ECF2CE0539600F91B19 /* VertexList.cpp */; };
 		56634ED62CE0E30800F91B19 /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56634ED42CE0E30800F91B19 /* Circle.cpp */; };
+		5667DF3D2CF2F3B400063692 /* Hexagon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5667DF3B2CF2F3B400063692 /* Hexagon.cpp */; };
 		567612D62CDF55B0003A64EA /* UBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567612D42CDF55AF003A64EA /* UBO.cpp */; };
 		567612D92CDFA64A003A64EA /* Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567612D72CDFA64A003A64EA /* Island.cpp */; };
 		567612DF2CDFA7CD003A64EA /* Chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567612DD2CDFA7CD003A64EA /* Chunk.cpp */; };
@@ -81,6 +83,8 @@
 		561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		561F08262CA82E2F007570EA /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
 		561F08272CA82E2F007570EA /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
+		56210FF22CF1A49C0052FABE /* HexaGrid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HexaGrid.cpp; sourceTree = "<group>"; };
+		56210FF32CF1A49C0052FABE /* HexaGrid.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HexaGrid.hpp; sourceTree = "<group>"; };
 		562BD0E82CBABC8F005D7273 /* SolidMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SolidMaterial.hpp; sourceTree = "<group>"; };
 		562BD0E92CBABE0C005D7273 /* solid.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solid.frag; sourceTree = "<group>"; };
 		562BD0EA2CBABE40005D7273 /* solid.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = solid.vert; sourceTree = "<group>"; };
@@ -126,6 +130,11 @@
 		56634ED02CE0539600F91B19 /* VertexList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexList.hpp; sourceTree = "<group>"; };
 		56634ED42CE0E30800F91B19 /* Circle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Circle.cpp; sourceTree = "<group>"; };
 		56634ED52CE0E30800F91B19 /* Circle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Circle.hpp; sourceTree = "<group>"; };
+		5667DF3B2CF2F3B400063692 /* Hexagon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Hexagon.cpp; sourceTree = "<group>"; };
+		5667DF3C2CF2F3B400063692 /* Hexagon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Hexagon.hpp; sourceTree = "<group>"; };
+		5667DF3E2CF304F500063692 /* hexagrid.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = hexagrid.vert; sourceTree = "<group>"; };
+		5667DF3F2CF30BD900063692 /* hexagrid.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = hexagrid.frag; sourceTree = "<group>"; };
+		5667DF402CF310CF00063692 /* Prefab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefab.h; sourceTree = "<group>"; };
 		567612D42CDF55AF003A64EA /* UBO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UBO.cpp; sourceTree = "<group>"; };
 		567612D52CDF55B0003A64EA /* UBO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UBO.hpp; sourceTree = "<group>"; };
 		567612D72CDFA64A003A64EA /* Island.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Island.cpp; sourceTree = "<group>"; };
@@ -181,6 +190,24 @@
 			children = (
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		56210FF12CF1A38C0052FABE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				56F69D532CC15F060070C722 /* Grid.cpp */,
+				56F69D542CC15F060070C722 /* Grid.hpp */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		56210FF52CF1A4A10052FABE /* HexaGrid */ = {
+			isa = PBXGroup;
+			children = (
+				56210FF22CF1A49C0052FABE /* HexaGrid.cpp */,
+				56210FF32CF1A49C0052FABE /* HexaGrid.hpp */,
+			);
+			path = HexaGrid;
 			sourceTree = "<group>";
 		};
 		563F4C072C95606F00AD7777 /* Scene */ = {
@@ -283,6 +310,8 @@
 				5631D4FC2C9B97C800A99F30 /* Gltf.hpp */,
 				561F08262CA82E2F007570EA /* Rectangle.cpp */,
 				561F08272CA82E2F007570EA /* Rectangle.hpp */,
+				5667DF3B2CF2F3B400063692 /* Hexagon.cpp */,
+				5667DF3C2CF2F3B400063692 /* Hexagon.hpp */,
 				56C4E9C82CC0047100F22DEF /* Points.cpp */,
 				56C4E9C92CC0047100F22DEF /* Points.hpp */,
 			);
@@ -331,6 +360,8 @@
 				5630F21F2CD5F3CD008157F6 /* text.frag */,
 				564005D12CC28922007FCDDC /* grid.vert */,
 				564005D22CC28933007FCDDC /* grid.frag */,
+				5667DF3F2CF30BD900063692 /* hexagrid.frag */,
+				5667DF3E2CF304F500063692 /* hexagrid.vert */,
 			);
 			path = Shader;
 			sourceTree = "<group>";
@@ -386,11 +417,12 @@
 			isa = PBXGroup;
 			children = (
 				56634ED32CE05F8C00F91B19 /* Vegetation */,
+				56210FF12CF1A38C0052FABE /* UI */,
+				56210FF52CF1A4A10052FABE /* HexaGrid */,
 				56634ED22CE05F7600F91B19 /* Island */,
 				560E85F02CCCB2F700A5727A /* Text.cpp */,
 				560E85F12CCCB2F700A5727A /* Text.hpp */,
-				56F69D532CC15F060070C722 /* Grid.cpp */,
-				56F69D542CC15F060070C722 /* Grid.hpp */,
+				5667DF402CF310CF00063692 /* Prefab.h */,
 			);
 			path = Prefab;
 			sourceTree = "<group>";
@@ -498,9 +530,11 @@
 				567612D92CDFA64A003A64EA /* Island.cpp in Sources */,
 				567612DF2CDFA7CD003A64EA /* Chunk.cpp in Sources */,
 				563F4C0A2C95655400AD7777 /* Clock.cpp in Sources */,
+				5667DF3D2CF2F3B400063692 /* Hexagon.cpp in Sources */,
 				564CEB542C888AAF00A0869F /* Shader.cpp in Sources */,
 				5631D4FD2C9B97C800A99F30 /* Gltf.cpp in Sources */,
 				567957262CC69FBC00727E68 /* Keyboard.cpp in Sources */,
+				56210FF42CF1A49C0052FABE /* HexaGrid.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

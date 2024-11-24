@@ -21,7 +21,7 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
-#include "../Model/Model.h"
+#include "./Prefab.h"
 
 #include "../Model/Rectangle.hpp"
 #include "../Mesh/Mesh.hpp"
@@ -49,7 +49,7 @@ struct Font{
     Texture atlas;
 };
 
-class Text : public Model{
+class Text : public Prefab{
     
 public:
     

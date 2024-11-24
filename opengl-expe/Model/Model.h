@@ -24,7 +24,6 @@ public:
         return m_meshGroup;
     };
     
-    
 protected:
     
     MeshGroup* m_meshGroup = new MeshGroup();
