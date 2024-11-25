@@ -30,10 +30,7 @@ public:
 
     Points(std::vector<glm::vec3>& points);
     ~Points(){};
-    
-private:
-    std::vector<Vertex> m_vertices;
-    std::vector<VertexElement> m_elements;
+
 };
 
 

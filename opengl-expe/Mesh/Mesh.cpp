@@ -84,8 +84,7 @@ void Mesh::onInput(SDL_Event& event){
 
 void Mesh::setMaterial(const MaterialBase& mat){
     material = mat.clone();
-    //std::vector<Texture> textures = {};
-    material->init(m_vao, m_vbo, m_vertices, m_textures);
+    material->init(m_vao, m_vbo, m_textures);
 }
 
 void Mesh::setDrawMode(DrawMode mode){
@@ -135,5 +134,5 @@ void Mesh::setWireMaterial(glm::vec3 color){
     if(m_wireMaterial) m_wireMaterial->setColor(color);
     else m_wireMaterial = new SolidMaterial({.color = color});
     material = m_wireMaterial;
-    material->init(m_vao, m_vbo, m_vertices, m_textures);
+    material->init(m_vao, m_vbo, m_textures);
 }

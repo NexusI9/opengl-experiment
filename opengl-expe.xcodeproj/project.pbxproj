@@ -153,10 +153,10 @@
 		5695ED442CA595CC00AF16D4 /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		5695ED452CA595CC00AF16D4 /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 		5695ED472CA59E0300AF16D4 /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		5699661D2CF49EC9004A85D0 /* DefaultMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DefaultMaterial.hpp; sourceTree = "<group>"; };
 		56A498732CD3C947006248E6 /* Uniform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Uniform.h; path = "opengl-expe/Material/Uniform.h"; sourceTree = SOURCE_ROOT; };
 		56B0943B2CA2FDE200293E4B /* Debugger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Debugger.cpp; sourceTree = "<group>"; };
 		56B0943C2CA2FDE200293E4B /* Debugger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Debugger.hpp; sourceTree = "<group>"; };
-		56C0240B2CAD8853004D3F6F /* DefaultMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DefaultMaterial.hpp; sourceTree = "<group>"; };
 		56C4E9C82CC0047100F22DEF /* Points.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Points.cpp; sourceTree = "<group>"; };
 		56C4E9C92CC0047100F22DEF /* Points.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Points.hpp; sourceTree = "<group>"; };
 		56F09AB02CB6B84E005BC541 /* MeshBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBase.h; sourceTree = "<group>"; };
@@ -306,8 +306,6 @@
 			isa = PBXGroup;
 			children = (
 				564AFD842CB188BC0021161A /* Model.h */,
-				5631D4FB2C9B97C800A99F30 /* Gltf.cpp */,
-				5631D4FC2C9B97C800A99F30 /* Gltf.hpp */,
 				561F08262CA82E2F007570EA /* Rectangle.cpp */,
 				561F08272CA82E2F007570EA /* Rectangle.hpp */,
 				5667DF3B2CF2F3B400063692 /* Hexagon.cpp */,
@@ -416,13 +414,15 @@
 		56B09B992CC3857000438C91 /* Prefab */ = {
 			isa = PBXGroup;
 			children = (
+				5667DF402CF310CF00063692 /* Prefab.h */,
 				56634ED32CE05F8C00F91B19 /* Vegetation */,
 				56210FF12CF1A38C0052FABE /* UI */,
 				56210FF52CF1A4A10052FABE /* HexaGrid */,
 				56634ED22CE05F7600F91B19 /* Island */,
 				560E85F02CCCB2F700A5727A /* Text.cpp */,
 				560E85F12CCCB2F700A5727A /* Text.hpp */,
-				5667DF402CF310CF00063692 /* Prefab.h */,
+				5631D4FB2C9B97C800A99F30 /* Gltf.cpp */,
+				5631D4FC2C9B97C800A99F30 /* Gltf.hpp */,
 			);
 			path = Prefab;
 			sourceTree = "<group>";
@@ -433,7 +433,7 @@
 				5661A9F42C842286002E52DA /* Shader */,
 				564988B72C91CA0C007E0B33 /* Texture.cpp */,
 				564988B82C91CA0C007E0B33 /* Texture.hpp */,
-				56C0240B2CAD8853004D3F6F /* DefaultMaterial.hpp */,
+				5699661D2CF49EC9004A85D0 /* DefaultMaterial.hpp */,
 				562BD0E82CBABC8F005D7273 /* SolidMaterial.hpp */,
 				564CEB522C888AAF00A0869F /* Shader.cpp */,
 				564CEB532C888AAF00A0869F /* Shader.hpp */,

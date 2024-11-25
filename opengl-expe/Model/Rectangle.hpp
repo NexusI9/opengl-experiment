@@ -23,9 +23,6 @@ public:
     
     Rectangle();
     ~Rectangle(){};
-    
-    std::vector<Vertex> vertices;
-    std::vector<VertexElement> elements;
 
 };
 

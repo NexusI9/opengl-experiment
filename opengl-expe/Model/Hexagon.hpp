@@ -24,9 +24,6 @@ public:
     Hexagon();
     ~Hexagon(){};
     
-    std::vector<Vertex> vertices;
-    std::vector<VertexElement> elements;
-
 };
 
 #endif /* Rectangle_hpp */

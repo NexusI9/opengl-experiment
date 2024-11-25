@@ -20,7 +20,6 @@ HexaTile HexaGrid::addTile(CubeCoordinate origin, CubeCoordinate direction){
 
 void HexaGrid::build(){
 
-    
     /**
      Build the hexagone grid coordinate based on a top left origin
             +-------------------------------->
@@ -33,30 +32,10 @@ void HexaGrid::build(){
             V
      */
     
-    m_VAO.bind();
-    //Add base hexagon instance
-    m_meshVBO.setData(hexagon.vertices);
-
-    //Set hexagon vertices to location 0
-    m_meshVBO.bind();
-    
-    //position
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-    glEnableVertexAttribArray(0);
-    
-    //normal
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(glm::vec3)) );
-    glEnableVertexAttribArray(1);
-    
-    //color
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(glm::vec3) * 2) );
-    glEnableVertexAttribArray(2);
-    
-    //uv
-    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(glm::vec3) * 3) );
-    glEnableVertexAttribArray(3);
-
-    m_meshVBO.unbind();
+    m_shader.setAttribute(m_vao, m_meshVBO, "position", 3, sizeof(Vertex), (void*) 0);
+    m_shader.setAttribute(m_vao, m_meshVBO, "normal", 3, sizeof(Vertex), (void*)(sizeof(glm::vec3)));
+    m_shader.setAttribute(m_vao, m_meshVBO, "color", 3, sizeof(Vertex), (void*)( 2 * sizeof(glm::vec3)));
+    m_shader.setAttribute(m_vao, m_meshVBO, "uv", 2, sizeof(Vertex), (void*)( 3 * sizeof(glm::vec3)));
     
     //Calculate positions
     CubeCoordinate yOffset;
@@ -87,15 +66,12 @@ void HexaGrid::build(){
     
     m_instanceVBO.setData(sizeof(glm::vec3) * vboCoordinate.size(), vboCoordinate.data());
     
-    //Set positions to location 1
-    m_instanceVBO.bind();
-    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-    glEnableVertexAttribArray(4);
-    glVertexAttribDivisor(1, 1); // Updates per instance, not per vertex
-    m_instanceVBO.unbind();
+    m_shader.setAttribute(m_vao, m_instanceVBO, "worldCoordinate", 3, sizeof(glm::vec3), (void*)0);
+    // Updates per instance, not per vertex
+    glVertexAttribDivisor(m_shader.getAttributeLocation("worldCoordinate"), 1);
     
-    m_VAO.unbind();
     
+
 }
 
 glm::vec3 HexaGrid::toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin){

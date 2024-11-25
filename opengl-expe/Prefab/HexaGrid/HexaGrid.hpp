@@ -171,7 +171,7 @@ private:
     Hexagon hexagon;
     VBO m_meshVBO;
     VBO m_instanceVBO;
-    VAO m_VAO;
+    VAO m_vao;
     Shader m_shader = Shader( (ROOT_DIR + "/Material/Shader/hexagrid.vert"), (ROOT_DIR + "/Material/Shader/hexagrid.frag") );
 
     void build();

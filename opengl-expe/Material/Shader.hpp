@@ -23,11 +23,11 @@
 class Shader{
    
 public:
-    Shader(const std::string vertexShader, std::string fragmentShader, const  std::string fragName = "outColor");
+    Shader(const std::string& vertexShader, const std::string& fragmentShader, const std::string& fragName = "outColor");
     ~Shader();
     
-    void loadVertexShader(const std::string path);
-    void loadFragmentShader(const std::string path, const std::string fragName);
+    void loadVertexShader(const std::string& path);
+    void loadFragmentShader(const std::string& path, const std::string& fragName);
     void loadProgram();
     
     GLuint ID;
@@ -48,6 +48,10 @@ public:
     
     void setBoolean(const std::string& name, bool value);
     
+    GLint getAttributeLocation(const std::string& name){
+        return glGetAttribLocation(ID, name.c_str());
+    }
+    
     //Uniforms Block
     void setUniformBlock(const std::string& name, GLuint bindingIndex);
     
@@ -57,7 +61,7 @@ private:
     GLuint m_fragShader;
     GLuint m_vertShader;
     
-    GLuint load(const std::string path, GLenum type);
+    GLuint load(const std::string& path, GLenum type);
     
     std::string m_fragName;
     

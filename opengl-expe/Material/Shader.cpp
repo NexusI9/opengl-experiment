@@ -12,7 +12,7 @@
 #include "../Utility/Debugger.hpp"
 
 
-Shader::Shader(const std::string vertexShader, const std::string fragmentShader, const std::string fragName){
+Shader::Shader(const std::string& vertexShader, const std::string& fragmentShader, const std::string& fragName){
     loadVertexShader(vertexShader);
     loadFragmentShader(fragmentShader, fragName);
     loadProgram();
@@ -22,7 +22,7 @@ Shader::~Shader(){}
 
 std::unordered_map<std::string, GLuint> Shader::m_shaderList = {};
 
-GLuint Shader::load(const std::string path, GLenum type){
+GLuint Shader::load(const std::string& path, GLenum type){
     
     if(m_shaderList.find((std::string) path) != m_shaderList.end()) return m_shaderList[(std::string) path];
     
@@ -82,12 +82,12 @@ std::string Shader::getShaderLog(GLuint* shader){
 }
 
 
-void Shader::loadVertexShader(const std::string path){
+void Shader::loadVertexShader(const std::string& path){
     //Compile and assign vertex shader member
     m_vertShader = load(path, GL_VERTEX_SHADER);
 }
 
-void Shader::loadFragmentShader(const std::string path, const std::string fragName){
+void Shader::loadFragmentShader(const std::string& path, const std::string& fragName){
     //Compile and assign fragment shader member
     m_fragShader = load(path, GL_FRAGMENT_SHADER);
     //Store vertex shader corressponding output channel

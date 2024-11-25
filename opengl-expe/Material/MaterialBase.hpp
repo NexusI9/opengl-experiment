@@ -42,10 +42,9 @@ public:
         delete m_textures;*/
     };
     
-    void init(VAO& vao, VBO& vbo, std::vector<Vertex>& vertices, std::vector<Texture>& textures){
+    void init(VAO& vao, VBO& vbo, std::vector<Texture>& textures){
         m_vao = &vao;
         m_vbo = &vbo;
-        m_vertices = vertices;
         m_textures = textures;
         
         loadShader();
@@ -54,6 +53,10 @@ public:
     void onDraw(Camera& camera, glm::mat4 modelMatrix = glm::mat4(1.0f));
     
     Shader* getShader(){ return m_shader; }
+    void setShader(Shader& shader){
+        delete m_shader;
+        m_shader = new Shader(shader);
+    }
     
     virtual MaterialBase* clone() const = 0;
     
@@ -62,7 +65,6 @@ protected:
     VAO* m_vao = nullptr;
     VBO* m_vbo = nullptr;
     Shader* m_shader = nullptr;
-    std::vector<Vertex> m_vertices;
     std::vector<Texture> m_textures;
     
     void assignUniforms(UniformList uniforms);

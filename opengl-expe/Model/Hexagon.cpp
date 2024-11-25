@@ -9,6 +9,7 @@
 
 #include <glm/glm.hpp>
 #include <iostream>
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 #include "../Utility/Constant.h"
@@ -57,7 +58,7 @@ Hexagon::Hexagon(){
         tempVertex.texUV = uv[i];
         vertices.push_back(tempVertex);
     }
-
+    
     elements = {
         0, 1, 2,
         0, 2, 3,

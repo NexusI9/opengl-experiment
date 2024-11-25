@@ -19,7 +19,7 @@
 #include "../Scene/Camera.hpp"
 #include "../Scene/GameObject.h"
 
-#include "Model.h"
+#include "Prefab.h"
 #include "../Mesh/Vertex.h"
 #include "../Mesh/Mesh.hpp"
 
@@ -33,7 +33,7 @@ struct NodeMesh{
 };
 
 
-class Gltf : public Model{
+class Gltf : public Prefab{
   
 public:
     Gltf(const char* path);

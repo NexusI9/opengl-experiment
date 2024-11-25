@@ -24,6 +24,9 @@ public:
         return m_meshGroup;
     };
     
+    std::vector<Vertex> vertices;
+    std::vector<VertexElement> elements;
+    
 protected:
     
     MeshGroup* m_meshGroup = new MeshGroup();

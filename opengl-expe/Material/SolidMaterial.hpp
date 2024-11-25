@@ -49,7 +49,7 @@ protected:
 
         const std::string cFragName = "outColor";
         
-        m_shader = new Shader(m_vertexPath.c_str(), m_fragmentPath.c_str(), cFragName.c_str());
+        m_shader = new Shader(m_vertexPath, m_fragmentPath, cFragName);
         
         //map out the VAO data into our shader
         m_shader->setAttribute(*m_vao, *m_vbo, "position", 3, sizeof(Vertex), (void*) 0);

@@ -16,15 +16,16 @@ Points::Points(std::vector<glm::vec3>& positions){
         tempVertex.normal = glm::vec3(0.0f,  0.0f,   1.0f);
         tempVertex.color = glm::vec3(1.0f,  1.0f,   1.0f);
         tempVertex.texUV = glm::vec2(0.0f,  0.0f);
-        m_vertices.push_back(tempVertex);
-        m_elements.push_back((int) i);
+        vertices.push_back(tempVertex);
+        elements.push_back((int) i);
     }
     
-    m_elements.push_back(0); //close point mesh
+    elements.push_back(0); //close point mesh
+    
     m_meshGroup->addChild(Mesh({
         .name = "point",
-        .vertices = m_vertices,
-        .elements = m_elements
+        .vertices = vertices,
+        .elements = elements
     }));
     
 }
