@@ -32,6 +32,9 @@ void HexaGrid::build(){
             V
      */
     
+    Hexagon hexagon;
+    m_meshVBO.setData(hexagon.vertices);
+    
     m_shader.setAttribute(m_vao, m_meshVBO, "position", 3, sizeof(Vertex), (void*) 0);
     m_shader.setAttribute(m_vao, m_meshVBO, "normal", 3, sizeof(Vertex), (void*)(sizeof(glm::vec3)));
     m_shader.setAttribute(m_vao, m_meshVBO, "color", 3, sizeof(Vertex), (void*)( 2 * sizeof(glm::vec3)));
@@ -68,10 +71,16 @@ void HexaGrid::build(){
     
     m_shader.setAttribute(m_vao, m_instanceVBO, "worldCoordinate", 3, sizeof(glm::vec3), (void*)0);
     // Updates per instance, not per vertex
-    glVertexAttribDivisor(m_shader.getAttributeLocation("worldCoordinate"), 1);
+    m_shader.setAttributePerInstance(m_vao, "worldCoordinate", 1);
     
+    m_material.init(m_shader);
     
-
+    m_meshGroup->addChild(Mesh({
+        .name = "hexagrid",
+        .elements = hexagon.elements
+    }));
+    
+    m_meshGroup->setMaterial(m_material);
 }
 
 glm::vec3 HexaGrid::toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin){

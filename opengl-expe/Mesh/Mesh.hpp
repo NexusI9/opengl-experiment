@@ -32,7 +32,16 @@
 #include "../Utility/Transform.hpp"
 
 
-struct MeshArgs{
+
+struct MeshArgsBuffer{
+    std::string name = "DEFAULT";
+    VBO vbo;
+    VAO vao;
+    EBO ebo;
+    std::vector<Texture> textures;
+};
+
+struct MeshArgsVertex{
     std::string name = "DEFAULT";
     std::vector<Vertex> vertices;
     std::vector<VertexElement> elements;
@@ -43,7 +52,13 @@ class Mesh : public MeshBase{
     
 public:
     
-    Mesh(const MeshArgs& args);
+    /**
+     Can Instantiate mesh with 2 different approach:
+     1. Vertex Based: Passing arrays of vertex and elements, from which the Mesh will automatically generate the VAO, VBO and EBO from those data
+     2. Buffer Based: Passing direclty some presetup buffers that will directly be assigned to the material
+     */
+    Mesh(const MeshArgsVertex& args);
+    Mesh(const MeshArgsBuffer& args);
     
     ~Mesh(){
         //delete m_wireMaterial;

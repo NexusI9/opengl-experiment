@@ -21,10 +21,13 @@ void MaterialBase::onDraw(Camera& camera, glm::mat4 modelMatrix){
     m_shader->setMatrix4("model", modelMatrix);
     
     //Apply texture to shader
-    for(int t = 0; t < m_textures.size(); t++){
-            m_textures[t].bind();
-            m_shader->setSampler2D("texture"+std::to_string(t), t);
+    if(m_textures){
+        for(int t = 0; t < m_textures->size(); t++){
+                m_textures->at(t).bind();
+                m_shader->setSampler2D("texture"+std::to_string(t), t);
+        }
     }
+
     
 }
 

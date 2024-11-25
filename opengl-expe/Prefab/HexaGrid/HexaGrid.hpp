@@ -15,10 +15,11 @@
 #include "../../Backend/VAO.hpp"
 #include "../../Mesh/VertexList.hpp"
 #include "../../Material/Shader.hpp"
+#include "../../Material/DefaultMaterial.hpp"
 #include "../../Utility/Constant.h"
 
 #include "../../Model/Hexagon.hpp"
-#include "../../Model/Model.h"
+#include "../Prefab.h"
 
 using HexUnit = int;
 
@@ -151,7 +152,7 @@ struct HexaTile{
 };
 
 
-class HexaGrid : public Model{
+class HexaGrid : public Prefab{
   
 public:
     
@@ -173,6 +174,8 @@ private:
     VBO m_instanceVBO;
     VAO m_vao;
     Shader m_shader = Shader( (ROOT_DIR + "/Material/Shader/hexagrid.vert"), (ROOT_DIR + "/Material/Shader/hexagrid.frag") );
+    DefaultMaterial m_material;
+    
 
     void build();
 };

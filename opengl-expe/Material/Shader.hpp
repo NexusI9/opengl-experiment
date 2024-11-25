@@ -34,6 +34,7 @@ public:
     
     //Attributes
     void setAttribute(VAO& vao, VBO& vbo, const char* attributeName, int attrNumber, int stride, void* offset);
+    void setAttributePerInstance(VAO& vao, const std::string& name, GLint step);
         
     //Uniforms
     void setInt(const std::string& name, int value);

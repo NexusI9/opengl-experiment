@@ -64,7 +64,9 @@ int main(int argc, const char * argv[]) {
     //Draw hexa grid
     
     HexaGrid grid(glm::vec2(20.0f, 20.0f), 1.0f);
+    MeshGroup* gridMesh = grid.getMesh();
     
+    //scene.add(gridMesh);
     scene.add(chunkMesh);
     scene.showGrid(true);
 

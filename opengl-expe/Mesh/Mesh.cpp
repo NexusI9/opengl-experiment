@@ -16,7 +16,7 @@
 #include "../Utility/Color.h"
 
 
-Mesh::Mesh(const MeshArgs& args):
+Mesh::Mesh(const MeshArgsVertex& args):
 m_vertices(args.vertices),
 m_elements(args.elements),
 m_textures(args.textures),
@@ -40,10 +40,21 @@ m_name(args.name){
     setDrawMode(DrawMode::DEFAULT);
 };
 
+
+Mesh::Mesh(const MeshArgsBuffer& args):
+m_vao(args.vao),
+m_vbo(args.vbo),
+m_ebo(args.ebo),
+m_textures(args.textures),
+m_name(args.name){
+    setDrawMode(DrawMode::DEFAULT);
+};
+
+
 void Mesh::onDraw(Camera& camera){
     
-    //cancel if empty elements or vertices
-    if(m_elements.size() == 0 || m_vertices.size() == 0){ return; }
+    //cancel if empty elements
+    if(m_elements.size() == 0){ return; }
     
     //draw material if existing
     if(material!=nullptr) material->onDraw(camera, m_modelMatrix);
@@ -84,7 +95,9 @@ void Mesh::onInput(SDL_Event& event){
 
 void Mesh::setMaterial(const MaterialBase& mat){
     material = mat.clone();
-    material->init(m_vao, m_vbo, m_textures);
+    //If material doesn't have any shader, init material from mesh vao, vbo...
+    if(material->getShader() == nullptr) material->init(m_vao, m_vbo, m_textures);
+
 }
 
 void Mesh::setDrawMode(DrawMode mode){

@@ -147,6 +147,15 @@ void Shader::setAttribute(VAO& vao, VBO& vbo, const char *attributeName, int att
     
 }
 
+void Shader::setAttributePerInstance(VAO& vao, const std::string& name, GLint step){
+    // Step 0 = for each vertex
+    // Step n = for each n instance
+    vao.bind();
+    GLint attrLocation = glGetAttribLocation(ID, name.c_str());
+    glVertexAttribDivisor(attrLocation, step);
+    vao.unbind();
+}
+
 void Shader::setInt(const std::string &name, int value){
     checkUniformLocation(name);
     glUniform1i(m_uniformsLocations[name], value);
