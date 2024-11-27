@@ -25,7 +25,6 @@
 
 #include "../Model/Rectangle.hpp"
 #include "../Mesh/Mesh.hpp"
-#include "../Mesh/MeshGroup.hpp"
 #include "../Material/DefaultMaterial.hpp"
 #include "../Material/Texture.hpp"
 #include "../Material/Uniform.h"

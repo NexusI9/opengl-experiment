@@ -13,7 +13,6 @@
 #include "../Prefab.h"
 
 #include "../../Scene/GameObject.h"
-#include "../../Mesh/MeshGroup.hpp"
 #include "../../Model/Rectangle.hpp"
 #include "../../Model/Points.hpp"
 #include "../../Material/SolidMaterial.hpp"

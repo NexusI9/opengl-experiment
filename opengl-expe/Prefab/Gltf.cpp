@@ -21,7 +21,7 @@ Gltf::Gltf(const char* path) : m_path(path){
     
     
     //Generate Mesh
-    m_mesh = new MeshGroup();
+    m_mesh = new Mesh();
     traverseNode(0);
     
     Debugger::print("Loading: ", Verbose::Flag::MESH);

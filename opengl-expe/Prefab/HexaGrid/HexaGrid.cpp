@@ -78,8 +78,7 @@ void HexaGrid::build(){
     m_material.init(m_shader);
     
     //Append new mesh
-    m_mesh = new MeshGroup();
-    m_mesh->addChild(new Mesh({ .name = "hexagrid", .elements = hexagon.elements }));
+    m_mesh = new Mesh({ .name = "hexagrid", .elements = hexagon.elements });
     m_mesh->setMaterial(m_material);
 }
 

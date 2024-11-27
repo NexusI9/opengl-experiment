@@ -87,20 +87,12 @@ void Chunk::generate(){
        rootVertex->list.noise( glm::vec3(0.3f, 0.3f, 0.7f));
     }
     
-    /*
-     m_mesh = new Mesh({
-         .name = "chunk",
-         .vertices = m_vertices,
-         .elements = m_elements
-     });
-     **/
-    
-    m_mesh = new MeshGroup();
     m_vertices = m_layers.getVertex();
     m_elements = m_layers.getElement();
-    m_mesh->addChild(new Mesh({
+    
+    m_mesh = new Mesh({
         .name = "chunk",
         .vertices = m_vertices,
         .elements = m_elements
-    }));
+    });
 }

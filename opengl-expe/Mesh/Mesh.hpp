@@ -20,7 +20,7 @@
 #include "../Material/MaterialBase.hpp"
 #include "../Material/SolidMaterial.hpp"
 
-#include "./MeshBase.h"
+#include "../Scene/GameObject.h"
 
 #include "../Scene/Camera.hpp"
 
@@ -55,7 +55,7 @@ struct MeshArgsModel{
     Model&      model;
 };
 
-class Mesh : public MeshBase{
+class Mesh : public GameObject{
     
 public:
     
@@ -65,10 +65,18 @@ public:
      2. Buffer Based: Passing direclty some pre-set buffers that will directly be assigned to the material. (no middle man, full vbo/vao control)
      3. Model Based: Passing a Model (which include a preset of vertex and elements)
      */
-    
+
+    Mesh() : GameObject(Type::OBJECT){};
     Mesh(const MeshArgsVertex& args);
     Mesh(const MeshArgsBuffer& args);
     Mesh(const MeshArgsModel& args);
+    
+    enum class DrawMode{
+        DEFAULT,
+        WIREFRAME,
+        DEBUGGER,
+        POINTS
+    };
     
     ~Mesh(){
         //delete m_wireMaterial;
@@ -77,46 +85,98 @@ public:
     void onDraw(Camera& camera) override;
     void onInput(SDL_Event& event) override;
     
-    void setMaterial(const MaterialBase& material) override;
-    void setDrawMode(DrawMode mode) override;
+    void setMaterial(const MaterialBase& material);
+    void setDrawMode(DrawMode mode);
     
-    void setPosition(float x, float y, float z) override;
-    void setScale(float x, float y, float z) override;
-    void setScale(float value) override;
-    void setRotation(float degree, float x, float y, float z) override;
-    void lookAt(float x, float y, float z) override;
+    void setPosition(float x, float y, float z);
+    void setScale(float x, float y, float z);
+    void setScale(float value);
+    void setRotation(float degree, float x, float y, float z);
+    void lookAt(float x, float y, float z);
+    
+    glm::vec3 getPosition(){
+        return m_position;
+    }
+    
+    glm::vec3  getScale(){
+        return m_scale;
+    }
+    
+    glm::vec3  getRotation(){
+        return m_rotation;
+    }
     
     std::string getName(){ return m_name; }
     std::vector<Vertex>& getVertices(){ return m_vertices; };
     std::vector<GLuint>& getIndices(){ return m_elements; };
     std::vector<Texture>& getTextures(){ return m_textures; };
     
-    void addTexture(Texture& texture) override{
+    void addChild(Mesh* mesh){
+        m_children.push_back(mesh);
+    }
+    
+    void addChildren(Mesh* source){
+        for(auto& child : source->getChildren()) addChild(child);
+    }
+    
+    void addChildren(std::vector<Mesh*>& source){
+        for(auto& child : source) addChild(child);
+    }
+    
+    std::vector<Mesh*>& getChildren(){ return m_children; }
+    
+    void addTexture(Texture& texture){
         m_textures.push_back(texture);
+        for(auto& mesh : m_children) mesh->addTexture(texture);
     }
     
     MaterialBase* getMaterial(){
         return material;
     }
+    
+    int size(){
+        return (int) m_children.size();
+    }
 
 private:
     
-    SolidMaterial* m_wireMaterial = nullptr;
-    void setWireMaterial(glm::vec3 color = Color::Green);
-    
-    MaterialBase* material = nullptr;
-    
+    //Core
     std::string m_name;
     std::vector<Vertex> m_vertices;
     std::vector<GLuint> m_elements;
     std::vector<Texture> m_textures;
     
+    //Buffers
     VAO m_vao;
     VBO m_vbo;
     EBO m_ebo;
     
+    //Draw type
     GLenum m_usage;
     
+    //Matrix
+    glm::mat4 m_modelMatrix = glm::mat4(1.0f);
+    glm::vec3 m_position = glm::vec3(1.0f);
+    glm::vec3 m_scale = glm::vec3(1.0f);
+    glm::vec3 m_rotation = glm::vec3(1.0f);
+    DrawMode m_drawMode = DrawMode::DEFAULT;
+    
+    glm::mat4 getModelMatrix(){
+        return m_modelMatrix;
+    }
+    
+    void setModelMatrix(glm::mat4 model){
+        m_modelMatrix = model;
+    }
+
+    
+    //Materials
+    SolidMaterial* m_wireMaterial = nullptr;
+    MaterialBase* material = nullptr;
+    void setWireMaterial(glm::vec3 color = Color::Green);
+    
+    //Children
+    std::vector<Mesh*> m_children;
 };
 
 #endif /* Mesh_hpp */

@@ -14,7 +14,6 @@
 
 #include "./Camera.hpp"
 #include "./GameObject.h"
-#include "../Mesh/MeshGroup.hpp"
 #include "../Prefab/UI/Grid.hpp"
 
 
@@ -24,7 +23,7 @@ public:
     
     Scene() = default;
     ~Scene(){
-        //delete m_grid;
+        delete m_grid;
     };
     
     std::unordered_map<int, GameObject*> m_objects;

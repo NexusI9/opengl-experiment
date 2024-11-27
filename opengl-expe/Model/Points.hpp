@@ -12,9 +12,7 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "../Mesh/MeshBase.h"
 #include "../Mesh/Vertex.h"
-#include "../Mesh/Mesh.hpp"
 #include "../Material/Texture.hpp"
 #include "./Model.h"
 

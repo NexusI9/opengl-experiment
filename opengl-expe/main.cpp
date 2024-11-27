@@ -52,21 +52,21 @@ int main(int argc, const char * argv[]) {
         .shoreDistance = 0.4f
     });
     
-    MeshBase* chunkMesh = static_cast<Mesh*>(chunk.getMesh());
+    Mesh* chunkMesh = chunk.getMesh();
     SolidMaterial mat({
         .color = Color::Grey
     });
 
     chunkMesh->setMaterial(mat);
-    chunkMesh->setScale(5.0f);
+    //chunkMesh->setScale(5.0f);
     
     //Draw hexa grid
-    HexaGrid grid(glm::vec2(20.0f, 20.0f), 1.0f);
-    MeshBase* gridMesh = grid.getMesh();
-    
+    //HexaGrid grid(glm::vec2(20.0f, 20.0f), 1.0f);
+    //Mesh* gridMesh = grid.getMesh();
+
     //scene.add(gridMesh);
     scene.add(chunkMesh);
-    //scene.showGrid(true);
+    scene.showGrid(true);
 
     window.draw(scene);
     

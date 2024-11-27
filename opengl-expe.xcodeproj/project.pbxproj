@@ -10,7 +10,6 @@
 		560E85EF2CCCAF7C00A5727A /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 560E85EE2CCCAF7C00A5727A /* libfreetype.6.dylib */; };
 		560E85F22CCCB2F700A5727A /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560E85F02CCCB2F700A5727A /* Text.cpp */; };
 		5614DBA42CB02A920098B374 /* MaterialBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5614DBA22CB02A920098B374 /* MaterialBase.cpp */; };
-		5618917F2CB40F1A004BCC55 /* MeshGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */; };
 		561C7AEE2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; };
 		561C7AEF2C83638C000DACA9 /* libGLEW.2.2.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		561F08282CA82E2F007570EA /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561F08262CA82E2F007570EA /* Rectangle.cpp */; };
@@ -78,8 +77,6 @@
 		560E85F12CCCB2F700A5727A /* Text.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Text.hpp; sourceTree = "<group>"; };
 		5614DBA22CB02A920098B374 /* MaterialBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialBase.cpp; sourceTree = "<group>"; };
 		5614DBA32CB02A920098B374 /* MaterialBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MaterialBase.hpp; sourceTree = "<group>"; };
-		5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshGroup.cpp; sourceTree = "<group>"; };
-		5618917E2CB40F1A004BCC55 /* MeshGroup.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshGroup.hpp; sourceTree = "<group>"; };
 		561C7AEA2C835CCB000DACA9 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		561F08262CA82E2F007570EA /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
 		561F08272CA82E2F007570EA /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
@@ -159,7 +156,6 @@
 		56B0943C2CA2FDE200293E4B /* Debugger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Debugger.hpp; sourceTree = "<group>"; };
 		56C4E9C82CC0047100F22DEF /* Points.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Points.cpp; sourceTree = "<group>"; };
 		56C4E9C92CC0047100F22DEF /* Points.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Points.hpp; sourceTree = "<group>"; };
-		56F09AB02CB6B84E005BC541 /* MeshBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBase.h; sourceTree = "<group>"; };
 		56F10FC92CB56ED200AD9FC4 /* Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
 		56F69D4F2CC15EB40070C722 /* Gizmos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Gizmos.cpp; sourceTree = "<group>"; };
 		56F69D502CC15EB40070C722 /* Gizmos.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gizmos.hpp; sourceTree = "<group>"; };
@@ -336,9 +332,6 @@
 			children = (
 				5661A9ED2C840910002E52DA /* Mesh.cpp */,
 				5661A9EE2C840910002E52DA /* Mesh.hpp */,
-				5618917D2CB40F1A004BCC55 /* MeshGroup.cpp */,
-				5618917E2CB40F1A004BCC55 /* MeshGroup.hpp */,
-				56F09AB02CB6B84E005BC541 /* MeshBase.h */,
 				562CB3162C9E5ED50081658C /* Vertex.h */,
 				56634ECF2CE0539600F91B19 /* VertexList.cpp */,
 				56634ED02CE0539600F91B19 /* VertexList.hpp */,
@@ -518,7 +511,6 @@
 				564CEB502C88821B00A0869F /* Utility.cpp in Sources */,
 				563F4C062C95380400AD7777 /* Camera.cpp in Sources */,
 				564988B92C91CA0C007E0B33 /* Texture.cpp in Sources */,
-				5618917F2CB40F1A004BCC55 /* MeshGroup.cpp in Sources */,
 				5688AA2D2CCA81E4006406E6 /* GameManager.cpp in Sources */,
 				56F69D552CC15F060070C722 /* Grid.cpp in Sources */,
 				5695ED462CA595CC00AF16D4 /* Scene.cpp in Sources */,

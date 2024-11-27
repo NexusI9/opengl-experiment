@@ -32,7 +32,7 @@ struct Triangle{
 
 /**
  Vertex Group are combination of Vertex List along with index, the object is mostly use to combine Vertex List together and rearange elements accordingly
- The relationship between VertexGroup and VertexList, is similar to the one between Mesh and MeshGroup
+ The relationship between VertexGroup and VertexList, is similar to the one between Mesh 
  Also the VertexGroup is closer to a fully usable Mesh by manipulating and providing the vertices as well as respective elements
  [Vertex] => [VertexList] => [VertexGroup] => [Mesh]
  */

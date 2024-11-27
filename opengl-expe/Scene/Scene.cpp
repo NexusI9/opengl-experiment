@@ -8,7 +8,6 @@
 #include "Scene.hpp"
 #include <iostream>
 #include "../Mesh/Mesh.hpp"
-#include "../Mesh/MeshGroup.hpp"
 #include "../Utility/Debugger.hpp"
 
 
@@ -25,18 +24,10 @@ void Scene::add(GameObject* object){
     //Assign id for later referencing (erase..)
     int id = genObjectId();
     object->ID = id;
+    
     //Push to global map
     if(Mesh* meshObj = dynamic_cast<Mesh*>(object)){
-        printf("Mesh");
         m_objects[id] = meshObj;
-    }
-    else if(MeshGroup* groupObj = dynamic_cast<MeshGroup*>(object)){
-        printf("MeshGroup");
-        m_objects[id] = groupObj;
-    }
-    else if(MeshBase* baseObj = dynamic_cast<MeshBase*>(object)){
-        printf("MeshBase");
-        m_objects[id] = baseObj;
     }
     else{
         throw std::invalid_argument("Error while adding scene object, not a valid type");
@@ -59,7 +50,7 @@ void Scene::onDraw(){
         m_activeCamera->onDraw();
         
         //Draw objects
-        for(int i = 0; i < m_objects.size(); i++) m_objects[i]->onDraw(*m_activeCamera);
+        for(auto& [_, object] : m_objects) object->onDraw(*m_activeCamera);
         
     }else{
         throw std::invalid_argument("No active camera where found, make sure to add at least one Camera object to the scene");
@@ -84,11 +75,11 @@ int Scene::genObjectId(int id){
 }
 
 void Scene::showGrid(bool show){
-    //delete m_grid;
+    delete m_grid;
     if(show == true){
         Grid grid(100.0f, 100.0f);
-        m_grid = static_cast<Mesh*>(grid.getMesh());
-        //add(m_grid);
+        m_grid = grid.getMesh();
+        add(m_grid);
     }
 }
 

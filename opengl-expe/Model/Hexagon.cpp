@@ -13,8 +13,6 @@
 #include <cmath>
 
 #include "../Utility/Constant.h"
-#include "../Mesh/MeshGroup.hpp"
-
 
 Hexagon::Hexagon(){
     

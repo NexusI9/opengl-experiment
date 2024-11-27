@@ -76,7 +76,7 @@ void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 c
     static Points line(ray);
     
     static Mesh* lineMesh = new Mesh({.name = "line", .model = line});
-    lineMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
+    lineMesh->setDrawMode(Mesh::DrawMode::WIREFRAME);
     scene.add(lineMesh);
 }
 
@@ -85,7 +85,7 @@ void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 c
     //generate point mesh
     Points points(pts);
     Mesh* pointMesh = new Mesh({.name = "points", .model = points});
-    pointMesh->setDrawMode(MeshBase::DrawMode::POINTS);
+    pointMesh->setDrawMode(Mesh::DrawMode::POINTS);
     
     //generate point index label
     if(label){
@@ -94,7 +94,7 @@ void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 c
             glm::vec3 point = pts[i];
             std::string index = std::to_string(i);
             Text text(index, Color::Green);
-            MeshBase* textMesh = text.getMesh();
+            Mesh* textMesh = text.getMesh();
             
             textMesh->setPosition(point.x + 0.25f, point.y, point.z + 0.5f);
             textMesh->setScale(0.15f);
@@ -127,17 +127,17 @@ void Debugger::drawMesh(std::vector<Vertex> &vertices, std::vector<GLuint> &indi
     delete mesh;
     mesh = new Mesh(vertices, indices, tex);
 
-    mesh->setDrawMode(MeshBase::DrawMode::DEBUGGER);
+    mesh->setDrawMode(Mesh::DrawMode::DEBUGGER);
     scene.add(mesh);*/
 }
 
 
-void Debugger::printMeshGroupInfo(MeshGroup& meshgroup){
+void Debugger::printMeshInfo(Mesh& meshgroup){
     
     std::string info;
     
     int childrenSize = (int) meshgroup.getChildren().size();
-    info += "MESHGROUP INFO\n";
+    info += "MESH INFO\n";
     info += "Children size:\t" + std::to_string(childrenSize) + "\n\n";
     
     int i = 0;

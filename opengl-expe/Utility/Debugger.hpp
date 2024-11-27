@@ -58,7 +58,7 @@ public:
     static void printVertex(std::vector<Vertex>& vertex);
     static void printVertex(Vertex& vertex);
     
-    static void printMeshGroupInfo(MeshGroup& meshgroup);
+    static void printMeshInfo(Mesh& mesh);
     
     static void drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 color = Color::Green);
     static void drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 color = Color::Green, bool label = true);

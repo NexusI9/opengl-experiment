@@ -9,7 +9,6 @@
 #define Prefab_h
 
 #include "../Mesh/Mesh.hpp"
-#include "../Mesh/MeshGroup.hpp"
 
 /**
  A prefab inherit from the initial Model class but include an automatic Material managmenent system.
@@ -22,13 +21,13 @@ public:
     Prefab() = default;
     ~Prefab(){};
     
-    MeshBase* getMesh(){
+    Mesh* getMesh(){
         return m_mesh;
     };
     
 protected:
     
-    MeshBase* m_mesh;
+    Mesh* m_mesh;
 
 };
 
