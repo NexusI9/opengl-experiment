@@ -56,12 +56,34 @@ public:
     }
     
     
+    virtual void addChild(MeshBase* mesh){
+        throw std::runtime_error("Method not implemented for this type");
+    }
+    
+    virtual void addChildren(MeshBase* source){
+        throw std::runtime_error("Method not implemented for this type");
+    }
+    
+    virtual void addChildren(std::vector<MeshBase*>& source){
+        throw std::runtime_error("Method not implemented for this type");
+    }
+    
+    virtual void addTexture(Texture& texture){
+        throw std::runtime_error("Method not implemented for this type");
+    }
+    
+    std::vector<MeshBase*>& getChildren(){ return m_children; }
+    
+    
 protected:
+    
     glm::mat4 m_modelMatrix = glm::mat4(1.0f);
     glm::vec3 m_position = glm::vec3(1.0f);
     glm::vec3 m_scale = glm::vec3(1.0f);
     glm::vec3 m_rotation = glm::vec3(1.0f);
     DrawMode m_drawMode = DrawMode::DEFAULT;
+    
+    std::vector<MeshBase*> m_children;
     
 };
 

@@ -138,6 +138,8 @@ void Shader::setAttribute(VAO& vao, VBO& vbo, const char *attributeName, int att
     vbo.bind();
     
     GLint attrLocation = glGetAttribLocation(ID, attributeName);
+    if(attrLocation < 0) Debugger::print("Warning couldn't find attribute location");
+
     //Must enable an attribute before using it in a shader
     glVertexAttribPointer(attrLocation, attrNumber, GL_FLOAT, GL_FALSE, stride, offset);
     glEnableVertexAttribArray(attrLocation);

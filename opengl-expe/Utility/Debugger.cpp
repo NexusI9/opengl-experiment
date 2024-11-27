@@ -75,7 +75,7 @@ void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 c
     std::vector<glm::vec3> ray{start, end};
     static Points line(ray);
     
-    static MeshGroup* lineMesh = line.getMesh();
+    static Mesh* lineMesh = new Mesh({.name = "line", .model = line});
     lineMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
     scene.add(lineMesh);
 }
@@ -84,7 +84,7 @@ void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 c
     
     //generate point mesh
     Points points(pts);
-    MeshGroup* pointMesh = points.getMesh();
+    Mesh* pointMesh = new Mesh({.name = "points", .model = points});
     pointMesh->setDrawMode(MeshBase::DrawMode::POINTS);
     
     //generate point index label
@@ -94,7 +94,8 @@ void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 c
             glm::vec3 point = pts[i];
             std::string index = std::to_string(i);
             Text text(index, Color::Green);
-            MeshGroup* textMesh = text.getMesh();
+            MeshBase* textMesh = text.getMesh();
+            
             textMesh->setPosition(point.x + 0.25f, point.y, point.z + 0.5f);
             textMesh->setScale(0.15f);
             pointMesh->addChildren(textMesh);
@@ -135,17 +136,17 @@ void Debugger::printMeshGroupInfo(MeshGroup& meshgroup){
     
     std::string info;
     
-    int childrenSize = (int) meshgroup.getMeshes().size();
+    int childrenSize = (int) meshgroup.getChildren().size();
     info += "MESHGROUP INFO\n";
     info += "Children size:\t" + std::to_string(childrenSize) + "\n\n";
     
     int i = 0;
-    for(auto& mesh : meshgroup.getMeshes()) {
+    for(auto& mesh : meshgroup.getChildren()) {
         info += "CHILD " + std::to_string(i) + ":\n";
-        info += "Name:\t\t\t" + mesh.getName();
-        info += "Vertex size:\t" + std::to_string(mesh.getVertices().size());
-        info += "Elements size:\t" + std::to_string(mesh.getIndices().size());
-        info += "Textures size:\t" + std::to_string(mesh.getTextures().size());
+        info += "Name:\t\t\t" + static_cast<Mesh*>(mesh)->getName();
+        info += "Vertex size:\t" + std::to_string(static_cast<Mesh*>(mesh)->getVertices().size());
+        info += "Elements size:\t" + std::to_string(static_cast<Mesh*>(mesh)->getIndices().size());
+        info += "Textures size:\t" + std::to_string(static_cast<Mesh*>(mesh)->getTextures().size());
         info += "\n";
         i++;
     }

@@ -176,7 +176,6 @@ private:
     Shader m_shader = Shader( (ROOT_DIR + "/Material/Shader/hexagrid.vert"), (ROOT_DIR + "/Material/Shader/hexagrid.frag") );
     DefaultMaterial m_material;
     
-
     void build();
 };
 

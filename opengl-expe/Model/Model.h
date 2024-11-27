@@ -10,8 +10,7 @@
 
 #include <stdio.h>
 #include <vector>
-#include "../Mesh/Mesh.hpp"
-#include "../Mesh/MeshGroup.hpp"
+#include "../Mesh/Vertex.h"
 
 class Model{
   
@@ -20,16 +19,8 @@ public:
     Model(){};
     virtual ~Model(){};
     
-    MeshGroup* getMesh(){
-        return m_meshGroup;
-    };
-    
     std::vector<Vertex> vertices;
     std::vector<VertexElement> elements;
-    
-protected:
-    
-    MeshGroup* m_meshGroup = new MeshGroup();
     
 };
 

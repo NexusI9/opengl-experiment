@@ -19,11 +19,10 @@ Gltf::Gltf(const char* path) : m_path(path){
     m_json = nlohmann::json::parse(file);
     m_data = getData();
     
-    //Generate Mesh
-    traverseNode(0);
     
-    //Create MeshGroup
-    m_meshGroup->addChildren(m_meshes);
+    //Generate Mesh
+    m_mesh = new MeshGroup();
+    traverseNode(0);
     
     Debugger::print("Loading: ", Verbose::Flag::MESH);
     
@@ -240,7 +239,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     if(node.find("mesh") != node.end()){
         
         //Push to Node Mesh object
-        Mesh mesh = loadMesh(node["mesh"]);
+        Mesh* mesh = loadMesh(node["mesh"]);
         nodeMatrix = nextNodeMatrix;
         
         NodeMesh nodeMesh = {
@@ -253,8 +252,8 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
         
         m_nodeMeshes.push_back(nodeMesh);
         
-        //Push to MeshGroup object
-        m_meshes.push_back(nodeMesh.mesh);
+        //Append to child of member mesh object
+        m_mesh->addChild(nodeMesh.mesh);
     }
     
     //Iterate through children
@@ -266,7 +265,7 @@ void Gltf::traverseNode(unsigned int nodeIndex, glm::mat4 matrix){
     
 }
 
-Mesh Gltf::loadMesh(unsigned int meshIndex){
+Mesh* Gltf::loadMesh(unsigned int meshIndex){
     
     //Get accessor indices
     unsigned int posAccInd = m_json["meshes"][meshIndex]["primitives"][0]["attributes"]["POSITION"];
@@ -287,7 +286,7 @@ Mesh Gltf::loadMesh(unsigned int meshIndex){
     std::vector<glm::vec2> texUvs = getFloatsVector2(texVec);
     
     //init mesh
-    return Mesh({
+    return new Mesh({
         .name = name,
         .vertices = assembleVertices(positions, normals, texUvs),
         .elements = getIndices(m_json["accessors"][idAccInd]),

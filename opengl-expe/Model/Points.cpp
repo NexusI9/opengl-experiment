@@ -22,10 +22,4 @@ Points::Points(std::vector<glm::vec3>& positions){
     
     elements.push_back(0); //close point mesh
     
-    m_meshGroup->addChild(Mesh({
-        .name = "point",
-        .vertices = vertices,
-        .elements = elements
-    }));
-    
 }

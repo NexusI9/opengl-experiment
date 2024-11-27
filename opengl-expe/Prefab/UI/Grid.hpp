@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#include "../../Model/Model.h"
+#include "../Prefab.h"
 
 #include "../../Scene/GameObject.h"
 #include "../../Mesh/MeshGroup.hpp"
@@ -23,12 +23,11 @@ struct Axis{
     glm::vec3 color;
 };
 
-class Grid : public Model{
+class Grid : public Prefab{
     
 public:
     
     Grid(float scale = 10.0f, int division = 20, float thickness = 32.0);
-    
     ~Grid(){}
     
     

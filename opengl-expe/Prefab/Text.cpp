@@ -207,7 +207,7 @@ void Text::generate(){
     Texture labelTex = genLabel(m_text, m_fontList[m_typeface].glyphs);
     glm::vec2 texSize = labelTex.size();
     Rectangle rect;
-    MeshGroup* labelMesh = rect.getMesh();
+    Mesh* labelMesh = new Mesh({.name = "label", .model = rect});
     
     SolidMaterial labelMaterial({
         .color = m_color,
@@ -222,6 +222,6 @@ void Text::generate(){
     labelMesh->setMaterial(labelMaterial);
     labelMesh->setScale(texSize.x / texSize.y, 1.0f, 1.0f); //scale to ratio
     
-    m_meshGroup = labelMesh;
+    m_mesh = labelMesh;
 }
 

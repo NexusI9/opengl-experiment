@@ -11,29 +11,15 @@
 
 
 Grid::Grid(float scale, int division, float thickness) : m_scale(scale), m_division(division), m_thickness(thickness){
-    
     genGrid();
-    
-    Axis xAxis{
-        .points = { glm::vec3(-1.0f * scale, 0.0f, 0.0f), glm::vec3(scale, 0.0f, 0.0f) },
-        .color = Color::Red
-    };
-    
-    Axis yAxis{
-        .points = { glm::vec3(0.0f, -1.0f * scale, 0.0f), glm::vec3(0.0f, scale, 0.0f) },
-        .color = Color::Green
-    };
-    
-    //genAxis(xAxis);
-    //genAxis(yAxis);
 }
 
 void Grid::genGrid(){
     
     //Generate Grid
     Rectangle rectangle;
-    MeshGroup* gridMesh = rectangle.getMesh();
-    gridMesh->setScale(m_scale, m_scale, m_scale);
+    m_mesh = new Mesh({.name = "grid", .model = rectangle});
+    m_mesh->setScale(m_scale, m_scale, m_scale);
     
     SolidMaterial gridMaterial({
                     .color = glm::vec3(0.2f),
@@ -46,26 +32,6 @@ void Grid::genGrid(){
                     }
     });
 
-    
-    gridMesh->setMaterial(gridMaterial);
-    m_meshGroup = gridMesh;
+    m_mesh->setMaterial(gridMaterial);
 }
 
-void Grid::genAxis(Axis& axis){
-    
-    //Generate Axis
-    Points points(axis.points);
-    SolidMaterial material({
-        .color = axis.color,
-        .vertexShader = std::string(ROOT_DIR + "Material/Shader/solid.vert"),
-        .fragmentShader = std::string(ROOT_DIR + "Material/Shader/solid.frag"),
-    });
-    
-    MeshGroup* axisMesh = points.getMesh();
-    axisMesh->setDrawMode(MeshBase::DrawMode::WIREFRAME);
-    axisMesh->setMaterial(material);
-    
-    //Transfer mesh to global mesh
-    m_meshGroup->addChildren(axisMesh);
-    
-}

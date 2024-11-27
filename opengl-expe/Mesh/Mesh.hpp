@@ -31,21 +31,28 @@
 #include "../Utility/Color.h"
 #include "../Utility/Transform.hpp"
 
+#include "../Model/Model.h"
+
 
 
 struct MeshArgsBuffer{
-    std::string name = "DEFAULT";
+    std::vector<Texture> textures;
+    std::string          name = "DEFAULT";
     VBO vbo;
     VAO vao;
     EBO ebo;
-    std::vector<Texture> textures;
 };
 
 struct MeshArgsVertex{
+    std::string                 name = "DEFAULT";
+    std::vector<Vertex>         vertices;
+    std::vector<VertexElement>  elements;
+    std::vector<Texture>        textures;
+};
+
+struct MeshArgsModel{
     std::string name = "DEFAULT";
-    std::vector<Vertex> vertices;
-    std::vector<VertexElement> elements;
-    std::vector<Texture> textures;
+    Model&      model;
 };
 
 class Mesh : public MeshBase{
@@ -54,11 +61,14 @@ public:
     
     /**
      Can Instantiate mesh with 2 different approach:
-     1. Vertex Based: Passing arrays of vertex and elements, from which the Mesh will automatically generate the VAO, VBO and EBO from those data
-     2. Buffer Based: Passing direclty some presetup buffers that will directly be assigned to the material
+     1. Vertex Based: Passing arrays of vertex and elements, from which the Mesh will automatically generate the VAO, VBO and EBO from those data and then only pass it to the material. (middle man)
+     2. Buffer Based: Passing direclty some pre-set buffers that will directly be assigned to the material. (no middle man, full vbo/vao control)
+     3. Model Based: Passing a Model (which include a preset of vertex and elements)
      */
+    
     Mesh(const MeshArgsVertex& args);
     Mesh(const MeshArgsBuffer& args);
+    Mesh(const MeshArgsModel& args);
     
     ~Mesh(){
         //delete m_wireMaterial;
@@ -81,7 +91,7 @@ public:
     std::vector<GLuint>& getIndices(){ return m_elements; };
     std::vector<Texture>& getTextures(){ return m_textures; };
     
-    void addTexture(Texture& texture){
+    void addTexture(Texture& texture) override{
         m_textures.push_back(texture);
     }
     

@@ -36,9 +36,10 @@ void HexaGrid::build(){
     m_meshVBO.setData(hexagon.vertices);
     
     m_shader.setAttribute(m_vao, m_meshVBO, "position", 3, sizeof(Vertex), (void*) 0);
-    m_shader.setAttribute(m_vao, m_meshVBO, "normal", 3, sizeof(Vertex), (void*)(sizeof(glm::vec3)));
-    m_shader.setAttribute(m_vao, m_meshVBO, "color", 3, sizeof(Vertex), (void*)( 2 * sizeof(glm::vec3)));
-    m_shader.setAttribute(m_vao, m_meshVBO, "uv", 2, sizeof(Vertex), (void*)( 3 * sizeof(glm::vec3)));
+    m_shader.setAttribute(m_vao, m_meshVBO, "normal", 3, sizeof(Vertex), (void*)(3 * sizeof(float)));
+    m_shader.setAttribute(m_vao, m_meshVBO, "color", 3, sizeof(Vertex), (void*)(6 * sizeof(float)));
+    m_shader.setAttribute(m_vao, m_meshVBO, "uv", 2, sizeof(Vertex), (void*)(9 * sizeof(float)));
+    m_shader.use();
     
     //Calculate positions
     CubeCoordinate yOffset;
@@ -67,20 +68,19 @@ void HexaGrid::build(){
         yOffset += (y % 2 == 0) ? CubeDirection::SOUTH_EAST : CubeDirection::SOUTH_WEST;
     }
     
-    m_instanceVBO.setData(sizeof(glm::vec3) * vboCoordinate.size(), vboCoordinate.data());
-    
-    m_shader.setAttribute(m_vao, m_instanceVBO, "worldCoordinate", 3, sizeof(glm::vec3), (void*)0);
+    //Prepare Instances buffer
+    //m_instanceVBO.setData(sizeof(glm::vec3) * vboCoordinate.size(), vboCoordinate.data());
+    //m_shader.setAttribute(m_vao, m_instanceVBO, "worldCoordinate", 3, sizeof(glm::vec3), (void*)0);
     // Updates per instance, not per vertex
-    m_shader.setAttributePerInstance(m_vao, "worldCoordinate", 1);
+    //m_shader.setAttributePerInstance(m_vao, "worldCoordinate", 1);
     
+    //Init Material with prefill shader
     m_material.init(m_shader);
     
-    m_meshGroup->addChild(Mesh({
-        .name = "hexagrid",
-        .elements = hexagon.elements
-    }));
-    
-    m_meshGroup->setMaterial(m_material);
+    //Append new mesh
+    m_mesh = new MeshGroup();
+    m_mesh->addChild(new Mesh({ .name = "hexagrid", .elements = hexagon.elements }));
+    m_mesh->setMaterial(m_material);
 }
 
 glm::vec3 HexaGrid::toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin){

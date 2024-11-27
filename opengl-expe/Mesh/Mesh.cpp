@@ -50,6 +50,29 @@ m_name(args.name){
     setDrawMode(DrawMode::DEFAULT);
 };
 
+Mesh::Mesh(const MeshArgsModel& args):
+m_vertices(args.model.vertices),
+m_elements(args.model.elements),
+m_name(args.name){
+    //Instantiate our buffers and array object and load data in it
+    //We then proceed to layout the VAO data only when loading the Shader
+
+    //Vertex Array Object (define how to interpret vbo data)
+    m_vao.bind();
+    
+    //Vertex buffer Array (simply buffer the vertex data))
+    m_vbo.setData(m_vertices);
+
+    //Elements array
+    m_ebo.setData(m_elements);
+    
+    m_vao.unbind();
+    m_vbo.unbind();
+    m_ebo.unbind();
+    
+    setDrawMode(DrawMode::DEFAULT);
+};
+
 
 void Mesh::onDraw(Camera& camera){
     
@@ -59,7 +82,7 @@ void Mesh::onDraw(Camera& camera){
     //draw material if existing
     if(material!=nullptr) material->onDraw(camera, m_modelMatrix);
     else Debugger::print("No material set, some mesh will be missing");
-        
+    
     m_vao.bind();
     m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
 

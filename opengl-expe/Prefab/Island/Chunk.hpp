@@ -58,8 +58,6 @@ private:
     std::vector<Vertex> m_vertices;
     std::vector<VertexElement> m_elements;
     
-    
-    
 };
 
 #endif /* Chunk_hpp */

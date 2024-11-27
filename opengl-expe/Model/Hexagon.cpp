@@ -26,27 +26,20 @@ Hexagon::Hexagon(){
         float angle = 2.0f * M_PI * i / 6.0f; // Divide circle into 6 parts
         float x = RADIUS * cos(angle);
         float y = RADIUS * sin(angle);
-        positions.emplace_back(glm::vec3(x, y, 0.0f));
+        positions.push_back(glm::vec3(x, y, 0.0f));
     }
-
+    
+    positions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));  // Add center point
+    
+    std::vector<glm::vec3> colors;
     std::vector<glm::vec3> normals;
-    for (int i = 0; i < 6; ++i) normals.emplace_back(glm::vec3(0.0f, 0.0f, 1.0f));
-    
-    std::vector<glm::vec3> colors = {
-        glm::vec3(1.0f, 0.0f, 0.0f),
-        glm::vec3(0.0f, 1.0f, 0.0f),
-        glm::vec3(0.0f, 0.0f, 1.0f),
-        glm::vec3(1.0f, 1.0f, 0.0f),
-        glm::vec3(1.0f, 0.0f, 1.0f),
-        glm::vec3(0.0f, 1.0f, 1.0f)
-    };
-    
-
     std::vector<glm::vec2> uv;
     for (const auto& pos : positions) {
         float u = (pos.x / RADIUS + 1.0f) / 2.0f; // Normalize X
         float v = (pos.y / RADIUS + 1.0f) / 2.0f; // Normalize Y
-        uv.emplace_back(glm::vec2(u, v));
+        uv.push_back(glm::vec2(u, v));
+        normals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+        colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
     }
 
     
@@ -60,18 +53,13 @@ Hexagon::Hexagon(){
     }
     
     elements = {
-        0, 1, 2,
-        0, 2, 3,
-        0, 3, 4,
-        0, 4, 5,
-        0, 5, 6,
-        0, 6, 1
+        6, 0, 1,
+        6, 1, 2,
+        6, 2, 3,
+        6, 3, 4,
+        6, 4, 5,
+        6, 5, 0
     };
 
-    m_meshGroup->addChild(Mesh({
-        .name = "hexagon",
-        .vertices = vertices,
-        .elements = elements
-    }));
     
 }

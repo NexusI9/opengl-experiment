@@ -24,7 +24,7 @@ public:
     
     Scene() = default;
     ~Scene(){
-        delete m_grid;
+        //delete m_grid;
     };
     
     std::unordered_map<int, GameObject*> m_objects;
@@ -43,7 +43,7 @@ public:
 private:
     
     int genObjectId(int id = 0);
-    Grid* m_grid = nullptr;
+    Mesh* m_grid = nullptr;
     
 };
 

@@ -55,10 +55,5 @@ Rectangle::Rectangle(){
 
     elements = {0, 3, 2, 2, 1, 0};
 
-    m_meshGroup->addChild(Mesh({
-        .name = "rectangle",
-        .vertices = vertices,
-        .elements = elements
-    }));
     
 }
