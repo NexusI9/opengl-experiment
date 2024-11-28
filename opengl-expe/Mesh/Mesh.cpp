@@ -38,8 +38,6 @@ m_name(args.name){
     m_vbo.unbind();
     m_ebo.unbind();
     
-    printf("%s \t %i", m_name.c_str(), (int)m_elements.size());
-    
     setDrawMode(DrawMode::DEFAULT);
 };
 

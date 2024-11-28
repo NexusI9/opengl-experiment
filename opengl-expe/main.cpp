@@ -20,6 +20,7 @@
 
 #include "Prefab/Island/Chunk.hpp"
 #include "Prefab/HexaGrid/HexaGrid.hpp"
+#include "Model/Hexagon.hpp"
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 
@@ -39,10 +40,11 @@ int main(int argc, const char * argv[]) {
         .bindingIndex = 0
     });
     
-    scene.setCamera(camera);
-    
     //TODO: rewrite debug_log api
     Debugger::filterVerboseFlag(Verbose::Flag::MESH);
+    
+    scene.setCamera(camera);
+    scene.showGrid(true);
     
     //Draw chunk
     Chunk chunk({
@@ -61,13 +63,12 @@ int main(int argc, const char * argv[]) {
     //chunkMesh->setScale(5.0f);
     
     //Draw hexa grid
-    //HexaGrid grid(glm::vec2(20.0f, 20.0f), 1.0f);
-    //Mesh* gridMesh = grid.getMesh();
-
-    //scene.add(gridMesh);
-    scene.add(chunkMesh);
-    scene.showGrid(true);
-
+    HexaGrid grid(glm::vec2(20.0f, 20.0f), 1.0f);
+    Mesh* gridMesh = grid.getMesh();
+    
+    scene.add(gridMesh);
+    //scene.add(chunkMesh);
+    
     window.draw(scene);
     
     return 0;
