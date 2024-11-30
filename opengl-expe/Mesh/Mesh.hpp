@@ -31,6 +31,7 @@
 #include "../Utility/Color.h"
 #include "../Utility/Transform.hpp"
 
+#include "./Buffer.h"
 #include "../Model/Model.h"
 
 
@@ -55,6 +56,8 @@ struct MeshArgsModel{
     Model&      model;
 };
 
+
+
 class Mesh : public GameObject{
     
 public:
@@ -71,22 +74,34 @@ public:
     Mesh(const MeshArgsBuffer& args);
     Mesh(const MeshArgsModel& args);
     
-    enum class DrawMode{
-        DEFAULT,
-        WIREFRAME,
-        DEBUGGER,
-        POINTS
-    };
-    
     ~Mesh(){
         //delete m_wireMaterial;
+    };
+    
+    //Buffers
+    VAO vao;
+    EBO ebo;
+    Buffer<VBO> vbo;
+    
+    struct Draw{
+        
+        enum class Mode{
+            DEFAULT,
+            WIREFRAME,
+            DEBUGGER,
+            POINT,
+            INSTANCE
+        };
+        
+        Mode mode = Draw::Mode::DEFAULT;
+        GLsizei instances = 1;
     };
     
     void onDraw(Camera& camera) override;
     void onInput(SDL_Event& event) override;
     
     void setMaterial(const MaterialBase& material);
-    void setDrawMode(DrawMode mode);
+    void setDrawMode(Mesh::Draw mode);
     
     void setPosition(float x, float y, float z);
     void setScale(float x, float y, float z);
@@ -146,11 +161,6 @@ private:
     std::vector<GLuint> m_elements;
     std::vector<Texture> m_textures;
     
-    //Buffers
-    VAO m_vao;
-    VBO m_vbo;
-    EBO m_ebo;
-    
     //Draw type
     GLenum m_usage;
     
@@ -159,7 +169,7 @@ private:
     glm::vec3 m_position = glm::vec3(1.0f);
     glm::vec3 m_scale = glm::vec3(1.0f);
     glm::vec3 m_rotation = glm::vec3(1.0f);
-    DrawMode m_drawMode = DrawMode::DEFAULT;
+    Mesh::Draw m_drawMode = { .mode = Mesh::Draw::Mode::DEFAULT };
     
     glm::mat4 getModelMatrix(){
         return m_modelMatrix;

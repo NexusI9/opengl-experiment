@@ -15,7 +15,7 @@
 #include "../../Backend/VAO.hpp"
 #include "../../Mesh/VertexList.hpp"
 #include "../../Material/Shader.hpp"
-#include "../../Material/DefaultMaterial.hpp"
+#include "../../Material/CustomMaterial.hpp"
 #include "../../Utility/Constant.h"
 
 #include "../../Model/Hexagon.hpp"
@@ -169,12 +169,9 @@ private:
     HexaTile addTile(CubeCoordinate origin, CubeCoordinate direction);
     glm::vec3 toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin = glm::vec3(0.0f));
 
-    Hexagon hexagon;
-    VBO m_meshVBO;
-    VBO m_instanceVBO;
-    VAO m_vao;
-    Shader m_shader = Shader( (ROOT_DIR + "/Material/Shader/hexagrid.vert"), (ROOT_DIR + "/Material/Shader/hexagrid.frag") );
-    DefaultMaterial m_material;
+    CustomMaterial m_material = CustomMaterial({.vertexShader = (std::string)(ROOT_DIR + "/Material/Shader/hexagrid.vert"),
+        .fragmentShader = (std::string)(ROOT_DIR + "/Material/Shader/hexagrid.frag")
+    });
     
     void build();
 };

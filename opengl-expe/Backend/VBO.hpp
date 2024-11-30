@@ -19,10 +19,15 @@ class VBO{
 public:
 
     VBO();
+    ~VBO(){
+        unbind();
+    }
+    
     GLuint ID;
     
     void setData(std::vector<Vertex>& vertices);
     void setData(GLsizeiptr size, const void* data, GLenum usage = GL_STATIC_DRAW);
+    void copyData(GLsizeiptr size, void* data, GLenum usage = GL_STATIC_DRAW);
     void bind();
     void unbind();
     void remove();
@@ -30,6 +35,7 @@ public:
     
 private:
     
+    void* m_data = nullptr;
     void setAttributeVec3(glm::vec3 data);
     void setAttributeVec2(glm::vec3 data);
     

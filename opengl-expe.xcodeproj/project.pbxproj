@@ -127,6 +127,8 @@
 		56634ED02CE0539600F91B19 /* VertexList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexList.hpp; sourceTree = "<group>"; };
 		56634ED42CE0E30800F91B19 /* Circle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Circle.cpp; sourceTree = "<group>"; };
 		56634ED52CE0E30800F91B19 /* Circle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Circle.hpp; sourceTree = "<group>"; };
+		56668D572CF8A7F5002C89B9 /* CustomMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CustomMaterial.hpp; sourceTree = "<group>"; };
+		56668D582CF8B146002C89B9 /* Buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		5667DF3B2CF2F3B400063692 /* Hexagon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Hexagon.cpp; sourceTree = "<group>"; };
 		5667DF3C2CF2F3B400063692 /* Hexagon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Hexagon.hpp; sourceTree = "<group>"; };
 		5667DF3E2CF304F500063692 /* hexagrid.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = hexagrid.vert; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				56634ED02CE0539600F91B19 /* VertexList.hpp */,
 				567777832CE2496700EE1217 /* VertexGroup.cpp */,
 				567777842CE2496700EE1217 /* VertexGroup.hpp */,
+				56668D582CF8B146002C89B9 /* Buffer.h */,
 			);
 			path = Mesh;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				564988B82C91CA0C007E0B33 /* Texture.hpp */,
 				5699661D2CF49EC9004A85D0 /* DefaultMaterial.hpp */,
 				562BD0E82CBABC8F005D7273 /* SolidMaterial.hpp */,
+				56668D572CF8A7F5002C89B9 /* CustomMaterial.hpp */,
 				564CEB522C888AAF00A0869F /* Shader.cpp */,
 				564CEB532C888AAF00A0869F /* Shader.hpp */,
 				5614DBA22CB02A920098B374 /* MaterialBase.cpp */,

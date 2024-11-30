@@ -62,15 +62,6 @@ public:
         loadShader();
     }
     
-    void init(Shader& shader){
-        /**
-         Second approach of initializing the material is to directly pass a shader that has already a VAO correctly linked in.
-         This is useful when we use a shader that doesn't follow the casual vertex pipeline and requires additional location assignments.
-         */
-        delete m_shader;
-        m_shader = new Shader(shader);
-    }
-    
     void onDraw(Camera& camera, glm::mat4 modelMatrix = glm::mat4(1.0f));
     
     Shader* getShader(){ return m_shader; }

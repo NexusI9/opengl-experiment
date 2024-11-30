@@ -26,30 +26,32 @@ m_name(args.name){
     //We then proceed to layout the VAO data only when loading the Shader
 
     //Vertex Array Object (define how to interpret vbo data)
-    m_vao.bind();
+    vao.bind();
     
     //Vertex buffer Array (simply buffer the vertex data))
-    m_vbo.setData(m_vertices);
+    vbo.origin().setData(m_vertices);
 
     //Elements array
-    m_ebo.setData(m_elements);
+    ebo.setData(m_elements);
     
-    m_vao.unbind();
-    m_vbo.unbind();
-    m_ebo.unbind();
+    vao.unbind();
+    vbo.origin().unbind();
+    ebo.unbind();
     
-    setDrawMode(DrawMode::DEFAULT);
+    setDrawMode(m_drawMode);
 };
 
 
 Mesh::Mesh(const MeshArgsBuffer& args):
 GameObject(Type::OBJECT),
-m_vao(args.vao),
-m_vbo(args.vbo),
-m_ebo(args.ebo),
 m_textures(args.textures),
 m_name(args.name){
-    setDrawMode(DrawMode::DEFAULT);
+    
+    vao = args.vao;
+    ebo = args.ebo;
+    vbo.init(args.vbo);
+    
+    setDrawMode(m_drawMode);
 };
 
 Mesh::Mesh(const MeshArgsModel& args):
@@ -61,19 +63,19 @@ m_name(args.name){
     //We then proceed to layout the VAO data only when loading the Shader
 
     //Vertex Array Object (define how to interpret vbo data)
-    m_vao.bind();
+    vao.bind();
     
     //Vertex buffer Array (simply buffer the vertex data))
-    m_vbo.setData(m_vertices);
+    vbo.origin().setData(m_vertices);
 
     //Elements array
-    m_ebo.setData(m_elements);
+    ebo.setData(m_elements);
     
-    m_vao.unbind();
-    m_vbo.unbind();
-    m_ebo.unbind();
+    vao.unbind();
+    vbo.origin().unbind();
+    ebo.unbind();
     
-    setDrawMode(DrawMode::DEFAULT);
+    setDrawMode(m_drawMode);
 };
 
 
@@ -86,31 +88,38 @@ void Mesh::onDraw(Camera& camera){
     if(material!=nullptr) material->onDraw(camera, m_modelMatrix);
     else Debugger::print("No material set, some mesh will be missing");
     
-    m_vao.bind();
-    m_ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
-
-    //Point drawing
-    if(m_drawMode == DrawMode::POINTS){
-        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-        glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
-        
-    //Wireframe drawing
-    }else if(m_drawMode == DrawMode::WIREFRAME){
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glDrawElements(GL_LINES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+    vao.bind();
+    ebo.bind(); //VAO doesn't store ebo, so need to bind it during drawing phase
     
-    //Default + Debug drawing
-    }else{
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
-        if(m_drawMode == DrawMode::DEBUGGER){
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    switch(m_drawMode.mode){
+        case  Draw::Mode::POINT:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
             glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
-        }
+            break;
+        
+        case Draw::Mode::WIREFRAME:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            glDrawElements(GL_LINES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+            break;
+            
+        case Draw::Mode::INSTANCE:
+            glDrawElementsInstanced(
+                GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0, m_drawMode.instances
+            );
+            break;
+            
+        default:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glDrawElements(GL_TRIANGLES, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+            if(m_drawMode.mode == Draw::Mode::DEBUGGER){
+                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                glDrawElements(GL_POINTS, (int) m_elements.size(), GL_UNSIGNED_INT, 0);
+            }
     }
+
     
-    m_vao.unbind();
-    m_ebo.unbind();
+    vao.unbind();
+    ebo.unbind();
     
     //Update children
     for(auto& mesh : m_children) mesh->onDraw(camera);
@@ -126,32 +135,30 @@ void Mesh::onInput(SDL_Event& event){
 
 void Mesh::setMaterial(const MaterialBase& mat){
     material = mat.clone();
-    //If material doesn't have any shader, init material from mesh vao, vbo...
-    if(material->getShader() == nullptr) material->init(m_vao, m_vbo, m_textures);
-    
+    material->init(vao, vbo.origin(), m_textures);
     //Update children
     for(auto& mesh : m_children) mesh->setMaterial(mat);
 }
 
-void Mesh::setDrawMode(DrawMode mode){
+void Mesh::setDrawMode(Draw mode){
     
     m_drawMode = mode;
     
-    switch(mode){
-        case DrawMode::WIREFRAME:
-        case DrawMode::DEBUGGER:
-        case DrawMode::POINTS:
+    switch(m_drawMode.mode){
+        case Draw::Mode::WIREFRAME:
+        case Draw::Mode::DEBUGGER:
+        case Draw::Mode::POINT:
             setWireMaterial();
             break;
             
-        case DrawMode::DEFAULT:
+        case Draw::Mode::DEFAULT:
         default:
             //if(material) setMaterial(material); //set back material
             break;
     }
     
     //Update children
-    for(auto& mesh : m_children) mesh->setDrawMode(mode);
+    for(auto& mesh : m_children) mesh->setDrawMode(m_drawMode);
     
 }
 
@@ -217,5 +224,5 @@ void Mesh::setWireMaterial(glm::vec3 color){
     if(m_wireMaterial) m_wireMaterial->setColor(color);
     else m_wireMaterial = new SolidMaterial({.color = color});
     material = m_wireMaterial;
-    material->init(m_vao, m_vbo, m_textures);
+    material->init(vao, vbo.origin(), m_textures);
 }

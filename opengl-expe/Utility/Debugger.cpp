@@ -76,7 +76,7 @@ void Debugger::drawRay(glm::vec3 start, glm::vec3 end, Scene& scene, glm::vec3 c
     static Points line(ray);
     
     static Mesh* lineMesh = new Mesh({.name = "line", .model = line});
-    lineMesh->setDrawMode(Mesh::DrawMode::WIREFRAME);
+    lineMesh->setDrawMode({ .mode = Mesh::Draw::Mode::WIREFRAME });
     scene.add(lineMesh);
 }
 
@@ -85,7 +85,7 @@ void Debugger::drawPoints(std::vector<glm::vec3>& pts, Scene& scene, glm::vec3 c
     //generate point mesh
     Points points(pts);
     Mesh* pointMesh = new Mesh({.name = "points", .model = points});
-    pointMesh->setDrawMode(Mesh::DrawMode::POINTS);
+    pointMesh->setDrawMode({ .mode = Mesh::Draw::Mode::POINT });
     
     //generate point index label
     if(label){

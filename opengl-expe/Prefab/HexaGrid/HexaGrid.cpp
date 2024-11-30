@@ -31,16 +31,7 @@ void HexaGrid::build(){
             |      V
             V
      */
-    
-    Hexagon hexagon;
-    m_meshVBO.setData(hexagon.vertices);
-    
-    m_shader.setAttribute(m_vao, m_meshVBO, "position", 3, sizeof(Vertex), (void*) 0);
-    m_shader.setAttribute(m_vao, m_meshVBO, "normal", 3, sizeof(Vertex), (void*)(3 * sizeof(float)));
-    m_shader.setAttribute(m_vao, m_meshVBO, "color", 3, sizeof(Vertex), (void*)(6 * sizeof(float)));
-    m_shader.setAttribute(m_vao, m_meshVBO, "uv", 2, sizeof(Vertex), (void*)(9 * sizeof(float)));
-    m_shader.use();
-    
+        
     //Calculate positions
     CubeCoordinate yOffset;
     std::vector<glm::vec3> vboCoordinate;
@@ -67,19 +58,46 @@ void HexaGrid::build(){
         
         yOffset += (y % 2 == 0) ? CubeDirection::SOUTH_EAST : CubeDirection::SOUTH_WEST;
     }
+
+    //Instance new mesh and setup shader with instance vbo
+    Hexagon hexagon;
+    m_mesh = new Mesh({ .name = "hexagrid", .model = hexagon });
+    m_mesh->setDrawMode({
+        .mode = Mesh::Draw::Mode::INSTANCE,
+        .instances = static_cast<GLsizei>(vboCoordinate.size())
+    });
+    m_mesh->setMaterial(m_material); //"plug" Vertex buffers to Shader
     
-    //Prepare Instances buffer
-    //m_instanceVBO.setData(sizeof(glm::vec3) * vboCoordinate.size(), vboCoordinate.data());
-    //m_shader.setAttribute(m_vao, m_instanceVBO, "worldCoordinate", 3, sizeof(glm::vec3), (void*)0);
-    // Updates per instance, not per vertex
-    //m_shader.setAttributePerInstance(m_vao, "worldCoordinate", 1);
+    //Fill buffer and copy data so persistent throughout mesh lifetime (via VBO)
+    VBO instanceBuffer;
+    instanceBuffer.copyData( sizeof(glm::vec3) * vboCoordinate.size() , vboCoordinate.data());
+    m_mesh->vbo.push("instances",  instanceBuffer);
     
-    //Init Material with prefill shader
-    m_material.init(m_shader);
+    //Link shader buffers
+    Shader* shader = m_mesh->getMaterial()->getShader();
+    VBO* instanceVBO = m_mesh->vbo.find("instances");
+    VBO meshVBO = m_mesh->vbo.origin();
     
-    //Append new mesh
-    m_mesh = new Mesh({ .name = "hexagrid", .elements = hexagon.elements });
-    m_mesh->setMaterial(m_material);
+    VAO vao = m_mesh->vao;
+    
+    if(shader && instanceVBO){
+        
+        //TODO: Find a way to make CustomShader more flexible, instead of having to retrive its shader to setup VBO/ VAO
+        
+        //Link mesh related attributes
+        shader->setAttribute(vao, meshVBO, "position", 3, sizeof(Vertex), (void*) 0);
+        shader->setAttribute(vao, meshVBO, "normal", 3, sizeof(Vertex), (void*)( 3 * sizeof(float)));
+        shader->setAttribute(vao, meshVBO, "color", 3, sizeof(Vertex), (void*)( 6 *  sizeof(float)));
+        shader->setAttribute(vao, meshVBO, "uv", 2, sizeof(Vertex), (void*)( 9 * sizeof(float)));
+        
+        //Link instance related attributes
+        shader->setAttribute(vao, *instanceVBO, "worldCoordinate", 3, sizeof(glm::vec3), (void*)0);
+        // Updates per instance, not per vertex
+        shader->setAttributePerInstance(vao, "worldCoordinate", 1);
+
+    }
+    
+
 }
 
 glm::vec3 HexaGrid::toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin){
