@@ -134,6 +134,14 @@ struct AxialCoordinate{
     }
 };
 
+struct Dimension{
+    int x = 5;
+    int y = 5;
+    
+    Dimension() = default;
+    Dimension(int xd, int yd):x(xd),y(yd){}
+};
+
 //Precompute 6 possibles permutation
 struct CubeDirection{
     static constexpr CubeCoordinate EAST       = {  1,  0, -1  };
@@ -147,7 +155,7 @@ struct CubeDirection{
 struct HexaTile{
     CubeCoordinate cubeCoordinate;
     glm::vec3      worldCoordinate;
-    float          size;
+    float          radius;
     bool           active = true;
 };
 
@@ -156,14 +164,14 @@ class HexaGrid : public Prefab{
   
 public:
     
-    HexaGrid(glm::vec2 dimension, float size = 1.0f);
+    HexaGrid(int x, int y, float radius = 1.0f);
     ~HexaGrid(){};
     void trim(VertexList boundary);
     
 private:
     
-    glm::vec2 m_dimension;
-    float     m_size = 1.0f;
+    Dimension m_dimension;
+    float     m_radius = 1.0f;
     std::vector<HexaTile> m_tiles;
     
     HexaTile addTile(CubeCoordinate origin, CubeCoordinate direction);
@@ -174,6 +182,9 @@ private:
     });
     
     void build();
+    float innerRadius(float radius){
+        return radius * sqrt(3.0f)/2.0f;
+    }
 };
 
 #endif /* Grid_hpp */

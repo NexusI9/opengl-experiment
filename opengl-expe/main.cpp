@@ -65,7 +65,7 @@ int main(int argc, const char * argv[]) {
     //chunkMesh->setScale(5.0f);
     
     //Draw hexa grid
-    HexaGrid grid(glm::vec2(20.0f, 20.0f), 1.0f);
+    HexaGrid grid(20, 20, 1.0f);
     Mesh* gridMesh = grid.getMesh();
     scene.add(gridMesh);
     

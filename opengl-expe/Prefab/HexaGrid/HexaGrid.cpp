@@ -7,7 +7,9 @@
 
 #include "HexaGrid.hpp"
 
-HexaGrid::HexaGrid(glm::vec2 dimension, float size) : m_dimension(dimension), m_size(size){
+HexaGrid::HexaGrid(int x, int y, float radius) : m_radius(radius){
+    m_dimension.x = x;
+    m_dimension.y = y;
     build();
     
 }
@@ -40,7 +42,7 @@ void HexaGrid::build(){
             
             CubeCoordinate newCoordinate{ x, 0, -1 * x };
             newCoordinate += yOffset; //Move on Y axis
-            newCoordinate += CubeDirection::WEST; // Move on X Axis
+            newCoordinate += CubeDirection::EAST; // Move on X Axis
             
             glm::vec3 worldCoordinate = toWorldCoordinate(newCoordinate);
             
@@ -48,7 +50,7 @@ void HexaGrid::build(){
             m_tiles.push_back({
                 .cubeCoordinate = newCoordinate,
                 .worldCoordinate = worldCoordinate,
-                .size = m_size
+                .radius = m_radius
             });
             
             //Store world position in VBO vector
@@ -56,7 +58,7 @@ void HexaGrid::build(){
             
         }
         
-        yOffset += (y % 2 == 0) ? CubeDirection::SOUTH_EAST : CubeDirection::SOUTH_WEST;
+        yOffset += (y % 2 == 0) ? CubeDirection::NORTH_WEST : CubeDirection::NORTH_EAST;
     }
 
     //Instance new mesh and setup shader with instance vbo
@@ -101,8 +103,18 @@ void HexaGrid::build(){
 }
 
 glm::vec3 HexaGrid::toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin){
-    float x =  (coo.q + ((coo.r%2 == 0) ? 0 : 0.5) ) * m_size;
-    float y =  -1.0f * coo.s * m_size;
+    //float x = (coo.q + ((coo.r%2 == 0) ? 0 : 0.5) ) * m_size;
+    //float y = -1.0f * coo.s * m_size;
+    //printf("%i\t%i\t%i\t\t%i\n", coo.q, coo.r, coo.s,coo.s%2);
+    /**
+     //float x = m_radius * (3.0f / 2.0f) * coo.q;                     // Horizontal spacing
+     //float y = m_radius * sqrt(3.0f) * (coo.r + coo.q / 2.0f);
+     float x = (coo.q + coo.r * 0.5f - coo.r / 2.0f) * innerRadius(m_radius) * 2.0f;
+     float y = coo.r * m_radius * 1.5f;
+     */
+    float compense = -1.0f * coo.r * m_radius;
+    float x = -1.0f * m_radius * coo.q + compense;
+    float y = -1.0f * m_radius * coo.r ;
     float z = 0.0f;
-    return glm::vec3(x,y,z) + origin;
+    return glm::vec3(y,x,z);
 }
