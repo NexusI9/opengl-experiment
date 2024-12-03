@@ -14,9 +14,9 @@
 
 #include "../Utility/Constant.h"
 
-Hexagon::Hexagon(){
+void Hexagon::init(){
     
-    //TODO: Merge with Prefab/Island/Circle 
+    //TODO: Merge with Prefab/Island/Circle
     const float RADIUS = 1.0f;
 
     std::vector<glm::vec3> positions;
@@ -27,18 +27,24 @@ Hexagon::Hexagon(){
         positions.push_back(glm::vec3(x, y, 0.0f));
     }
     
-    positions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));  // Add center point
     
     std::vector<glm::vec3> colors;
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> uv;
+    
     for (const auto& pos : positions) {
         float u = (pos.x / RADIUS + 1.0f) / 2.0f; // Normalize X
         float v = (pos.y / RADIUS + 1.0f) / 2.0f; // Normalize Y
         uv.push_back(glm::vec2(u, v));
         normals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
-        colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+        colors.push_back(m_outerColor);
     }
+    
+    // Add center point
+    positions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+    uv.push_back(glm::vec2(0.0f, 0.0f));
+    normals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+    colors.push_back(m_innerColor);
 
     
     for (size_t i = 0; i < positions.size(); ++i) {
@@ -50,6 +56,7 @@ Hexagon::Hexagon(){
         vertices.push_back(tempVertex);
     }
     
+    
     elements = {
         6, 0, 1,
         6, 1, 2,
@@ -58,6 +65,5 @@ Hexagon::Hexagon(){
         6, 4, 5,
         6, 5, 0
     };
-
     
 }

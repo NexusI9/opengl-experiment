@@ -52,7 +52,11 @@ void HexaGrid::build(){
     }
 
     //Instance new mesh and setup shader with instance vbo
-    Hexagon hexagon;
+    Hexagon hexagon({
+        .innerColor = Color::Black,
+        .outerColor = Color::White
+    });
+    
     m_mesh = new Mesh({ .name = "hexagrid", .model = hexagon });
     m_mesh->setDrawMode({
         .mode = Mesh::Draw::Mode::INSTANCE,
