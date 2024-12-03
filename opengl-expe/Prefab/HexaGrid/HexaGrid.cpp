@@ -7,7 +7,9 @@
 
 #include "HexaGrid.hpp"
 
-HexaGrid::HexaGrid(int x, int y, float radius) : m_radius(radius){
+HexaGrid::HexaGrid(int x, int y, const HexUnit radius) :
+    m_radius(radius),
+    m_innerRadius(radius * sqrt(3.0f)/2.0f){
     m_dimension.x = x;
     m_dimension.y = y;
     build();
@@ -21,18 +23,6 @@ HexaTile HexaGrid::addTile(CubeCoordinate origin, CubeCoordinate direction){
 }
 
 void HexaGrid::build(){
-
-    /**
-     Build the hexagone grid coordinate based on a top left origin
-            +-------------------------------->
-            |       +------------->
-            |       |       ..
-            |       |     /    \
-            |       |     |     |
-            |       |      \   /
-            |      V
-            V
-     */
         
     //Calculate positions
     CubeCoordinate yOffset;
@@ -103,18 +93,9 @@ void HexaGrid::build(){
 }
 
 glm::vec3 HexaGrid::toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin){
-    //float x = (coo.q + ((coo.r%2 == 0) ? 0 : 0.5) ) * m_size;
-    //float y = -1.0f * coo.s * m_size;
-    //printf("%i\t%i\t%i\t\t%i\n", coo.q, coo.r, coo.s,coo.s%2);
-    /**
-     //float x = m_radius * (3.0f / 2.0f) * coo.q;                     // Horizontal spacing
-     //float y = m_radius * sqrt(3.0f) * (coo.r + coo.q / 2.0f);
-     float x = (coo.q + coo.r * 0.5f - coo.r / 2.0f) * innerRadius(m_radius) * 2.0f;
-     float y = coo.r * m_radius * 1.5f;
-     */
-    float compense = -1.0f * coo.r * m_radius;
-    float x = -1.0f * m_radius * coo.q + compense;
-    float y = -1.0f * m_radius * coo.r ;
+    float compense = -1.0f * coo.r * m_innerRadius;
+    float x = -2.0f * m_innerRadius * coo.q + compense;
+    float y = -1.5f * m_radius * coo.r ;
     float z = 0.0f;
     return glm::vec3(y,x,z);
 }

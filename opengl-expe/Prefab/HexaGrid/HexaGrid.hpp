@@ -142,16 +142,6 @@ struct Dimension{
     Dimension(int xd, int yd):x(xd),y(yd){}
 };
 
-//Precompute 6 possibles permutation
-struct CubeDirection{
-    static constexpr CubeCoordinate EAST       = {  1,  0, -1  };
-    static constexpr CubeCoordinate SOUTH_EAST = {  0,  1, -1  };
-    static constexpr CubeCoordinate SOUTH_WEST = { -1,  1,  0  };
-    static constexpr CubeCoordinate WEST       = { -1,  0,  1  };
-    static constexpr CubeCoordinate NORTH_WEST = {  0, -1,  1  };
-    static constexpr CubeCoordinate NORTH_EAST = {  1, -1,  0  };
-};
-
 struct HexaTile{
     CubeCoordinate cubeCoordinate;
     glm::vec3      worldCoordinate;
@@ -160,19 +150,41 @@ struct HexaTile{
 };
 
 
+
+
+
+struct CubeDirection{
+    
+    HexUnit innerRadius = 0;
+    HexUnit outerRadius = 0;
+    
+    static constexpr CubeCoordinate EAST       = {  1,  0, -1  };
+    static constexpr CubeCoordinate SOUTH_EAST = {  0,  1, -1  };
+    static constexpr CubeCoordinate SOUTH_WEST = { -1,  1,  0  };
+    static constexpr CubeCoordinate WEST       = { -1,  0,  1  };
+    static constexpr CubeCoordinate NORTH_WEST = {  0, -1,  1  };
+    static constexpr CubeCoordinate NORTH_EAST = {  1, -1,  0  };
+    
+    CubeDirection(HexUnit radius):outerRadius(radius){};
+};
+
+
+
 class HexaGrid : public Prefab{
   
 public:
     
-    HexaGrid(int x, int y, float radius = 1.0f);
+    HexaGrid(int x, int y, const HexUnit radius = 1.0f);
     ~HexaGrid(){};
     void trim(VertexList boundary);
     
 private:
     
-    Dimension m_dimension;
-    float     m_radius = 1.0f;
+    Dimension             m_dimension;
+    const float           m_radius;
+    const float           m_innerRadius;
     std::vector<HexaTile> m_tiles;
+
     
     HexaTile addTile(CubeCoordinate origin, CubeCoordinate direction);
     glm::vec3 toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin = glm::vec3(0.0f));
@@ -182,9 +194,7 @@ private:
     });
     
     void build();
-    float innerRadius(float radius){
-        return radius * sqrt(3.0f)/2.0f;
-    }
+    
 };
 
 #endif /* Grid_hpp */
