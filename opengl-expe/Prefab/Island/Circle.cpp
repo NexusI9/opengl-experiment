@@ -25,7 +25,7 @@ void Circle::generate(){
         float index = p * 2.0f * M_PI / m_points;
         
         m_vertex.push_back({
-            .position = glm::vec3(std::sin(index) * m_radius, std::cos(index) * m_radius, 1.0f),
+            .position = glm::vec3(std::sin(index) * m_radius, std::cos(index) * m_radius, 0.0f),
             .normal = glm::vec3(1.0f),
             .color = m_color,
             .texUV = glm::vec2(0.5 + std::sin(index)/2, 0.5 + std::cos(index)/2)

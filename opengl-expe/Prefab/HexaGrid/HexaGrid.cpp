@@ -7,7 +7,7 @@
 
 #include "HexaGrid.hpp"
 
-HexaGrid::HexaGrid(int x, int y, const HexUnit radius) :
+HexaGrid::HexaGrid(int x, int y, const float radius) :
     m_radius(radius),
     m_innerRadius(radius * sqrt(3.0f)/2.0f){
     m_dimension.x = x;
@@ -27,6 +27,8 @@ void HexaGrid::build(){
     //Calculate positions
     CubeCoordinate yOffset;
     std::vector<glm::vec3> vboCoordinate;
+    glm::vec3 worldOffset(-1.0f * (m_dimension.y * m_radius) / (1.0f + m_radius * 2.0f ), (m_dimension.x * m_radius) / (1.0f + m_radius / 2.0f ), 0.0f );
+    
     for(int y = 0; y < m_dimension.y; y++){
         for(int x = 0; x < m_dimension.x; x++){
             
@@ -34,7 +36,7 @@ void HexaGrid::build(){
             newCoordinate += yOffset; //Move on Y axis
             newCoordinate += CubeDirection::EAST; // Move on X Axis
             
-            glm::vec3 worldCoordinate = toWorldCoordinate(newCoordinate);
+            glm::vec3 worldCoordinate = toWorldCoordinate(newCoordinate, worldOffset);
             
             //Store coordinate in member cache
             m_tiles.push_back({
@@ -54,7 +56,8 @@ void HexaGrid::build(){
     //Instance new mesh and setup shader with instance vbo
     Hexagon hexagon({
         .innerColor = Color::Black,
-        .outerColor = Color::White
+        .outerColor = Color::White,
+        .radius = m_radius
     });
     
     m_mesh = new Mesh({ .name = "hexagrid", .model = hexagon });
@@ -101,5 +104,5 @@ glm::vec3 HexaGrid::toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin){
     float x = -2.0f * m_innerRadius * coo.q + compense;
     float y = -1.5f * m_radius * coo.r ;
     float z = 0.0f;
-    return glm::vec3(y,x,z);
+    return glm::vec3(y,x,z) + origin;
 }

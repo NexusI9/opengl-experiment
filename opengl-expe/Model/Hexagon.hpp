@@ -19,8 +19,9 @@
 #include "./Model.h"
 
 struct HexagonArgs{
-    glm::vec3 outerColor = Color::White;
-    glm::vec3 innerColor = Color::White;
+    const glm::vec3 outerColor = Color::White;
+    const glm::vec3 innerColor = Color::White;
+    const float radius = 1.0f;
 };
 
 class Hexagon : public Model{
@@ -28,7 +29,7 @@ class Hexagon : public Model{
 public:
     
     Hexagon(){ init(); };
-    Hexagon(const HexagonArgs& args):m_innerColor(args.innerColor), m_outerColor(args.outerColor){ init(); };
+    Hexagon(const HexagonArgs& args):m_innerColor(args.innerColor), m_outerColor(args.outerColor), m_radius(args.radius){ init(); };
     ~Hexagon(){};
     
 private:
@@ -36,6 +37,7 @@ private:
     void init();
     glm::vec3 m_innerColor = Color::Black;
     glm::vec3 m_outerColor = Color::Black;
+    float m_radius = 1.0f;
     
 };
 

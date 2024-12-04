@@ -154,18 +154,12 @@ struct HexaTile{
 
 
 struct CubeDirection{
-    
-    HexUnit innerRadius = 0;
-    HexUnit outerRadius = 0;
-    
     static constexpr CubeCoordinate EAST       = {  1,  0, -1  };
     static constexpr CubeCoordinate SOUTH_EAST = {  0,  1, -1  };
     static constexpr CubeCoordinate SOUTH_WEST = { -1,  1,  0  };
     static constexpr CubeCoordinate WEST       = { -1,  0,  1  };
     static constexpr CubeCoordinate NORTH_WEST = {  0, -1,  1  };
     static constexpr CubeCoordinate NORTH_EAST = {  1, -1,  0  };
-    
-    CubeDirection(HexUnit radius):outerRadius(radius){};
 };
 
 
@@ -174,7 +168,7 @@ class HexaGrid : public Prefab{
   
 public:
     
-    HexaGrid(int x, int y, const HexUnit radius = 1.0f);
+    HexaGrid(int x, int y, const float radius = 1.0f);
     ~HexaGrid(){};
     void trim(VertexList boundary);
     

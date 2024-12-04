@@ -17,13 +17,12 @@
 void Hexagon::init(){
     
     //TODO: Merge with Prefab/Island/Circle
-    const float RADIUS = 1.0f;
 
     std::vector<glm::vec3> positions;
     for (int i = 0; i < 6; ++i) {
         float angle = 2.0f * M_PI * i / 6.0f; // Divide circle into 6 parts
-        float x = RADIUS * cos(angle);
-        float y = RADIUS * sin(angle);
+        float x = m_radius * cos(angle) ;
+        float y = m_radius * sin(angle);
         positions.push_back(glm::vec3(x, y, 0.0f));
     }
     
@@ -33,8 +32,8 @@ void Hexagon::init(){
     std::vector<glm::vec2> uv;
     
     for (const auto& pos : positions) {
-        float u = (pos.x / RADIUS + 1.0f) / 2.0f; // Normalize X
-        float v = (pos.y / RADIUS + 1.0f) / 2.0f; // Normalize Y
+        float u = (pos.x / m_radius + 1.0f) / 2.0f; // Normalize X
+        float v = (pos.y / m_radius + 1.0f) / 2.0f; // Normalize Y
         uv.push_back(glm::vec2(u, v));
         normals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
         colors.push_back(m_outerColor);

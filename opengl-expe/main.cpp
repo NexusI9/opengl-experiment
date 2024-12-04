@@ -56,28 +56,19 @@ int main(int argc, const char * argv[]) {
     
     Mesh* chunkMesh = chunk.getMesh();
     SolidMaterial mat({
-        .color = Color::Grey,
-        .vertexShader = std::string(ROOT_DIR + "Material/Shader/hexagrid.vert"),
-        .fragmentShader = std::string(ROOT_DIR + "Material/Shader/hexagrid.frag"),
+        .color = Color::Grey
     });
 
     chunkMesh->setMaterial(mat);
     //chunkMesh->setScale(5.0f);
     
     //Draw hexa grid
-    HexaGrid grid(20, 20, 1.0f);
+    HexaGrid grid(20, 20, 0.2f);
     Mesh* gridMesh = grid.getMesh();
+    gridMesh->setPosition(0.0f, 0.0f, 0.1f);
+    
     scene.add(gridMesh);
-    
-    /*
-     Hexagon hexagon;
-     Mesh* hexagonMesh = new Mesh({.name = "hex", .model = hexagon});
-     hexagonMesh->setMaterial(mat);
-     scene.add(hexagonMesh);
-     */
-    
-
-    //scene.add(chunkMesh);
+    scene.add(chunkMesh);
     
     window.draw(scene);
     
