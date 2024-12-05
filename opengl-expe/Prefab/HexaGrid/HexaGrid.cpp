@@ -6,14 +6,15 @@
 //
 
 #include "HexaGrid.hpp"
+#include "../../Utility/Vector.h"
 
-HexaGrid::HexaGrid(int x, int y, const float radius) :
-    m_radius(radius),
-    m_innerRadius(radius * sqrt(3.0f)/2.0f){
-    m_dimension.x = x;
-    m_dimension.y = y;
+HexaGrid::HexaGrid(const HexaGridArgs& args) :
+    m_dimension(args.dimension.x, args.dimension.y),
+    m_radius(args.radius),
+    m_innerRadius(args.radius * sqrt(3.0f)/2.0f),
+    m_perimeter(args.perimeter)
+{
     build();
-    
 }
 
 HexaTile HexaGrid::addTile(CubeCoordinate origin, CubeCoordinate direction){
@@ -22,11 +23,10 @@ HexaTile HexaGrid::addTile(CubeCoordinate origin, CubeCoordinate direction){
     };
 }
 
-void HexaGrid::build(){
-        
-    //Calculate positions
+void HexaGrid::drawGrid(std::vector<glm::vec3>& instances){
+    
     CubeCoordinate yOffset;
-    std::vector<glm::vec3> vboCoordinate;
+
     glm::vec3 worldOffset(-1.0f * (m_dimension.y * m_radius) / (1.0f + m_radius * 2.0f ), (m_dimension.x * m_radius) / (1.0f + m_radius / 2.0f ), 0.0f );
     
     for(int y = 0; y < m_dimension.y; y++){
@@ -38,20 +38,57 @@ void HexaGrid::build(){
             
             glm::vec3 worldCoordinate = toWorldCoordinate(newCoordinate, worldOffset);
             
-            //Store coordinate in member cache
-            m_tiles.push_back({
-                .cubeCoordinate = newCoordinate,
-                .worldCoordinate = worldCoordinate,
-                .radius = m_radius
-            });
+            //Check if world coordinate are within perimeter
+            if((m_perimeter.size() > 0
+                && isInside(glm::vec2(worldCoordinate.x, worldCoordinate.y), m_perimeter.toVec2()))
+               || m_perimeter.size() == 0){
+                //Store coordinate in member cache
+                m_tiles.push_back({
+                    .cubeCoordinate = newCoordinate,
+                    .worldCoordinate = worldCoordinate,
+                    .radius = m_radius
+                });
+                
+                //Store world position in VBO vector
+                instances.push_back(worldCoordinate);
+            }
             
-            //Store world position in VBO vector
-            vboCoordinate.push_back(worldCoordinate);
             
         }
         
         yOffset += (y % 2 == 0) ? CubeDirection::NORTH_WEST : CubeDirection::NORTH_EAST;
     }
+
+}
+
+Dimension HexaGrid::dimFromPerimeter(){
+    
+    glm::vec3 minVertex = m_perimeter.min();
+    glm::vec3 maxVertex = m_perimeter.max();
+    
+    printf("min: %f, %f,%f\nmax: %f,%f,%f\n", minVertex.x, minVertex.y, minVertex.z, maxVertex.x, maxVertex.y, maxVertex.z);
+    
+    glm::vec2 dist( std::abs(minVertex.x - maxVertex.x), std::abs(minVertex.y - maxVertex.y));
+    Dimension dim( std::floor(  dist.x / m_radius ), std::floor(  dist.y / m_radius ));
+
+    if(dim.x <= 1 || dim.y <= 1){
+        std::cout << "WARNING: Hexagon radius too large for the perimeter." << std::endl;
+    }
+    
+    return dim;
+    
+}
+
+void HexaGrid::build(){
+        
+    //Calculate positions
+    std::vector<glm::vec3> vboCoordinate;
+    
+    //Generate dimension based on perimeter
+    if(m_perimeter.size() > 0) m_dimension = dimFromPerimeter();
+    
+    //Generate grid
+    drawGrid(vboCoordinate);
 
     //Instance new mesh and setup shader with instance vbo
     Hexagon hexagon({

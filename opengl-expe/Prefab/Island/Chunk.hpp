@@ -42,17 +42,24 @@ public:
     ~Chunk(){};
     
     std::vector<Vertex>& getVertices(){  return m_vertices; }
+    VertexList getVertexList(const std::string& name){
+        if(VertexLayer* layer = m_layers.getGroup(name)){
+            return layer->list;
+        }else{
+            return VertexList(); //return empty list
+        }
+    }
     
 private:
     
     void generate();
     
-    float m_radius;
-    int   m_points;
-    float m_shoreDistance;
-    float m_cliffDistance;
-    float m_cliffDepth;
-    float m_beltDepth;
+    const float m_radius;
+    const int   m_points;
+    const float m_shoreDistance;
+    const float m_cliffDistance;
+    const float m_cliffDepth;
+    const float m_beltDepth;
     
     VertexGroup m_layers;
     std::vector<Vertex> m_vertices;

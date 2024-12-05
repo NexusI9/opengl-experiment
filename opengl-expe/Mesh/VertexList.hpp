@@ -53,6 +53,8 @@ public:
     std::vector<glm::vec2> toVec2();
     std::vector<double> toDouble(bool x = true, bool y = true, bool z = true);
     glm::vec3 center();
+    glm::vec3 min();
+    glm::vec3 max();
     
     Vertex average();
     

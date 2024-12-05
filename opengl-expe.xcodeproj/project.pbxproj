@@ -158,6 +158,7 @@
 		56B0943C2CA2FDE200293E4B /* Debugger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Debugger.hpp; sourceTree = "<group>"; };
 		56C4E9C82CC0047100F22DEF /* Points.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Points.cpp; sourceTree = "<group>"; };
 		56C4E9C92CC0047100F22DEF /* Points.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Points.hpp; sourceTree = "<group>"; };
+		56D632C82D01DEA500ED7232 /* Vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
 		56F10FC92CB56ED200AD9FC4 /* Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
 		56F69D4F2CC15EB40070C722 /* Gizmos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Gizmos.cpp; sourceTree = "<group>"; };
 		56F69D502CC15EB40070C722 /* Gizmos.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gizmos.hpp; sourceTree = "<group>"; };
@@ -364,8 +365,8 @@
 			isa = PBXGroup;
 			children = (
 				567777812CE23CE700EE1217 /* Math */,
-				56494CB02C94824B001E9CFA /* Transform.cpp */,
 				56494CB12C94824B001E9CFA /* Transform.hpp */,
+				56494CB02C94824B001E9CFA /* Transform.cpp */,
 				564CEB512C88822500A0869F /* Utility.hpp */,
 				564CEB4F2C88821B00A0869F /* Utility.cpp */,
 				563F4C082C95655400AD7777 /* Clock.cpp */,
@@ -375,6 +376,7 @@
 				56414CA02CA45B470094518B /* Constant.h */,
 				56F10FC92CB56ED200AD9FC4 /* Template.h */,
 				56FCC72C2CBD447800B43654 /* Color.h */,
+				56D632C82D01DEA500ED7232 /* Vector.h */,
 			);
 			path = Utility;
 			sourceTree = "<group>";

@@ -148,6 +148,25 @@ glm::vec3 VertexList::center(){
     return center;
 }
 
+glm::vec3 VertexList::min(){
+    glm::vec3 min = glm::vec3(INFINITY);
+    for(auto& vert : m_data){
+        min = glm::vec3(std::min(min.x, vert.vertex.position.x),
+                        std::min(min.y, vert.vertex.position.y),
+                        std::min(min.z, vert.vertex.position.z));
+    }
+    return min;
+}
+
+glm::vec3 VertexList::max(){
+    glm::vec3 max = glm::vec3(-1.0 * INFINITY);
+    for(auto& vert : m_data){
+        max = glm::vec3(std::max(max.x, vert.vertex.position.x),
+                        std::max(max.y, vert.vertex.position.y),
+                        std::max(max.z, vert.vertex.position.z));
+    }
+    return max;
+}
 
 std::vector<glm::vec2> VertexList::toVec2(){
     std::vector<glm::vec2> temp;

@@ -63,7 +63,13 @@ int main(int argc, const char * argv[]) {
     //chunkMesh->setScale(5.0f);
     
     //Draw hexa grid
-    HexaGrid grid(20, 20, 0.2f);
+    HexaGrid grid({
+        .dimension = Dimension(20, 20),
+        .radius = 0.2f,
+        .perimeter = chunk.getVertexList("land")
+    });
+    
+    
     Mesh* gridMesh = grid.getMesh();
     gridMesh->setPosition(0.0f, 0.0f, 0.1f);
     

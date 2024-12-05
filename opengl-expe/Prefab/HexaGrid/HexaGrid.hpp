@@ -163,12 +163,18 @@ struct CubeDirection{
 };
 
 
+struct HexaGridArgs{
+    const Dimension     dimension;
+    const float         radius = 1.0f;
+    const VertexList&   perimeter = VertexList();
+};
+
 
 class HexaGrid : public Prefab{
   
 public:
     
-    HexaGrid(int x, int y, const float radius = 1.0f);
+    HexaGrid(const HexaGridArgs& args);
     ~HexaGrid(){};
     void trim(VertexList boundary);
     
@@ -178,7 +184,7 @@ private:
     const float           m_radius;
     const float           m_innerRadius;
     std::vector<HexaTile> m_tiles;
-
+    VertexList            m_perimeter;
     
     HexaTile addTile(CubeCoordinate origin, CubeCoordinate direction);
     glm::vec3 toWorldCoordinate(CubeCoordinate coo, glm::vec3 origin = glm::vec3(0.0f));
@@ -188,6 +194,8 @@ private:
     });
     
     void build();
+    void drawGrid(std::vector<glm::vec3>& instances);
+    Dimension dimFromPerimeter();
     
 };
 

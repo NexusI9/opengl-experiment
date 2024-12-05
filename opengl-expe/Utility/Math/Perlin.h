@@ -1,9 +1,4 @@
-//
-//  Perlin.h
-//  opengl-expe
-//
-//  Created by EL KHANTOUR Nassim on 11/11/2024.
-//
+//Credits: https://github.com/WesOfX/perlin-noise/blob/master/noise.hpp
 
 #ifndef Perlin_h
 #define Perlin_h
@@ -11,8 +6,6 @@
 #include <cmath>
 #include <cstdint>
 #include <type_traits>
-
-//Credits: https://github.com/WesOfX/perlin-noise/blob/master/noise.hpp
 
 namespace perlin{
     static constexpr uint_fast8_t perm[512] = {
